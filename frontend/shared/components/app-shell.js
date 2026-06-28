@@ -21,11 +21,11 @@ window.AppShell = Object.freeze({
           <ul class="nav-list">
             <li class="nav-item is-active">
               <span class="nav-indicator" aria-hidden="true"></span>
-              Validation Studio
+              Transformation Workshop
             </li>
             <li class="nav-item">
               <span class="nav-indicator" aria-hidden="true"></span>
-              Sprint 6 active
+              Sprint 10 active
             </li>
           </ul>
         </aside>
