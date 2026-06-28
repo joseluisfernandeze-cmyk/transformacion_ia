@@ -1,6 +1,6 @@
 window.APP_CONSTANTS = Object.freeze({
   productTagline: "Operational transformation platform",
-  pbCode: "Sprint 6",
-  pbName: "Process Validation Studio",
-  foundationStatus: "Ready for process quality gate"
+  pbCode: "Sprint 10",
+  pbName: "Transformation Workshop",
+  foundationStatus: "Ready for collaborative transformation observations"
 });

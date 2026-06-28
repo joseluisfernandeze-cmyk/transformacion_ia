@@ -42,6 +42,9 @@
   .process-workspace-layout,
   .studio-layout,
   .validation-layout,
+  .data-collection-layout,
+  .intelligent-vsm-layout,
+  .workshop-layout,
   .health-panel {
     grid-template-columns: 1fr;
   }
@@ -103,6 +106,28 @@
     position: static;
     max-height: none;
   }
+
+  .data-validation-panel,
+  .data-activity-list {
+    position: static;
+    max-height: none;
+  }
+
+  .intelligent-vsm-side {
+    position: static;
+    max-height: none;
+  }
+
+  .workshop-side-panel,
+  .workshop-activity-panel {
+    position: static;
+    max-height: none;
+  }
+
+  .vsm-control-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 520px) {
@@ -161,6 +186,8 @@
 
   .capability-grid,
   .dimension-grid,
+  .form-grid.four-columns,
+  .segmented-control,
   .validation-list li {
     grid-template-columns: 1fr;
   }
