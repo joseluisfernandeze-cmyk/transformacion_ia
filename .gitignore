@@ -1,0 +1,65 @@
+# Secrets and credentials
+.env
+.env.*
+*.env
+*secret*
+*secrets*
+*credential*
+*credentials*
+*token*
+*tokens*
+*api-key*
+*apikey*
+*.pem
+*.key
+*.p12
+*.json.key
+service-account*.json
+
+# Google Apps Script local/generated files
+.clasp.json
+.clasprc.json
+appsscript.local.json
+
+# Logs and runtime output
+*.log
+logs/
+log/
+debug.log
+npm-debug.log*
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+~$*
+
+# Local editor settings
+.vscode/
+.idea/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependency/build output kept out by default
+node_modules/
+dist/
+build/
+coverage/
+
+# Local test artifacts
+test-output/
+test-results/
+playwright-report/
+*.spec.tmp
+*.test.tmp

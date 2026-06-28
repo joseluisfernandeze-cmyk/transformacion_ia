@@ -1,0 +1,167 @@
+@media (max-width: 860px) {
+  .app-shell {
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "main";
+  }
+
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 18px 20px;
+  }
+
+  .app-sidebar {
+    padding: 14px 20px;
+  }
+
+  .nav-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .app-main {
+    padding: 24px 20px;
+  }
+
+  .page-title {
+    font-size: 26px;
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vsm-toolbar,
+  .vsm-layout,
+  .context-layout,
+  .discovery-layout,
+  .experience-layout,
+  .process-workspace-layout,
+  .studio-layout,
+  .validation-layout,
+  .health-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .vsm-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .vsm-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .context-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .context-result {
+    position: static;
+    max-height: none;
+  }
+
+  .consultant-chat {
+    position: static;
+    max-height: none;
+  }
+
+  .panel-grid,
+  .discovery-summary,
+  .validation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-progress {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .business-hero {
+    flex-direction: column;
+  }
+
+  .business-inspector {
+    position: static;
+    max-height: none;
+  }
+
+  .activity-inspector {
+    position: static;
+    max-height: none;
+  }
+
+  .studio-side {
+    position: static;
+    max-height: none;
+  }
+
+  .validation-side {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand {
+    align-items: flex-start;
+  }
+
+  .brand-name {
+    font-size: 16px;
+  }
+
+  .nav-list {
+    grid-template-columns: 1fr;
+  }
+
+  .foundation-panel {
+    padding: 18px;
+  }
+
+  .vsm-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .context-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guided-grid,
+  .experience-progress {
+    grid-template-columns: 1fr;
+  }
+
+  .context-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .wizard-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .process-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .studio-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .process-node {
+    grid-template-columns: 1fr;
+  }
+
+  .capability-grid,
+  .dimension-grid,
+  .validation-list li {
+    grid-template-columns: 1fr;
+  }
+}

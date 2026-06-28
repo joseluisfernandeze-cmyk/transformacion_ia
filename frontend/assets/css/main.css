@@ -1,0 +1,65 @@
+:root {
+  --color-primary: #1f4e79;
+  --color-primary-dark: #163a5c;
+  --color-secondary: #2e7d62;
+  --color-accent: #1c9ab7;
+  --color-background: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-text: #1f2933;
+  --color-text-muted: #5b6773;
+  --color-border: #d9e2ec;
+  --color-error: #c0392b;
+  --color-warning: #b7791f;
+  --color-success: #2f855a;
+  --shadow-soft: 0 10px 24px rgba(31, 41, 51, 0.08);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --header-height: 64px;
+  --sidebar-width: 260px;
+  --font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+.app-root {
+  min-height: 100vh;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
