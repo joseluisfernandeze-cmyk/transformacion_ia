@@ -212,6 +212,10 @@
   }
 }
 @media (max-width: 1100px) {
+  .lean-layout {
+    grid-template-columns: 1fr;
+  }
+
   .mvp-step-strip {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -222,6 +226,10 @@
 }
 
 @media (max-width: 760px) {
+  .lean-waste-grid {
+    grid-template-columns: 1fr;
+  }
+
   .mvp-flow-summary,
   .project-create-form {
     grid-template-columns: 1fr;

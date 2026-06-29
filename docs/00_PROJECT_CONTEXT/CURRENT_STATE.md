@@ -6,7 +6,7 @@
 
 ## Ultimo Sprint completado
 
-`Sprint UI-02 - End-to-End MVP Navigation`
+`Sprint 12 - Lean Transformation Consultant`
 
 ## Sprint actualmente en desarrollo
 
@@ -14,7 +14,7 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
-`Sprint 12 - Lean Transformation Consultant`
+`Sprint 13 - TOC Transformation Consultant`
 
 ## Funcionalidades implementadas
 
@@ -46,6 +46,13 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Process Data Collection Studio.
 - Intelligent VSM Studio.
 - Transformation Workshop.
+- Lean Transformation Consultant.
+- Lean Assessment Package.
+- Diagnostico de valor agregado VA/NNVA/NVA.
+- Evaluacion de ocho desperdicios Lean.
+- Quick Wins Lean.
+- Oportunidades Lean trazables.
+- Preguntas de aclaracion Lean por informacion insuficiente.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -59,7 +66,6 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Funcionalidades pendientes
 
-- Lean Transformation Consultant.
 - TOC Transformation Consultant.
 - Automation & AI Consultant.
 - To-Be Designer.
@@ -118,11 +124,11 @@ Rutas visibles:
 - `#/process-data-collection`.
 - `#/intelligent-vsm`.
 - `#/transformation-workshop`.
+- `#/lean-consultant`.
 - `#/methodology-orchestrator`.
 
 Rutas futuras como proximamente:
 
-- `#/lean-consultant`.
 - `#/toc-consultant`.
 - `#/automation-ai`.
 - `#/to-be-designer`.
@@ -223,7 +229,7 @@ Flujo obligatorio:
 ## Ultimo Commit
 
 `7ef50d4 Contexto`  
-Sprint UI-02 pendiente de commit.
+Sprint 12 pendiente de commit.
 
 ## Ultimo Tag
 

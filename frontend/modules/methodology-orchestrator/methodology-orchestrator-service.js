@@ -10,7 +10,7 @@ window.MethodologyOrchestratorService = Object.seal({
     { id: "PROCESS_DATA_COLLECTION", name: "Process Data Collection", required: true, owner: "Process Data Collection Studio" },
     { id: "INTELLIGENT_VSM", name: "Intelligent VSM", required: true, owner: "Intelligent VSM Studio" },
     { id: "TRANSFORMATION_WORKSHOP", name: "Transformation Workshop", required: true, owner: "Transformation Workshop" },
-    { id: "LEAN_CONSULTANT", name: "Lean Consultant", required: false, future: true, owner: "Future Lean Consultant" },
+    { id: "LEAN_CONSULTANT", name: "Lean Consultant", required: true, owner: "Lean Transformation Consultant" },
     { id: "TOC_CONSULTANT", name: "TOC Consultant", required: false, future: true, owner: "Future TOC Consultant" },
     { id: "AUTOMATION_AI_CONSULTANT", name: "Automation & AI Consultant", required: false, future: true, owner: "Future Automation & AI Consultant" },
     { id: "TO_BE_DESIGNER", name: "To-Be Designer", required: false, future: true, owner: "Future To-Be Designer" },
@@ -123,7 +123,8 @@ window.MethodologyOrchestratorService = Object.seal({
       validation: window.ProcessValidationStudioService ? window.ProcessValidationStudioService.loadState() : null,
       dataCollection: window.ProcessDataCollectionStudioService ? window.ProcessDataCollectionStudioService.loadState() : null,
       vsm: window.IntelligentVsmStudioService ? window.IntelligentVsmStudioService.loadState() : null,
-      workshop: window.TransformationWorkshopService ? window.TransformationWorkshopService.loadState() : null
+      workshop: window.TransformationWorkshopService ? window.TransformationWorkshopService.loadState() : null,
+      lean: window.LeanConsultantService ? window.LeanConsultantService.loadState() : null
     };
   },
 
@@ -136,7 +137,8 @@ window.MethodologyOrchestratorService = Object.seal({
       PROCESS_VALIDATION: () => this.processValidationReadiness(states.validation),
       PROCESS_DATA_COLLECTION: () => this.dataCollectionReadiness(states.dataCollection),
       INTELLIGENT_VSM: () => this.vsmReadiness(states.vsm),
-      TRANSFORMATION_WORKSHOP: () => this.workshopReadiness(states.workshop)
+      TRANSFORMATION_WORKSHOP: () => this.workshopReadiness(states.workshop),
+      LEAN_CONSULTANT: () => this.leanReadiness(states.lean)
     };
 
     if (resolvers[stageId]) {
@@ -265,6 +267,21 @@ window.MethodologyOrchestratorService = Object.seal({
       healthScore: observations.length ? (ready ? 85 : 65) : 0,
       missingInformation: observations.length ? lowConfidence.map((item) => `${item.activityName}: observacion con baja confianza.`) : ["No existen observaciones del taller."],
       updatedAt: state ? state.lastSavedAt : ""
+    };
+  },
+
+  leanReadiness(state) {
+    const packageData = state && state.assessmentPackage ? state.assessmentPackage : null;
+    const questions = state && state.questions ? state.questions : [];
+    const blockingQuestions = questions.filter((item) => item.status === "OPEN" && item.blocksConsolidation);
+    const ready = Boolean(packageData && packageData.activityAssessments && packageData.activityAssessments.length && !blockingQuestions.length);
+
+    return {
+      ready,
+      progress: packageData ? (ready ? 100 : 70) : 0,
+      healthScore: packageData ? (ready ? 86 : 62) : 0,
+      missingInformation: packageData ? blockingQuestions.map((item) => item.question) : ["Lean Assessment Package no disponible."],
+      updatedAt: packageData ? packageData.createdAt : ""
     };
   },
 

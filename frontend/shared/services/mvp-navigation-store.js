@@ -11,7 +11,8 @@ window.MvpNavigationStore = Object.seal({
     { route: "process-validation", label: "Process Validation", required: true },
     { route: "process-data-collection", label: "Process Data Collection", required: true },
     { route: "intelligent-vsm", label: "Intelligent VSM", required: true },
-    { route: "transformation-workshop", label: "Transformation Workshop", required: true }
+    { route: "transformation-workshop", label: "Transformation Workshop", required: true },
+    { route: "lean-consultant", label: "Lean Consultant", required: true }
   ],
 
   loadState() {
@@ -298,6 +299,10 @@ window.MvpNavigationStore = Object.seal({
       "transformation-workshop": () => {
         const state = window.TransformationWorkshopService ? window.TransformationWorkshopService.loadState() : null;
         return Boolean(state && (state.packageData || state.observations));
+      },
+      "lean-consultant": () => {
+        const state = window.LeanConsultantService ? window.LeanConsultantService.loadState() : null;
+        return Boolean(state && state.assessmentPackage);
       }
     };
 
