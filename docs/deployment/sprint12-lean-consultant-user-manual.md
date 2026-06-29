@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Usar el Lean Transformation Consultant para generar un Lean Assessment Package trazable a partir del Process Model, datos operativos, Intelligent VSM, Transformation Observation Package, Knowledge Package y Context Graph.
+Usar el Lean Transformation Consultant como consultor digital experto en Lean Manufacturing. El consultor genera un Lean Assessment Package trazable a partir de Business Knowledge Package, Knowledge Package, Context Graph, Process Model, datos operativos, Intelligent VSM, Transformation Observation Package y Requirements Package cuando exista.
 
 ## Como ejecutar localmente
 
@@ -22,7 +22,24 @@ Usar el Lean Transformation Consultant para generar un Lean Assessment Package t
    - Transformation Workshop.
 2. Abrir `Lean Consultant`.
 3. Presionar `Ejecutar diagnostico Lean`.
-4. Revisar el resumen Lean:
+4. Revisar el Resumen Ejecutivo:
+   - diagnostico consolidado;
+   - perfil VA/NNVA/NVA;
+   - desperdicios detectados;
+   - preguntas pendientes;
+   - nivel de confianza.
+5. Seleccionar cada actividad y revisar:
+   - que hace;
+   - proposito;
+   - quien la ejecuta;
+   - que recibe;
+   - que entrega;
+   - valor;
+   - ocho desperdicios Lean;
+   - causa probable;
+   - evidencia;
+   - preguntas.
+6. Revisar el resumen Lean:
    - actividades VA;
    - actividades NNVA;
    - actividades NVA;
@@ -30,19 +47,15 @@ Usar el Lean Transformation Consultant para generar un Lean Assessment Package t
    - Quick Wins;
    - oportunidades;
    - confianza promedio.
-5. Seleccionar cada actividad en el panel izquierdo.
-6. Revisar:
-   - clasificacion de valor;
-   - justificacion;
-   - ocho desperdicios Lean;
-   - evidencia utilizada;
-   - preguntas abiertas.
 7. Resolver informacion faltante en los studios previos cuando existan preguntas bloqueantes.
 
 ## Reglas del consultor
 
 - No inventa desperdicios.
 - No asume clasificacion VA/NNVA/NVA si no existe dato.
+- Evalua explicitamente los ocho desperdicios como `Existe`, `No existe` o `Evidencia insuficiente`.
+- No recomienda mejoras cuando la evidencia es insuficiente.
+- Formula preguntas especificas para completar el diagnostico.
 - No genera Business Case.
 - No genera TOC.
 - No construye To-Be.
@@ -53,6 +66,18 @@ Usar el Lean Transformation Consultant para generar un Lean Assessment Package t
 El sistema genera:
 
 `Lean Assessment Package`
+
+El paquete contiene:
+
+- Resumen Ejecutivo.
+- Diagnostico por actividad.
+- Diagnostico consolidado.
+- Desperdicios detectados.
+- Quick Wins.
+- Oportunidades Lean.
+- Preguntas pendientes.
+- Evidencia utilizada.
+- Nivel de confianza.
 
 Este paquete queda disponible para:
 

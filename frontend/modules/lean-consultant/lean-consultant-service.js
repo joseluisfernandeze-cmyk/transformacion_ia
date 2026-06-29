@@ -12,6 +12,17 @@ window.LeanConsultantService = Object.seal({
     { id: "UNUSED_TALENT", label: "Talento desaprovechado" }
   ],
 
+  opportunityTypes: {
+    OVERPRODUCTION: "Eliminacion",
+    WAITING: "Reduccion de esperas",
+    TRANSPORT: "Flujo continuo",
+    OVERPROCESSING: "Simplificacion",
+    INVENTORY: "Flujo continuo",
+    MOTION: "Estandarizacion",
+    DEFECTS_REWORK: "Reduccion de retrabajos",
+    UNUSED_TALENT: "Balanceo"
+  },
+
   createState() {
     const sources = this.loadSources();
 
@@ -29,7 +40,7 @@ window.LeanConsultantService = Object.seal({
     return [{
       messageId: `LEAN-${Date.now()}`,
       author: "consultant",
-      text: "Estoy listo para ejecutar el diagnostico Lean. Solo usare evidencia del Process Model, datos operativos, VSM, observaciones del taller y paquetes de conocimiento.",
+      text: "Ejecutare un diagnostico Lean consultivo. No asumire desperdicios ni recomendaciones sin evidencia; cuando falte informacion generare preguntas especificas.",
       createdAt: new Date().toISOString()
     }];
   },
@@ -73,15 +84,23 @@ window.LeanConsultantService = Object.seal({
     const workshopState = window.TransformationWorkshopService ? window.TransformationWorkshopService.loadState() : null;
     const vsmState = window.IntelligentVsmStudioService ? window.IntelligentVsmStudioService.loadState() : null;
     const dataCollectionState = window.ProcessDataCollectionStudioService ? window.ProcessDataCollectionStudioService.loadState() : null;
+    const requirementsState = window.RequirementsDiscoveryService ? window.RequirementsDiscoveryService.loadState() : null;
 
     return {
+      businessKnowledgePackage: this.loadBusinessKnowledgePackage(),
       processState,
       operationalDataState: dataCollectionState,
       vsmState,
       transformationObservationPackage: workshopState ? workshopState.packageData : null,
+      requirementsPackage: requirementsState && requirementsState.packageData ? requirementsState.packageData : null,
       knowledgePackage: contextState && contextState.result ? contextState.result.knowledgePackage : null,
       contextGraph: contextState && contextState.result ? contextState.result.contextGraph : null
     };
+  },
+
+  loadBusinessKnowledgePackage() {
+    const businessState = window.BusinessDiscoveryService ? window.BusinessDiscoveryService.loadState() : null;
+    return businessState && businessState.package ? businessState.package : null;
   },
 
   loadProcessState() {
@@ -104,38 +123,50 @@ window.LeanConsultantService = Object.seal({
     state.sources = this.loadSources();
     const model = state.sources.processState.draftProcessModel;
     const activities = model && model.activities ? model.activities : [];
-    const assessments = activities.map((activity) => this.assessActivity(activity, state.sources));
-    const quickWins = this.buildQuickWins(assessments);
-    const opportunities = this.buildLeanOpportunities(assessments);
-    const questions = this.buildQuestions({ activityAssessments: assessments }, state.sources);
+    const diagnostics = activities.map((activity) => this.diagnoseActivity(activity, state.sources));
+    const quickWins = this.buildQuickWins(diagnostics);
+    const opportunities = this.buildLeanOpportunities(diagnostics);
+    const questions = this.buildQuestions({ activityAssessments: diagnostics }, state.sources);
+    const detectedWastes = this.buildDetectedWasteIndex(diagnostics);
+    const evidenceUsed = this.buildEvidenceIndex(diagnostics);
+    const summary = this.buildSummary(diagnostics, quickWins, opportunities, questions);
 
     state.assessmentPackage = {
       leanAssessmentPackageId: `LAP-${Date.now()}`,
       packageType: "LEAN_ASSESSMENT_PACKAGE",
+      methodology: "PROFESSIONAL_LEAN_CONSULTANT",
       status: questions.some((question) => question.blocksConsolidation) ? "NEEDS_MORE_INFORMATION" : "READY_FOR_REVIEW",
-      version: 1,
+      version: 2,
       processModelId: model ? model.processModelId : "",
       knowledgePackageId: state.sources.knowledgePackage ? state.sources.knowledgePackage.knowledgePackageId : "",
       contextGraphId: state.sources.contextGraph ? state.sources.contextGraph.contextGraphId : "",
       sourcePackages: this.resolveSourcePackages(state.sources),
-      activityAssessments: assessments,
+      executiveSummary: this.buildExecutiveSummary(summary, detectedWastes, questions),
+      activityAssessments: diagnostics,
+      consolidatedDiagnosis: this.buildConsolidatedDiagnosis(diagnostics, summary),
+      detectedWastes,
       quickWins,
       opportunities,
       questions,
-      summary: this.buildSummary(assessments, quickWins, opportunities),
+      evidenceUsed,
+      summary,
+      confidence: summary.averageConfidence,
       createdAt: new Date().toISOString(),
       createdBy: "LOCAL_USER"
     };
     state.questions = questions;
-    this.addChat(state, "consultant", `Diagnostico Lean generado: ${assessments.length} actividades, ${quickWins.length} quick wins y ${opportunities.length} oportunidades. Estado: ${state.assessmentPackage.status}.`);
+    this.addChat(state, "consultant", `Lean Assessment Package profesional generado: ${diagnostics.length} actividades, ${detectedWastes.length} desperdicios con evidencia, ${quickWins.length} quick wins y ${questions.length} preguntas pendientes.`);
     this.saveState(state);
   },
 
-  assessActivity(activity, sources) {
+  diagnoseActivity(activity, sources) {
     const evidence = this.collectActivityEvidence(activity, sources);
-    const valueClassification = this.resolveValueClassification(activity, evidence);
-    const wasteAssessments = this.wastes.map((waste) => this.evaluateWaste(waste, activity, evidence));
-    const confidence = this.resolveActivityConfidence(activity, evidence, valueClassification, wasteAssessments);
+    const understanding = this.buildUnderstanding(activity, evidence);
+    const valueAnalysis = this.resolveValueAnalysis(activity, evidence);
+    const wasteDiagnostics = this.wastes.map((waste) => this.evaluateWaste(waste, activity, evidence));
+    const rootCauses = this.buildRootCauses(wasteDiagnostics, activity);
+    const questions = this.buildActivityQuestions(activity, evidence, valueAnalysis, wasteDiagnostics, rootCauses);
+    const confidence = this.resolveActivityConfidence(evidence, valueAnalysis, wasteDiagnostics, questions);
 
     return {
       leanActivityAssessmentId: `LAA-${activity.activityUUID || Date.now()}`,
@@ -145,52 +176,96 @@ window.LeanConsultantService = Object.seal({
       activityName: activity.name,
       responsible: activity.responsible || "",
       area: activity.area || "",
-      valueClassification,
-      wastes: wasteAssessments,
+      understanding,
+      valueAnalysis,
+      valueClassification: {
+        classification: valueAnalysis.classification,
+        justification: valueAnalysis.reason,
+        evidenceRefs: valueAnalysis.evidence.map((item) => item.evidenceId),
+        confidence: valueAnalysis.confidence
+      },
+      wastes: wasteDiagnostics,
+      rootCauses,
       evidence,
       confidence,
-      questions: this.buildActivityQuestions(activity, evidence, valueClassification, wasteAssessments),
+      questions,
       createdAt: new Date().toISOString()
     };
   },
 
-  resolveValueClassification(activity, evidence) {
-    const data = activity.operationalData || {};
-    const vsm = activity.vsmData || {};
-    const declared = vsm.valueClassification || (data.classification && data.classification.valueClassification) || "";
-    const classificationEvidence = evidence.filter((item) => item.category === "VALUE_CLASSIFICATION");
+  buildUnderstanding(activity, evidence) {
+    return {
+      whatItDoes: activity.description || activity.name || "Descripcion no disponible.",
+      purpose: this.resolvePurpose(activity),
+      executedBy: activity.responsible || "Responsable no identificado.",
+      inputs: activity.inputs && activity.inputs.length ? activity.inputs : ["Entradas no identificadas."],
+      outputs: activity.outputs && activity.outputs.length ? activity.outputs : ["Salidas no identificadas."],
+      systems: activity.systems || [],
+      documents: activity.documents || [],
+      evidence: evidence.filter((item) => item.category === "PROCESS_MODEL" || item.category === "PROCESS_EVIDENCE")
+    };
+  },
 
-    if (declared) {
+  resolvePurpose(activity) {
+    if (activity.outputs && activity.outputs.length) {
+      return `Generar o habilitar: ${activity.outputs.join(", ")}.`;
+    }
+
+    if (activity.description) {
+      return `Proposito inferido de la descripcion registrada: ${activity.description}`;
+    }
+
+    return "Proposito pendiente de validar con el usuario.";
+  },
+
+  resolveValueAnalysis(activity, evidence) {
+    const operational = activity.operationalData || {};
+    const vsm = activity.vsmData || {};
+    const declared = vsm.valueClassification || (operational.classification && operational.classification.valueClassification) || "";
+    const valueEvidence = evidence.filter((item) => item.category === "VALUE_CLASSIFICATION" || item.category === "PROCESS_MODEL");
+
+    if (!declared) {
       return {
-        classification: declared,
-        justification: `Clasificacion tomada del Process Data Collection / VSM: ${declared}.`,
-        evidenceRefs: classificationEvidence.map((item) => item.evidenceId),
-        confidence: classificationEvidence.length ? "HIGH_CONFIDENCE" : "MEDIUM_CONFIDENCE"
+        classification: "PENDING",
+        generatesCustomerValue: "EVIDENCE_INSUFFICIENT",
+        reason: "No existe clasificacion VA/NNVA/NVA registrada. El consultor no asume valor agregado sin validacion.",
+        evidence: [],
+        confidence: "INSUFFICIENT_INFORMATION"
       };
     }
 
+    const reasons = {
+      VA: "La actividad esta registrada como VA en los datos operativos o VSM; se considera generadora de valor mientras la evidencia de cliente lo confirme.",
+      NNVA: "La actividad esta registrada como NNVA; parece necesaria bajo condiciones actuales aunque no agregue valor directo al cliente.",
+      NVA: "La actividad esta registrada como NVA; requiere analisis de eliminacion o simplificacion con evidencia del desperdicio asociado."
+    };
+
     return {
-      classification: "PENDING",
-      justification: "No existe clasificacion VA/NNVA/NVA registrada. El consultor no asume valor agregado sin validacion.",
-      evidenceRefs: [],
-      confidence: "INSUFFICIENT_INFORMATION"
+      classification: declared,
+      generatesCustomerValue: declared === "VA" ? "YES" : declared === "NNVA" ? "INDIRECT_OR_REQUIRED" : "NO",
+      reason: reasons[declared] || `Clasificacion registrada: ${declared}.`,
+      evidence: valueEvidence,
+      confidence: valueEvidence.length ? "HIGH_CONFIDENCE" : "MEDIUM_CONFIDENCE"
     };
   },
 
   evaluateWaste(waste, activity, evidence) {
     const signals = this.collectWasteSignals(waste.id, activity, evidence);
-    const severity = this.resolveSeverity(signals);
-    const confidence = this.resolveWasteConfidence(signals);
+    const existence = this.resolveWasteExistence(signals, evidence, activity);
+    const severity = existence === "EXISTS" ? this.resolveSeverity(signals) : "NONE";
+    const confidence = this.resolveWasteConfidence(existence, signals);
 
     return {
       wasteId: waste.id,
       wasteName: waste.label,
-      detected: signals.length > 0,
+      existence,
+      detected: existence === "EXISTS",
       severity,
-      impact: this.resolveImpact(waste.id, signals, activity),
+      impact: this.resolveImpact(waste.id, existence, signals),
       evidence: signals,
       confidence,
-      rationale: signals.length ? this.buildWasteRationale(waste.label, signals) : "No hay evidencia suficiente para afirmar este desperdicio."
+      rootCause: this.resolveRootCause(waste.id, existence, signals),
+      rationale: this.buildWasteRationale(waste.label, existence, signals)
     };
   },
 
@@ -223,7 +298,7 @@ window.LeanConsultantService = Object.seal({
 
     if (wasteId === "WAITING") {
       addSignal(waitTime > 0, "VSM-WAIT", `Tiempo de espera registrado: ${waitTime}.`, waitTime > 60 ? "HIGH" : "MEDIUM");
-      addSignal(this.containsAny(text, ["espera", "demora", "cola", "pendiente", "bloqueado"]), "TEXT-WAIT", "Texto operativo u observacion menciona espera, demora o cola.", "MEDIUM");
+      addSignal(this.containsAny(text, ["espera", "demora", "cola", "pendiente", "bloqueado"]), "TEXT-WAIT", "Evidencia menciona espera, demora, cola o bloqueo.", "MEDIUM");
     }
 
     if (wasteId === "DEFECTS_REWORK") {
@@ -232,7 +307,7 @@ window.LeanConsultantService = Object.seal({
 
     if (wasteId === "OVERPROCESSING") {
       addSignal(valueClass === "NVA" || valueClass === "NNVA", "VALUE-CLASS", `Actividad clasificada como ${valueClass || "pendiente"}.`, valueClass === "NVA" ? "HIGH" : "MEDIUM");
-      addSignal(this.containsAny(text, ["duplicado", "doble", "manual", "validacion adicional", "revisar nuevamente", "sobreproceso"]), "TEXT-OVERPROCESSING", "Evidencia menciona duplicidad, trabajo manual o revision adicional.", "MEDIUM");
+      addSignal(this.containsAny(text, ["duplicado", "doble", "manual", "validacion adicional", "revisar nuevamente", "sobreproceso"]), "TEXT-OVERPROCESSING", "Evidencia menciona duplicidad, revision adicional o trabajo manual.", "MEDIUM");
     }
 
     if (wasteId === "TRANSPORT") {
@@ -258,60 +333,94 @@ window.LeanConsultantService = Object.seal({
     return signals;
   },
 
-  buildQuickWins(assessments) {
-    return assessments.flatMap((assessment) => {
-      const quickWins = [];
-      const waiting = assessment.wastes.find((waste) => waste.wasteId === "WAITING" && waste.detected);
-      const overprocessing = assessment.wastes.find((waste) => waste.wasteId === "OVERPROCESSING" && waste.detected);
-      const rework = assessment.wastes.find((waste) => waste.wasteId === "DEFECTS_REWORK" && waste.detected);
+  resolveWasteExistence(signals, evidence, activity) {
+    if (signals.length) {
+      return "EXISTS";
+    }
 
-      if (waiting && waiting.severity !== "LOW") {
-        quickWins.push(this.quickWin(assessment, "Definir regla de priorizacion y SLA visual para reducir esperas visibles.", waiting.evidence));
-      }
+    if (!evidence.length || !activity.operationalData) {
+      return "INSUFFICIENT_EVIDENCE";
+    }
 
-      if (overprocessing && overprocessing.severity !== "LOW") {
-        quickWins.push(this.quickWin(assessment, "Eliminar captura o revision duplicada validando un unico punto de control.", overprocessing.evidence));
-      }
-
-      if (rework && rework.severity !== "LOW") {
-        quickWins.push(this.quickWin(assessment, "Crear checklist de calidad en el punto de entrada para reducir devoluciones.", rework.evidence));
-      }
-
-      return quickWins;
-    }).slice(0, 12);
+    return "DOES_NOT_EXIST";
   },
 
-  quickWin(assessment, description, evidence) {
+  buildRootCauses(wastes, activity) {
+    return wastes.filter((waste) => waste.existence === "EXISTS").map((waste) => ({
+      wasteId: waste.wasteId,
+      wasteName: waste.wasteName,
+      probableCause: waste.rootCause,
+      evidence: waste.evidence,
+      confidence: waste.confidence,
+      questionRequired: waste.rootCause === "Causa no determinable con la evidencia disponible."
+    }));
+  },
+
+  resolveRootCause(wasteId, existence, signals) {
+    if (existence !== "EXISTS" || !signals.length) {
+      return "Causa no determinable con la evidencia disponible.";
+    }
+
+    const causes = {
+      WAITING: "Reglas de priorizacion, aprobacion o disponibilidad de informacion posiblemente generan cola.",
+      DEFECTS_REWORK: "Criterios de entrada, controles tempranos o calidad de datos posiblemente son insuficientes.",
+      OVERPROCESSING: "Controles, capturas o validaciones duplicadas posiblemente permanecen por habito o falta de regla clara.",
+      TRANSPORT: "El flujo posiblemente depende de transferencia fisica o traspasos no integrados.",
+      INVENTORY: "El proceso posiblemente trabaja por lotes o acumula pendientes por desbalance de capacidad.",
+      MOTION: "La informacion posiblemente esta dispersa y obliga a busquedas o capturas repetidas.",
+      OVERPRODUCTION: "La actividad posiblemente se ejecuta antes de demanda real o sin criterio de solicitud.",
+      UNUSED_TALENT: "Personas calificadas posiblemente ejecutan tareas repetitivas o administrativas de bajo valor."
+    };
+
+    return causes[wasteId] || "Causa probable pendiente de validar.";
+  },
+
+  buildQuickWins(assessments) {
+    return assessments.flatMap((assessment) => assessment.wastes.filter((waste) => waste.existence === "EXISTS" && waste.severity !== "LOW").map((waste) => this.quickWin(assessment, waste))).slice(0, 16);
+  },
+
+  quickWin(assessment, waste) {
+    const actions = {
+      WAITING: "Definir regla de priorizacion, responsable de escalamiento y SLA visual.",
+      DEFECTS_REWORK: "Crear checklist de calidad en el punto de entrada y criterio de rechazo claro.",
+      OVERPROCESSING: "Eliminar o fusionar revisiones/capturas duplicadas con un unico punto de control.",
+      TRANSPORT: "Sustituir traslado o transferencia manual por entrega digital controlada.",
+      INVENTORY: "Reducir lotes y establecer limite visible de pendientes.",
+      MOTION: "Consolidar informacion de consulta frecuente en una unica vista o plantilla.",
+      OVERPRODUCTION: "Ejecutar la actividad solo con disparador validado de demanda.",
+      UNUSED_TALENT: "Separar trabajo experto de tareas repetitivas mediante estandarizacion."
+    };
+
     return {
-      quickWinId: `QW-${assessment.activityUUID}-${Math.random().toString(16).slice(2)}`,
+      quickWinId: `QW-${assessment.activityUUID}-${waste.wasteId}`,
       activityUUID: assessment.activityUUID,
       activityName: assessment.activityName,
-      description,
-      justification: "No requiere desarrollo ni inversion significativa; se puede ejecutar con cambios de regla, visual management o estandarizacion.",
-      evidence,
-      confidence: evidence && evidence.length ? "MEDIUM_CONFIDENCE" : "LOW_CONFIDENCE"
+      problem: waste.rationale,
+      proposedAction: actions[waste.wasteId] || "Estandarizar la forma de trabajo con evidencia disponible.",
+      expectedBenefit: this.expectedBenefit(waste.wasteId),
+      estimatedEffort: "BAJO",
+      risks: "Riesgo de adopcion si no se valida con el responsable del proceso.",
+      evidence: waste.evidence,
+      confidence: waste.confidence
     };
   },
 
   buildLeanOpportunities(assessments) {
-    return assessments.flatMap((assessment) => {
-      const detected = assessment.wastes.filter((waste) => waste.detected);
-
-      return detected.map((waste) => ({
-        opportunityId: `LOP-${assessment.activityUUID}-${waste.wasteId}`,
-        activityUUID: assessment.activityUUID,
-        activityName: assessment.activityName,
-        type: "LEAN_IMPROVEMENT",
-        wasteType: waste.wasteName,
-        description: this.opportunityDescription(waste.wasteId, assessment.activityName),
-        problemSolved: waste.rationale,
-        expectedBenefit: this.expectedBenefit(waste.wasteId),
-        estimatedEffort: this.estimatedEffort(waste.severity),
-        evidence: waste.evidence,
-        confidence: waste.confidence,
-        status: "DRAFT"
-      }));
-    }).slice(0, 24);
+    return assessments.flatMap((assessment) => assessment.wastes.filter((waste) => waste.existence === "EXISTS").map((waste) => ({
+      opportunityId: `LOP-${assessment.activityUUID}-${waste.wasteId}`,
+      activityUUID: assessment.activityUUID,
+      activityName: assessment.activityName,
+      category: this.opportunityTypes[waste.wasteId] || "Simplificacion",
+      wasteType: waste.wasteName,
+      description: this.opportunityDescription(waste.wasteId, assessment.activityName),
+      justification: waste.rationale,
+      evidence: waste.evidence,
+      expectedImpact: this.expectedBenefit(waste.wasteId),
+      complexity: waste.severity === "ALTA" ? "MEDIA" : "BAJA",
+      dependencies: this.resolveDependencies(waste.wasteId),
+      confidence: waste.confidence,
+      status: "DRAFT"
+    }))).slice(0, 32);
   },
 
   opportunityDescription(wasteId, activityName) {
@@ -329,27 +438,19 @@ window.LeanConsultantService = Object.seal({
     return descriptions[wasteId] || `Mejorar "${activityName}" con enfoque Lean.`;
   },
 
-  expectedBenefit(wasteId) {
-    const benefits = {
-      WAITING: "Reduccion de lead time y mejor cumplimiento de SLA.",
-      DEFECTS_REWORK: "Menos retrabajo, menos errores y mayor calidad de salida.",
-      OVERPROCESSING: "Menor tiempo de proceso y menor carga operativa.",
-      TRANSPORT: "Menos transferencias y menor riesgo de perdida de informacion.",
-      INVENTORY: "Menos WIP, menor acumulacion y mejor flujo.",
-      MOTION: "Menor esfuerzo administrativo y menor tiempo improductivo.",
-      OVERPRODUCTION: "Menos trabajo no solicitado y mejor alineacion con demanda.",
-      UNUSED_TALENT: "Mejor uso de capacidad experta."
+  resolveDependencies(wasteId) {
+    const dependencies = {
+      WAITING: ["Responsables de aprobacion", "SLA operativo"],
+      DEFECTS_REWORK: ["Criterios de calidad", "Responsable de entrada"],
+      OVERPROCESSING: ["Dueno del control", "Politica o regla de negocio"],
+      TRANSPORT: ["Repositorio documental", "Canal digital"],
+      INVENTORY: ["Capacidad operativa", "Regla de WIP"],
+      MOTION: ["Disponibilidad de informacion", "Plantillas"],
+      OVERPRODUCTION: ["Disparador de demanda", "Regla de liberacion"],
+      UNUSED_TALENT: ["Roles", "Estandares de trabajo"]
     };
 
-    return benefits[wasteId] || "Mejora operacional esperada.";
-  },
-
-  estimatedEffort(severity) {
-    if (severity === "HIGH") {
-      return "MEDIA";
-    }
-
-    return "BAJA";
+    return dependencies[wasteId] || ["Validacion del dueno del proceso"];
   },
 
   buildQuestions(packageData, sources) {
@@ -363,23 +464,39 @@ window.LeanConsultantService = Object.seal({
       return [this.question("", "Ejecuta el diagnostico Lean para generar preguntas basadas en evidencia.", "MEDIUM", false)];
     }
 
-    return packageData.activityAssessments.flatMap((assessment) => assessment.questions || []).slice(0, 20);
+    return packageData.activityAssessments.flatMap((assessment) => assessment.questions || []).slice(0, 30);
   },
 
-  buildActivityQuestions(activity, evidence, valueClassification, wastes) {
+  buildActivityQuestions(activity, evidence, valueAnalysis, wastes, rootCauses) {
     const questions = [];
 
-    if (valueClassification.classification === "PENDING") {
-      questions.push(this.question(activity.activityUUID, `Clasifica "${activity.name}" como VA, NNVA o NVA antes de consolidar el diagnostico Lean.`, "HIGH", true));
+    if (valueAnalysis.classification === "PENDING") {
+      questions.push(this.question(activity.activityUUID, `Clasifica "${activity.name}" como VA, NNVA o NVA y explica el criterio usado.`, "HIGH", true));
+    }
+
+    if (!activity.responsible) {
+      questions.push(this.question(activity.activityUUID, `Quien ejecuta o es responsable de "${activity.name}"?`, "HIGH", true));
+    }
+
+    if (!activity.inputs || !activity.inputs.length) {
+      questions.push(this.question(activity.activityUUID, `Que recibe "${activity.name}" para poder ejecutarse?`, "MEDIUM", false));
+    }
+
+    if (!activity.outputs || !activity.outputs.length) {
+      questions.push(this.question(activity.activityUUID, `Que entrega "${activity.name}" al finalizar?`, "MEDIUM", false));
     }
 
     if (!evidence.length) {
-      questions.push(this.question(activity.activityUUID, `Que evidencia respalda la actividad "${activity.name}"?`, "HIGH", true));
+      questions.push(this.question(activity.activityUUID, `Que documento, entrevista o dato respalda que "${activity.name}" ocurre asi?`, "HIGH", true));
     }
 
-    if (!wastes.some((waste) => waste.detected) && valueClassification.classification === "NVA") {
-      questions.push(this.question(activity.activityUUID, `"${activity.name}" esta clasificada como NVA, pero no hay evidencia suficiente del desperdicio especifico. Que problema observable la sustenta?`, "MEDIUM", false));
-    }
+    rootCauses.filter((item) => item.questionRequired).forEach((item) => {
+      questions.push(this.question(activity.activityUUID, `Que causa observable explica ${item.wasteName} en "${activity.name}"?`, "MEDIUM", false));
+    });
+
+    wastes.filter((waste) => waste.existence === "INSUFFICIENT_EVIDENCE").slice(0, 2).forEach((waste) => {
+      questions.push(this.question(activity.activityUUID, `Existe evidencia de ${waste.wasteName} en "${activity.name}" o debe descartarse?`, "LOW", false));
+    });
 
     return questions;
   },
@@ -395,24 +512,69 @@ window.LeanConsultantService = Object.seal({
     };
   },
 
-  buildSummary(assessments, quickWins, opportunities) {
+  buildSummary(assessments, quickWins, opportunities, questions) {
     const wasteCounts = this.wastes.reduce((accumulator, waste) => {
-      accumulator[waste.id] = assessments.filter((assessment) => assessment.wastes.some((item) => item.wasteId === waste.id && item.detected)).length;
+      accumulator[waste.id] = assessments.filter((assessment) => assessment.wastes.some((item) => item.wasteId === waste.id && item.existence === "EXISTS")).length;
       return accumulator;
     }, {});
 
     return {
       totalActivities: assessments.length,
-      vaActivities: assessments.filter((item) => item.valueClassification.classification === "VA").length,
-      nnvaActivities: assessments.filter((item) => item.valueClassification.classification === "NNVA").length,
-      nvaActivities: assessments.filter((item) => item.valueClassification.classification === "NVA").length,
-      pendingClassification: assessments.filter((item) => item.valueClassification.classification === "PENDING").length,
-      detectedWasteCount: assessments.reduce((total, item) => total + item.wastes.filter((waste) => waste.detected).length, 0),
+      vaActivities: assessments.filter((item) => item.valueAnalysis.classification === "VA").length,
+      nnvaActivities: assessments.filter((item) => item.valueAnalysis.classification === "NNVA").length,
+      nvaActivities: assessments.filter((item) => item.valueAnalysis.classification === "NVA").length,
+      pendingClassification: assessments.filter((item) => item.valueAnalysis.classification === "PENDING").length,
+      detectedWasteCount: assessments.reduce((total, item) => total + item.wastes.filter((waste) => waste.existence === "EXISTS").length, 0),
+      insufficientEvidenceCount: assessments.reduce((total, item) => total + item.wastes.filter((waste) => waste.existence === "INSUFFICIENT_EVIDENCE").length, 0),
       quickWinCount: quickWins.length,
       opportunityCount: opportunities.length,
+      pendingQuestionCount: questions.length,
       wasteCounts,
       averageConfidence: this.averageConfidence(assessments.map((item) => item.confidence))
     };
+  },
+
+  buildExecutiveSummary(summary, detectedWastes, questions) {
+    if (!summary.totalActivities) {
+      return "No existe informacion suficiente para generar un diagnostico Lean.";
+    }
+
+    return `Se analizaron ${summary.totalActivities} actividades. Se identificaron ${summary.detectedWasteCount} desperdicios con evidencia, ${summary.quickWinCount} quick wins y ${summary.opportunityCount} oportunidades Lean. Existen ${questions.length} preguntas pendientes que deben resolverse antes de consolidar recomendaciones de mayor impacto.`;
+  },
+
+  buildConsolidatedDiagnosis(assessments, summary) {
+    const highWasteActivities = assessments.filter((assessment) => assessment.wastes.some((waste) => waste.existence === "EXISTS" && waste.severity === "HIGH"));
+
+    return {
+      valueProfile: `${summary.vaActivities} VA / ${summary.nnvaActivities} NNVA / ${summary.nvaActivities} NVA / ${summary.pendingClassification} pendientes.`,
+      mainLeanFinding: highWasteActivities.length ? `Las actividades con mayor prioridad Lean son: ${highWasteActivities.map((item) => item.activityName).join(", ")}.` : "No se detectaron desperdicios de severidad alta con la evidencia disponible.",
+      evidenceQuality: summary.averageConfidence,
+      recommendationPolicy: summary.pendingQuestionCount ? "Resolver preguntas pendientes antes de consolidar recomendaciones." : "El paquete esta listo para revision humana."
+    };
+  },
+
+  buildDetectedWasteIndex(assessments) {
+    return assessments.flatMap((assessment) => assessment.wastes.filter((waste) => waste.existence === "EXISTS").map((waste) => ({
+      activityUUID: assessment.activityUUID,
+      activityName: assessment.activityName,
+      wasteId: waste.wasteId,
+      wasteName: waste.wasteName,
+      severity: waste.severity,
+      impact: waste.impact,
+      evidence: waste.evidence,
+      confidence: waste.confidence
+    })));
+  },
+
+  buildEvidenceIndex(assessments) {
+    const seen = {};
+    return assessments.flatMap((assessment) => assessment.evidence).filter((item) => {
+      if (seen[item.evidenceId]) {
+        return false;
+      }
+      seen[item.evidenceId] = true;
+      return true;
+    });
   },
 
   collectActivityEvidence(activity, sources) {
@@ -467,35 +629,27 @@ window.LeanConsultantService = Object.seal({
 
   resolveSourcePackages(sources) {
     return {
+      businessKnowledgePackageId: sources.businessKnowledgePackage ? sources.businessKnowledgePackage.businessKnowledgePackageId : "",
       processModelId: sources.processState.draftProcessModel ? sources.processState.draftProcessModel.processModelId : "",
       knowledgePackageId: sources.knowledgePackage ? sources.knowledgePackage.knowledgePackageId : "",
       contextGraphId: sources.contextGraph ? sources.contextGraph.contextGraphId : "",
       transformationObservationPackageId: sources.transformationObservationPackage ? sources.transformationObservationPackage.transformationObservationPackageId : "",
+      requirementsPackageId: sources.requirementsPackage ? sources.requirementsPackage.requirementsPackageId : "",
       vsmAvailable: Boolean(sources.vsmState && sources.vsmState.metrics),
       operationalDataAvailable: Boolean(sources.operationalDataState && sources.operationalDataState.readiness)
     };
   },
 
-  resolveActivityConfidence(activity, evidence, valueClassification, wastes) {
-    const scores = evidence.map((item) => this.confidenceScore(item.confidence));
-    scores.push(this.confidenceScore(valueClassification.confidence));
-    wastes.forEach((waste) => scores.push(this.confidenceScore(waste.confidence)));
-
-    if (!scores.length || valueClassification.classification === "PENDING") {
+  resolveActivityConfidence(evidence, valueAnalysis, wastes, questions) {
+    if (questions.some((question) => question.blocksConsolidation)) {
       return "INSUFFICIENT_INFORMATION";
     }
 
-    const average = scores.reduce((total, score) => total + score, 0) / scores.length;
+    const scores = evidence.map((item) => this.confidenceScore(item.confidence));
+    scores.push(this.confidenceScore(valueAnalysis.confidence));
+    wastes.forEach((waste) => scores.push(this.confidenceScore(waste.confidence)));
 
-    if (average >= 82) {
-      return "HIGH_CONFIDENCE";
-    }
-
-    if (average >= 60) {
-      return "MEDIUM_CONFIDENCE";
-    }
-
-    return "LOW_CONFIDENCE";
+    return this.scoreToConfidence(scores.length ? scores.reduce((total, score) => total + score, 0) / scores.length : 0);
   },
 
   resolveSeverity(signals) {
@@ -504,18 +658,22 @@ window.LeanConsultantService = Object.seal({
     }
 
     if (signals.some((signal) => signal.strength === "HIGH") || signals.length >= 3) {
-      return "HIGH";
+      return "ALTA";
     }
 
     if (signals.length >= 2) {
-      return "MEDIUM";
+      return "MEDIA";
     }
 
-    return "LOW";
+    return "BAJA";
   },
 
-  resolveWasteConfidence(signals) {
-    if (!signals.length) {
+  resolveWasteConfidence(existence, signals) {
+    if (existence === "DOES_NOT_EXIST") {
+      return "MEDIUM_CONFIDENCE";
+    }
+
+    if (existence === "INSUFFICIENT_EVIDENCE") {
       return "INSUFFICIENT_INFORMATION";
     }
 
@@ -526,16 +684,39 @@ window.LeanConsultantService = Object.seal({
     return "LOW_CONFIDENCE";
   },
 
-  resolveImpact(wasteId, signals) {
-    if (!signals.length) {
+  resolveImpact(wasteId, existence) {
+    if (existence !== "EXISTS") {
       return "Sin impacto comprobado por falta de evidencia.";
     }
 
     return this.expectedBenefit(wasteId);
   },
 
-  buildWasteRationale(label, signals) {
-    return `${label} detectado con ${signals.length} senal(es) de evidencia: ${signals.map((signal) => signal.fragment).join(" | ")}`;
+  expectedBenefit(wasteId) {
+    const benefits = {
+      WAITING: "Reduccion de lead time y mejor cumplimiento de SLA.",
+      DEFECTS_REWORK: "Menos retrabajo, menos errores y mayor calidad de salida.",
+      OVERPROCESSING: "Menor tiempo de proceso y menor carga operativa.",
+      TRANSPORT: "Menos transferencias y menor riesgo de perdida de informacion.",
+      INVENTORY: "Menos WIP, menor acumulacion y mejor flujo.",
+      MOTION: "Menor esfuerzo administrativo y menor tiempo improductivo.",
+      OVERPRODUCTION: "Menos trabajo no solicitado y mejor alineacion con demanda.",
+      UNUSED_TALENT: "Mejor uso de capacidad experta."
+    };
+
+    return benefits[wasteId] || "Mejora operacional esperada.";
+  },
+
+  buildWasteRationale(label, existence, signals) {
+    if (existence === "EXISTS") {
+      return `${label} existe con ${signals.length} senal(es) de evidencia: ${signals.map((signal) => signal.fragment).join(" | ")}`;
+    }
+
+    if (existence === "DOES_NOT_EXIST") {
+      return `${label} no se evidencia en los datos disponibles.`;
+    }
+
+    return `Evidencia insuficiente para confirmar o descartar ${label}.`;
   },
 
   averageConfidence(confidences) {
@@ -544,16 +725,23 @@ window.LeanConsultantService = Object.seal({
     }
 
     const average = confidences.reduce((total, confidence) => total + this.confidenceScore(confidence), 0) / confidences.length;
+    return this.scoreToConfidence(average);
+  },
 
-    if (average >= 82) {
+  scoreToConfidence(score) {
+    if (score >= 82) {
       return "HIGH_CONFIDENCE";
     }
 
-    if (average >= 60) {
+    if (score >= 60) {
       return "MEDIUM_CONFIDENCE";
     }
 
-    return "LOW_CONFIDENCE";
+    if (score >= 35) {
+      return "LOW_CONFIDENCE";
+    }
+
+    return "INSUFFICIENT_INFORMATION";
   },
 
   confidenceScore(confidence) {
@@ -599,7 +787,7 @@ window.LeanConsultantService = Object.seal({
       graph.nodes.push({
         id: nodeId,
         type: "LEAN_ASSESSMENT",
-        label: `${assessment.activityName} / ${assessment.valueClassification.classification}`
+        label: `${assessment.activityName} / ${assessment.valueAnalysis.classification}`
       });
       graph.edges.push({ from: assessment.activityUUID, to: nodeId, type: "HAS_LEAN_ASSESSMENT" });
     });
