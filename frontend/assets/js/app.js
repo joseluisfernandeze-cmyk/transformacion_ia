@@ -10,8 +10,8 @@
     { route: "process-data-collection", label: "Process Data Collection", group: "Metodologia" },
     { route: "intelligent-vsm", label: "Intelligent VSM", group: "Metodologia" },
     { route: "transformation-workshop", label: "Transformation Workshop", group: "Metodologia" },
+    { route: "lean-consultant", label: "Lean Consultant", group: "Metodologia" },
     { route: "methodology-orchestrator", label: "Methodology Orchestrator", group: "Control" },
-    { route: "lean-consultant", label: "Lean Consultant", group: "Proximas etapas", future: true },
     { route: "toc-consultant", label: "TOC Consultant", group: "Proximas etapas", future: true },
     { route: "automation-ai", label: "Automation & AI Consultant", group: "Proximas etapas", future: true },
     { route: "to-be-designer", label: "To-Be Designer", group: "Proximas etapas", future: true },
@@ -31,6 +31,7 @@
     "process-data-collection": mountController("ProcessDataCollectionStudioController"),
     "intelligent-vsm": mountController("IntelligentVsmStudioController"),
     "transformation-workshop": mountController("TransformationWorkshopController"),
+    "lean-consultant": mountController("LeanConsultantController"),
     "methodology-orchestrator": mountController("MethodologyOrchestratorController")
   };
 
