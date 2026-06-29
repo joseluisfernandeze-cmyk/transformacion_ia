@@ -84,6 +84,20 @@
   color: rgba(255, 255, 255, 0.62);
 }
 
+.nav-item[aria-disabled="true"] {
+  color: rgba(255, 255, 255, 0.48);
+  cursor: not-allowed;
+}
+
+.nav-indicator.is-completed {
+  background: var(--color-success);
+  opacity: 1;
+}
+
+.nav-indicator.is-locked {
+  opacity: 0.35;
+}
+
 .breadcrumb {
   display: flex;
   align-items: center;
@@ -216,6 +230,176 @@
 }
 
 .route-card span {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.project-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.project-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+}
+
+.project-card strong,
+.project-card span,
+.project-card small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.project-card span,
+.project-card small {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.mini-progress,
+.mvp-progress-bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #edf2f7;
+}
+
+.mini-progress span,
+.mvp-progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+}
+
+.project-create-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.project-table {
+  display: grid;
+  gap: 8px;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 0.8fr) 80px minmax(180px, 0.8fr);
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.project-row.is-active,
+.project-row:hover {
+  border-color: var(--color-primary);
+  background: rgba(30, 95, 116, 0.07);
+}
+
+.project-row span,
+.project-row small {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-row small {
+  display: block;
+  margin-top: 3px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.mvp-nav-controls {
+  max-width: 1320px;
+}
+
+.mvp-flow-panel {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.mvp-flow-summary {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto minmax(160px, 280px);
+  gap: 12px;
+  align-items: center;
+}
+
+.mvp-flow-summary strong,
+.mvp-flow-summary span {
+  overflow-wrap: anywhere;
+}
+
+.mvp-flow-summary > span {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.mvp-step-strip {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(86px, 1fr));
+  gap: 6px;
+}
+
+.mvp-step {
+  min-height: 36px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #f9fbfd;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.mvp-step.is-active {
+  border-color: var(--color-primary);
+  background: rgba(30, 95, 116, 0.1);
+  color: var(--color-primary);
+}
+
+.mvp-step.status-completed {
+  border-color: rgba(47, 133, 90, 0.3);
+  background: rgba(47, 133, 90, 0.1);
+  color: var(--color-success);
+}
+
+.mvp-step.status-locked {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.mvp-control-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mvp-flow-message {
+  margin: 0;
   color: var(--color-text-muted);
   font-size: 13px;
 }
