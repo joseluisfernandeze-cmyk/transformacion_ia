@@ -6,11 +6,11 @@
 
 ## Ultimo Sprint completado
 
-`Sprint UI-01 - Application Shell & Navigation`
+`Sprint UI-02 - End-to-End MVP Navigation`
 
 ## Sprint actualmente en desarrollo
 
-Consolidacion de documentacion oficial de continuidad del proyecto.
+Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
@@ -26,6 +26,15 @@ Consolidacion de documentacion oficial de continuidad del proyecto.
 - Footer.
 - Dashboard.
 - Navegacion por rutas hash.
+- Navegacion end-to-end del MVP.
+- Gestion local de proyectos.
+- Proyectos recientes.
+- Botones Anterior y Siguiente.
+- Guardado de borradores locales.
+- Continuar proyecto.
+- Indicador de progreso.
+- Bloqueo de etapas no completadas.
+- Persistencia temporal encapsulada en `localStorage`.
 - Business Discovery Experience.
 - Context Builder / Discovery Workspace.
 - Context Builder Agent base.
@@ -213,7 +222,8 @@ Flujo obligatorio:
 
 ## Ultimo Commit
 
-`7ef50d4 Contexto`
+`7ef50d4 Contexto`  
+Sprint UI-02 pendiente de commit.
 
 ## Ultimo Tag
 

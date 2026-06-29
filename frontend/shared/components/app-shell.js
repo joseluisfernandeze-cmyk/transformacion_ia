@@ -32,6 +32,7 @@ window.AppShell = Object.freeze({
             <p class="page-kicker">${constants.pbCode} - ${constants.pbName}</p>
             <h2 id="page-title" class="page-title">Loading workspace.</h2>
           </section>
+          <section class="mvp-nav-controls" id="mvp-nav-controls" aria-label="MVP methodology navigation"></section>
           <footer class="app-footer">
             <span>${config.appName} - ${constants.foundationStatus}</span>
             <span>${config.environment} / v${config.appVersion}</span>
@@ -56,11 +57,13 @@ window.AppShell = Object.freeze({
             <button
               class="nav-item ${item.route === activeRoute ? "is-active" : ""} ${item.future ? "is-future" : ""}"
               data-route="${this.escape(item.route)}"
+              ${item.locked ? "aria-disabled=\"true\"" : ""}
               type="button"
             >
-              <span class="nav-indicator" aria-hidden="true"></span>
+              <span class="nav-indicator ${item.completed ? "is-completed" : ""} ${item.locked ? "is-locked" : ""}" aria-hidden="true"></span>
               <span class="nav-label">${this.escape(item.label)}</span>
               ${item.future ? "<span class=\"nav-badge\">Proximamente</span>" : ""}
+              ${item.locked ? "<span class=\"nav-badge\">Bloqueado</span>" : ""}
             </button>
           </li>
         `).join("")}
