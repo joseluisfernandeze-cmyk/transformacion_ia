@@ -6,7 +6,7 @@
 
 ## Ultimo Sprint completado
 
-`Sprint 12 - Lean Transformation Consultant`
+`PB12A - Consulting Decision Framework`
 
 ## Sprint actualmente en desarrollo
 
@@ -56,6 +56,9 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Quick Wins Lean.
 - Oportunidades Lean categorizadas.
 - Preguntas de aclaracion Lean por informacion insuficiente.
+- Consulting Decision Framework.
+- Decision trace reutilizable para Consultores Digitales.
+- Nueve etapas metodologicas obligatorias para razonamiento consultivo.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -114,6 +117,7 @@ Frontend funcional con HTML, CSS y JavaScript sin frameworks.
 Entrada principal:
 
 - `frontend/index.html`.
+- `frontend/shared/services/consulting-decision-framework.js`.
 
 Rutas visibles:
 
@@ -246,6 +250,7 @@ No existe tag registrado.
 - Riesgo de crecimiento de modulos frontend si no se mantiene disciplina de reutilizacion.
 - Necesidad de pruebas end-to-end con Apps Script desplegado.
 - Necesidad de validar seguridad real de sesiones y claves IA en entorno Google.
+- Necesidad de adoptar progresivamente `decisionTrace` en todos los consultores futuros.
 
 ## Deuda tecnica
 
@@ -254,6 +259,7 @@ No existe tag registrado.
 - Validar contratos API contra despliegue Apps Script real.
 - Crear tags oficiales de version cuando se aprueben releases.
 - Mantener sincronizados `PROJECT_BASELINE.md` y `docs/00_PROJECT_CONTEXT/CURRENT_STATE.md` al cierre de Sprints.
+- Refactorizar consultores existentes para consumir completamente el Consulting Decision Framework cuando se aborde su siguiente evolucion funcional.
 
 ## Bloqueos actuales
 

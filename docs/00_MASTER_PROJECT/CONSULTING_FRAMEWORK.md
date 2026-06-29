@@ -17,6 +17,66 @@ Todos los consultores digitales deben comportarse como consultores senior: estru
 9. Mostrar evidencia.
 10. Esperar validacion humana.
 
+## 2.1 Consulting Decision Framework
+
+PB12A establece el Consulting Decision Framework como metodologia obligatoria de razonamiento para todos los Consultores Digitales.
+
+Este framework:
+
+- no es un agente;
+- no es un modulo funcional;
+- no tiene interfaz propia;
+- no crea APIs;
+- no modifica AIService, Agent Orchestrator ni Prompt Repository;
+- estandariza como razonan Lean, TOC, ERP, Automatizacion, IA, Business Case, Auditoria y Knowledge Capture.
+
+### Etapas obligatorias
+
+1. Comprender: entender que ocurre realmente. Debe responder que hace la actividad, cual es su proposito, quien participa, que entradas recibe y que salidas genera. No emite conclusiones.
+2. Validar: confirmar que existe evidencia suficiente. Para cada afirmacion indica fuente, evidencia y nivel de confianza. Si la evidencia es insuficiente, no continua el analisis y genera preguntas.
+3. Diagnosticar: identificar el problema observado. No propone soluciones ni cuantifica beneficios.
+4. Cuantificar: determinar impacto con tiempo, costo, frecuencia, volumen o riesgo cuando existan datos. Si faltan datos, registra limitacion.
+5. Proponer: generar alternativas de mejora vinculadas al diagnostico.
+6. Justificar: toda propuesta debe indicar evidencia, razonamiento, supuestos y restricciones.
+7. Estimar: estimar beneficio esperado, esfuerzo, complejidad e impacto cuando sea posible. Si no es posible, indicar informacion insuficiente.
+8. Advertir: identificar riesgos, dependencias, impactos colaterales e incertidumbre.
+9. Preguntar: generar preguntas especificas ante cualquier vacio de informacion antes de emitir conclusion definitiva.
+
+### Reglas anti alucinacion
+
+Ningun Consultor Digital puede inventar:
+
+- procesos;
+- actividades;
+- responsables;
+- indicadores;
+- desperdicios;
+- restricciones.
+
+Cuando la evidencia sea insuficiente debe:
+
+- reducir el nivel de confianza;
+- solicitar informacion adicional;
+- abstenerse de concluir.
+
+### Modelo comun de decision
+
+Todo consultor debe producir o preparar:
+
+- `decisionTrace`;
+- version del framework;
+- evidencia utilizada;
+- nivel de confianza;
+- supuestos;
+- informacion faltante;
+- preguntas;
+- politica de conclusion.
+
+Politicas:
+
+- `CONCLUSION_ALLOWED`: la evidencia permite concluir.
+- `ASK_BEFORE_CONCLUSION`: faltan datos y se requieren preguntas antes de concluir.
+
 ## 3. Salidas obligatorias
 
 Cada salida relevante debe incluir:
@@ -27,6 +87,7 @@ Cada salida relevante debe incluir:
 - Preguntas abiertas.
 - Hipotesis si aplica.
 - Estado de validacion.
+- Decision trace del Consulting Decision Framework cuando aplique.
 
 ## 4. Modelo de evidencia
 
@@ -105,3 +166,16 @@ Methodology Orchestrator:
 - Confundir observacion con diagnostico.
 - Presentar una hipotesis como hecho.
 - Duplicar modelos de proceso.
+
+## 9. Aplicacion obligatoria futura
+
+Los siguientes consultores deben consumir este framework:
+
+- Lean Transformation Consultant.
+- TOC Transformation Consultant.
+- Automation & AI Consultant.
+- ERP Discovery Consultant.
+- RFP Consultant.
+- Business Case Consultant.
+- Operational Audit Consultant.
+- Knowledge Capture Consultant.
