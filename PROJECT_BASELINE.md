@@ -221,6 +221,12 @@ transformacion_ia/
 - Process Modeling Studio / As-Is Studio.
 - Process Validation Studio.
 - VSM Builder base module.
+- Process Data Collection Studio.
+- Intelligent VSM Studio.
+- Transformation Workshop.
+- Requirements Discovery Consultant.
+- Transformation Intelligence Engine.
+- Methodology Orchestrator / Case Runner.
 
 ### Backend Apps Script
 
@@ -268,6 +274,12 @@ transformacion_ia/
 | Sprint 4 - Process Discovery Consultant | Completo local | Genera Draft Process Model As-Is con evidencia y preguntas. |
 | Sprint 5 - Process Modeling Studio | Completo local | Studio visual editable con trazabilidad. |
 | Sprint 6 - Process Validation Studio | Completo local | Quality gate, Health Score y bloqueo inteligente. |
+| Sprint 8 - Requirements Discovery Consultant | Completo local | Genera Requirements Package para ERP Discovery. |
+| Sprint 8 - Process Data Collection Studio | Completo local | Enriquece actividades con datos operacionales. |
+| Sprint 9 - Transformation Intelligence Engine | Completo local | Servicio interno que genera Transformation Opportunity Package. |
+| Sprint 9 - Intelligent VSM Studio | Completo local | VSM vivo generado desde Process Model enriquecido. |
+| Sprint 10 - Transformation Workshop | Completo local | Genera Transformation Observation Package. |
+| Sprint 11 - Case Runner & Methodology Orchestrator | Completo local | Coordina flujo metodologico, aprobaciones, bloqueos y Project Transformation Status. |
 
 ## 5. Consultores Digitales Implementados
 
@@ -278,6 +290,9 @@ transformacion_ia/
 | Business Discovery Consultant Experience | Implementado local | Genera Business Knowledge Package validable. |
 | Process Modeling Studio Consultant | Implementado local | Permite edición visual, evidencia y trazabilidad. |
 | Process Validation Consultant | Implementado local | Evalúa calidad y bloquea análisis posteriores. |
+| Requirements Discovery Consultant | Implementado local | Identifica y estructura requerimientos ERP con evidencia. |
+| Transformation Workshop Facilitator | Implementado local | Captura observaciones, evidencias y preguntas del taller. |
+| Methodology Orchestrator | Implementado local | Coordina la secuencia metodologica y aprobaciones; no ejecuta analisis. |
 | Lean Analyzer Agent | Pendiente | No implementado. |
 | TOC Analyzer Agent | Pendiente | No implementado. |
 | Automation Advisor Agent | Pendiente | No implementado. |
@@ -561,3 +576,71 @@ Operational Intelligence Platform cuenta con una base funcional relevante para t
 La plataforma todavía opera mayormente en modo local, con backend y data model preparados para Google Apps Script y Google Sheets. La prioridad inmediata recomendada es consolidar la navegación del Workspace para convertir las experiencias ya implementadas en un flujo profesional continuo antes de avanzar hacia VSM Studio y análisis Lean/TOC.
 
 Esta línea base queda congelada como referencia oficial para los siguientes Sprints.
+
+## Actualizacion Sprint 11 - Case Runner & Methodology Orchestrator
+
+Fecha de actualizacion: 2026-06-28
+
+### Componentes agregados desde la linea base inicial
+
+- Process Data Collection Studio.
+- Intelligent VSM Studio.
+- Transformation Workshop.
+- Requirements Discovery Consultant.
+- Transformation Intelligence Engine.
+- Methodology Orchestrator / Case Runner.
+
+### Sprint activo
+
+La UI principal carga actualmente:
+
+- `Sprint 11 - Case Runner & Methodology Orchestrator`.
+
+### Estado metodologico
+
+Se implemento el objeto:
+
+- `Project Transformation Status`.
+
+Este objeto consolida:
+
+- etapa actual;
+- porcentaje de avance;
+- etapas completadas;
+- etapas pendientes;
+- bloqueos;
+- informacion faltante;
+- Health Score del proyecto;
+- fecha de actualizacion;
+- consultor responsable;
+- aprobaciones por etapa con usuario, fecha y comentarios.
+
+### Reglas implementadas
+
+- No se permite aprobar una etapa con bloqueos.
+- No se permite aprobar una etapa obligatoria si existe una etapa obligatoria anterior sin aprobacion.
+- Las etapas futuras quedan visibles como `FUTURE`, pero no ejecutables.
+- El Orchestrator no ejecuta analisis ni IA; solo coordina la metodologia.
+
+### Roadmap actualizado desde Sprint 11
+
+1. Sprint 12 - Lean Transformation Consultant.
+2. Sprint 13 - TOC Transformation Consultant.
+3. Sprint 14 - Automation & AI Consultant.
+4. Sprint 15 - To-Be Designer.
+5. Sprint 16 - Business Case.
+6. Sprint 17 - Roadmap Builder.
+7. Sprint 18 - Executive Report.
+8. Sprint 19 - Persistencia real Google Sheets para paquetes, Process Model y Project Transformation Status.
+9. Sprint 20 - Google Drive integration operativa para adjuntos.
+10. Sprint 21 - AI provider execution real y prompts gobernados.
+
+### Proximo Sprint recomendado
+
+**Sprint 12 - Lean Transformation Consultant**
+
+Justificacion:
+
+- Ya existen Process Model, datos operacionales, VSM vivo y Transformation Observation Package.
+- El Methodology Orchestrator coordina bloqueos y aprobaciones.
+- El siguiente paso natural es usar las observaciones del taller y el VSM para iniciar diagnostico Lean formal.
