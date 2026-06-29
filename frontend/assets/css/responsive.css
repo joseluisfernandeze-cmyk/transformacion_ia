@@ -26,6 +26,11 @@
     padding: 24px 20px;
   }
 
+  .app-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .page-title {
     font-size: 26px;
   }
@@ -76,6 +81,7 @@
 
   .panel-grid,
   .discovery-summary,
+  .dashboard-summary-grid,
   .validation-grid {
     grid-template-columns: 1fr;
   }
@@ -147,6 +153,12 @@
 
   .nav-list {
     grid-template-columns: 1fr;
+  }
+
+  .breadcrumb {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .foundation-panel {

@@ -1,6 +1,6 @@
 window.APP_CONSTANTS = Object.freeze({
   productTagline: "Operational transformation platform",
-  pbCode: "Sprint 11",
-  pbName: "Case Runner & Methodology Orchestrator",
-  foundationStatus: "Ready for methodology coordination"
+  pbCode: "Sprint UI-01",
+  pbName: "Application Shell & Navigation",
+  foundationStatus: "Ready for navigable methodology workspace"
 });

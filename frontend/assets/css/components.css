@@ -30,19 +30,25 @@
   display: grid;
   gap: 8px;
   padding: 0;
-  margin: 0;
+  margin: 0 0 22px;
   list-style: none;
 }
 
 .nav-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
+  width: 100%;
   min-height: 40px;
   padding: 9px 12px;
+  border: 0;
   border-radius: var(--radius-sm);
   color: rgba(255, 255, 255, 0.82);
+  background: transparent;
   font-size: 14px;
+  text-align: left;
+  cursor: pointer;
 }
 
 .nav-item.is-active {
@@ -57,6 +63,47 @@
   border-radius: 999px;
   background: currentColor;
   opacity: 0.8;
+}
+
+.nav-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-badge {
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.13);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.nav-item.is-future {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.breadcrumb strong {
+  color: var(--color-text);
+}
+
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 12px;
 }
 
 .page-kicker {
@@ -130,6 +177,47 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
+}
+
+.dashboard-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.route-card {
+  display: grid;
+  gap: 6px;
+  min-height: 84px;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.route-card:hover {
+  border-color: var(--color-primary);
+  background: rgba(30, 95, 116, 0.06);
+}
+
+.route-card strong,
+.route-card span {
+  overflow-wrap: anywhere;
+}
+
+.route-card span {
+  color: var(--color-text-muted);
+  font-size: 13px;
 }
 
 .status-label {

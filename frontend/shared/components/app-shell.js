@@ -1,5 +1,7 @@
 window.AppShell = Object.freeze({
-  render(config, constants) {
+  render(config, constants, navigation, activeRoute) {
+    const activeItem = navigation.find((item) => item.route === activeRoute) || navigation[0];
+
     return `
       <div class="app-shell">
         <header class="app-header">
@@ -17,26 +19,60 @@ window.AppShell = Object.freeze({
         </header>
 
         <aside class="app-sidebar" aria-label="Primary navigation">
-          <p class="nav-section-title">Workspace</p>
-          <ul class="nav-list">
-            <li class="nav-item is-active">
-              <span class="nav-indicator" aria-hidden="true"></span>
-              Methodology Orchestrator
-            </li>
-            <li class="nav-item">
-              <span class="nav-indicator" aria-hidden="true"></span>
-              Sprint 11 active
-            </li>
-          </ul>
+          ${this.renderNavigation(navigation, activeRoute)}
         </aside>
 
         <main class="app-main">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span>Process Transformation AI</span>
+            <span aria-hidden="true">/</span>
+            <strong>${this.escape(activeItem.label)}</strong>
+          </nav>
           <section class="main-content" id="main-content" aria-labelledby="page-title">
             <p class="page-kicker">${constants.pbCode} - ${constants.pbName}</p>
             <h2 id="page-title" class="page-title">Loading workspace.</h2>
           </section>
+          <footer class="app-footer">
+            <span>${config.appName} - ${constants.foundationStatus}</span>
+            <span>${config.environment} / v${config.appVersion}</span>
+          </footer>
         </main>
       </div>
     `;
+  },
+
+  renderNavigation(navigation, activeRoute) {
+    const groups = navigation.reduce((accumulator, item) => {
+      accumulator[item.group] = accumulator[item.group] || [];
+      accumulator[item.group].push(item);
+      return accumulator;
+    }, {});
+
+    return Object.keys(groups).map((group) => `
+      <p class="nav-section-title">${this.escape(group)}</p>
+      <ul class="nav-list">
+        ${groups[group].map((item) => `
+          <li>
+            <button
+              class="nav-item ${item.route === activeRoute ? "is-active" : ""} ${item.future ? "is-future" : ""}"
+              data-route="${this.escape(item.route)}"
+              type="button"
+            >
+              <span class="nav-indicator" aria-hidden="true"></span>
+              <span class="nav-label">${this.escape(item.label)}</span>
+              ${item.future ? "<span class=\"nav-badge\">Proximamente</span>" : ""}
+            </button>
+          </li>
+        `).join("")}
+      </ul>
+    `).join("");
+  },
+
+  escape(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
   }
 });
