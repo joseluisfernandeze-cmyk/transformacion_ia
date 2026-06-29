@@ -42,6 +42,7 @@ window.LeanConsultantRenderer = Object.freeze({
           ${this.renderActivities(state, selected)}
         </aside>
         <main class="lean-main">
+          ${packageData ? this.renderExecutiveSummary(packageData) : ""}
           ${packageData ? this.renderAssessmentDetail(selected) : this.renderRunPrompt()}
           ${packageData ? this.renderQuickWins(packageData) : ""}
           ${packageData ? this.renderOpportunities(packageData) : ""}
@@ -60,7 +61,7 @@ window.LeanConsultantRenderer = Object.freeze({
         <p class="page-kicker">Lean Assessment Package</p>
         <h3 class="panel-title">${packageData ? this.escape(packageData.status) : "No generado"}</h3>
         <button class="primary-button" id="run-lean-assessment" type="button">Ejecutar diagnostico Lean</button>
-        <p class="status-note">El diagnostico no usa IA nueva ni inventa hallazgos; solo interpreta evidencia existente.</p>
+        <p class="status-note">El consultor no asume desperdicios ni genera recomendaciones sin evidencia.</p>
       </section>
     `;
   },
@@ -80,8 +81,10 @@ window.LeanConsultantRenderer = Object.freeze({
           ${this.dimension("NNVA", summary.nnvaActivities)}
           ${this.dimension("NVA", summary.nvaActivities)}
           ${this.dimension("Desperdicios", summary.detectedWasteCount)}
+          ${this.dimension("Sin evidencia", summary.insufficientEvidenceCount)}
           ${this.dimension("Quick Wins", summary.quickWinCount)}
           ${this.dimension("Oportunidades", summary.opportunityCount)}
+          ${this.dimension("Preguntas", summary.pendingQuestionCount)}
           ${this.dimension("Confianza", summary.averageConfidence)}
         </div>
       </section>
@@ -93,6 +96,7 @@ window.LeanConsultantRenderer = Object.freeze({
       activityUUID: activity.activityUUID,
       sequence: activity.sequence,
       activityName: activity.name,
+      valueAnalysis: { classification: "PENDING" },
       valueClassification: { classification: "PENDING" },
       wastes: []
     }));
@@ -106,10 +110,11 @@ window.LeanConsultantRenderer = Object.freeze({
         <div class="activity-selector-list">
           ${activities.map((assessment) => {
             const wasteCount = (assessment.wastes || []).filter((waste) => waste.detected).length;
+            const classification = assessment.valueAnalysis ? assessment.valueAnalysis.classification : assessment.valueClassification.classification;
             return `
               <button class="activity-selector ${selected && selected.activityUUID === assessment.activityUUID ? "is-selected" : ""}" data-lean-activity-uuid="${this.escape(assessment.activityUUID)}" type="button">
                 <strong>${this.escape(assessment.sequence)}. ${this.escape(assessment.activityName)}</strong>
-                <span>${this.escape(assessment.valueClassification.classification)} / ${wasteCount} desperdicio(s)</span>
+                <span>${this.escape(classification)} / ${wasteCount} desperdicio(s)</span>
               </button>
             `;
           }).join("")}
@@ -122,7 +127,22 @@ window.LeanConsultantRenderer = Object.freeze({
     return `
       <section class="conversation-card">
         <h3>Ejecuta el diagnostico Lean</h3>
-        <p>El consultor analizara valor agregado, ocho desperdicios, quick wins, oportunidades Lean y preguntas de aclaracion.</p>
+        <p>El consultor seguira la metodologia profesional: comprension, valor, ocho desperdicios, causa probable, quick wins, oportunidades Lean y preguntas de aclaracion.</p>
+      </section>
+    `;
+  },
+
+  renderExecutiveSummary(packageData) {
+    return `
+      <section class="studio-panel">
+        <p class="page-kicker">Resumen Ejecutivo</p>
+        <h3 class="panel-title">${this.escape(packageData.status)}</h3>
+        <p>${this.escape(packageData.executiveSummary)}</p>
+        <div class="activity-meta">
+          <p><strong>Diagnostico consolidado:</strong> ${this.escape(packageData.consolidatedDiagnosis.mainLeanFinding)}</p>
+          <p><strong>Perfil de valor:</strong> ${this.escape(packageData.consolidatedDiagnosis.valueProfile)}</p>
+          <p><strong>Politica de recomendacion:</strong> ${this.escape(packageData.consolidatedDiagnosis.recommendationPolicy)}</p>
+        </div>
       </section>
     `;
   },
@@ -141,10 +161,11 @@ window.LeanConsultantRenderer = Object.freeze({
           </div>
           <span class="confidence-badge">${this.escape(assessment.confidence)}</span>
         </div>
-        <div class="lean-value-box classification-${this.escape(assessment.valueClassification.classification.toLowerCase())}">
-          <strong>${this.escape(assessment.valueClassification.classification)}</strong>
-          <p>${this.escape(assessment.valueClassification.justification)}</p>
-          <small>${this.escape(assessment.valueClassification.confidence)}</small>
+        ${this.renderUnderstanding(assessment)}
+        <div class="lean-value-box classification-${this.escape(assessment.valueAnalysis.classification.toLowerCase())}">
+          <strong>${this.escape(assessment.valueAnalysis.classification)}</strong>
+          <p>${this.escape(assessment.valueAnalysis.reason)}</p>
+          <small>${this.escape(assessment.valueAnalysis.confidence)}</small>
         </div>
         <h4 class="panel-title">Desperdicios Lean</h4>
         <div class="lean-waste-grid">
@@ -166,14 +187,29 @@ window.LeanConsultantRenderer = Object.freeze({
     `;
   },
 
+  renderUnderstanding(assessment) {
+    const understanding = assessment.understanding || {};
+    return `
+      <section class="activity-meta">
+        <p><strong>Que hace:</strong> ${this.escape(understanding.whatItDoes)}</p>
+        <p><strong>Proposito:</strong> ${this.escape(understanding.purpose)}</p>
+        <p><strong>Ejecuta:</strong> ${this.escape(understanding.executedBy)}</p>
+        <p><strong>Recibe:</strong> ${this.escape((understanding.inputs || []).join(", "))}</p>
+        <p><strong>Entrega:</strong> ${this.escape((understanding.outputs || []).join(", "))}</p>
+      </section>
+    `;
+  },
+
   renderWaste(waste) {
     return `
       <article class="lean-waste-card ${waste.detected ? "is-detected" : ""}">
         <div class="context-section-header">
           <strong>${this.escape(waste.wasteName)}</strong>
-          <span class="status-note">${this.escape(waste.severity)}</span>
+          <span class="status-note">${this.escape(this.existenceLabel(waste.existence))} / ${this.escape(waste.severity)}</span>
         </div>
         <p>${this.escape(waste.rationale)}</p>
+        <p><strong>Causa probable:</strong> ${this.escape(waste.rootCause)}</p>
+        <p><strong>Impacto:</strong> ${this.escape(waste.impact)}</p>
         <small>${this.escape(waste.confidence)}</small>
       </article>
     `;
@@ -190,8 +226,10 @@ window.LeanConsultantRenderer = Object.freeze({
           ${packageData.quickWins.length ? packageData.quickWins.map((item) => `
             <article class="workshop-observation-card">
               <strong>${this.escape(item.activityName)}</strong>
-              <p>${this.escape(item.description)}</p>
-              <p class="status-note">${this.escape(item.justification)}</p>
+              <p><strong>Problema:</strong> ${this.escape(item.problem)}</p>
+              <p><strong>Accion:</strong> ${this.escape(item.proposedAction)}</p>
+              <p><strong>Beneficio:</strong> ${this.escape(item.expectedBenefit)}</p>
+              <p class="status-note">Esfuerzo ${this.escape(item.estimatedEffort)} / Riesgo: ${this.escape(item.risks)} / ${this.escape(item.confidence)}</p>
             </article>
           `).join("") : "<p class=\"status-note\">Sin quick wins detectados con evidencia suficiente.</p>"}
         </div>
@@ -209,10 +247,10 @@ window.LeanConsultantRenderer = Object.freeze({
         <div class="requirements-board">
           ${packageData.opportunities.length ? packageData.opportunities.map((item) => `
             <article class="requirement-card">
-              <strong>${this.escape(item.wasteType)}</strong>
+              <strong>${this.escape(item.category)} / ${this.escape(item.wasteType)}</strong>
               <span>${this.escape(item.description)}</span>
-              <span>Beneficio: ${this.escape(item.expectedBenefit)}</span>
-              <span>Esfuerzo: ${this.escape(item.estimatedEffort)} / ${this.escape(item.confidence)}</span>
+              <span>Impacto: ${this.escape(item.expectedImpact)}</span>
+              <span>Complejidad: ${this.escape(item.complexity)} / ${this.escape(item.confidence)}</span>
             </article>
           `).join("") : "<p class=\"status-note\">Sin oportunidades Lean detectadas.</p>"}
         </div>
@@ -269,6 +307,16 @@ window.LeanConsultantRenderer = Object.freeze({
         <strong>${this.escape(value)}</strong>
       </div>
     `;
+  },
+
+  existenceLabel(value) {
+    const labels = {
+      EXISTS: "Existe",
+      DOES_NOT_EXIST: "No existe",
+      INSUFFICIENT_EVIDENCE: "Evidencia insuficiente"
+    };
+
+    return labels[value] || value || "";
   },
 
   escape(value) {

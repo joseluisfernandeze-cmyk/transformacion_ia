@@ -48,10 +48,13 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Transformation Workshop.
 - Lean Transformation Consultant.
 - Lean Assessment Package.
+- Lean Assessment Package profesional con resumen ejecutivo y diagnostico consolidado.
+- Comprension Lean por actividad.
 - Diagnostico de valor agregado VA/NNVA/NVA.
-- Evaluacion de ocho desperdicios Lean.
+- Evaluacion explicita de ocho desperdicios Lean como existe, no existe o evidencia insuficiente.
+- Causa probable por desperdicio cuando existe evidencia.
 - Quick Wins Lean.
-- Oportunidades Lean trazables.
+- Oportunidades Lean categorizadas.
 - Preguntas de aclaracion Lean por informacion insuficiente.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.

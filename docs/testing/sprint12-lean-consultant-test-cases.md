@@ -53,7 +53,7 @@ Pasos:
 Resultado esperado:
 
 - Se muestra VA, NNVA o NVA.
-- Se muestra justificacion y evidencia.
+- Se muestra si genera valor para el cliente, justificacion y evidencia.
 - No se asume clasificacion cuando el dato no existe.
 
 ## TC-LC-005 - Evaluacion de desperdicios
@@ -68,7 +68,9 @@ Pasos:
 Resultado esperado:
 
 - Solo se marcan desperdicios con senales de evidencia.
+- Cada desperdicio muestra `Existe`, `No existe` o `Evidencia insuficiente`.
 - Cada desperdicio muestra severidad, impacto, evidencia y confianza.
+- Si existe desperdicio, se muestra causa probable.
 
 ## TC-LC-006 - Preguntas por informacion insuficiente
 
@@ -97,7 +99,54 @@ Pasos:
 Resultado esperado:
 
 - Se proponen solo quick wins de baja inversion y sin desarrollo.
-- Cada quick win incluye justificacion y evidencia.
+- Cada quick win incluye problema, accion, beneficio, esfuerzo, riesgos, evidencia y confianza.
+
+## TC-LC-010 - Comprension consultiva por actividad
+
+Condicion inicial: existe Process Model con actividades.
+
+Pasos:
+
+1. Ejecutar diagnostico Lean.
+2. Seleccionar una actividad.
+
+Resultado esperado:
+
+- Se muestra que hace la actividad.
+- Se muestra su proposito.
+- Se muestra quien la ejecuta.
+- Se muestran entradas y salidas.
+
+## TC-LC-011 - No recomendar sin evidencia
+
+Condicion inicial: actividad sin clasificacion de valor y sin evidencia operacional suficiente.
+
+Pasos:
+
+1. Ejecutar diagnostico Lean.
+2. Revisar desperdicios, quick wins y oportunidades.
+
+Resultado esperado:
+
+- El sistema marca evidencia insuficiente.
+- No genera recomendaciones especificas para esa evidencia faltante.
+- Genera preguntas aclaratorias.
+
+## TC-LC-012 - Lean Assessment Package profesional
+
+Pasos:
+
+1. Ejecutar diagnostico Lean.
+2. Inspeccionar el paquete persistido en `localStorage["operational-intelligence.lean-consultant"]`.
+
+Resultado esperado:
+
+- Existe `executiveSummary`.
+- Existe `consolidatedDiagnosis`.
+- Existe `detectedWastes`.
+- Existe `evidenceUsed`.
+- Existe `confidence`.
+- Cada actividad tiene `understanding`, `valueAnalysis`, `wastes`, `rootCauses` y `questions`.
 
 ## TC-LC-008 - Integracion con Methodology Orchestrator
 
