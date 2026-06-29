@@ -1551,3 +1551,109 @@
   color: var(--color-text);
   font-size: 14px;
 }
+
+.orchestrator-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 16px;
+  align-items: start;
+}
+
+.orchestrator-main,
+.orchestrator-side {
+  display: grid;
+  gap: 14px;
+}
+
+.orchestrator-progress {
+  height: 10px;
+  margin: 14px 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #edf2f7;
+}
+
+.orchestrator-progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+}
+
+.stage-timeline {
+  display: grid;
+  gap: 8px;
+}
+
+.stage-card {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 70px;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.stage-card.is-selected {
+  border-color: var(--color-primary);
+  background: rgba(30, 95, 116, 0.08);
+}
+
+.stage-card.status-approved {
+  border-left: 6px solid var(--color-success);
+}
+
+.stage-card.status-blocked {
+  border-left: 6px solid var(--color-error);
+}
+
+.stage-card.status-ready_for_approval {
+  border-left: 6px solid #b7791f;
+}
+
+.stage-card.status-future {
+  opacity: 0.68;
+}
+
+.stage-sequence {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 999px;
+  background: #edf2f7;
+  font-weight: 700;
+}
+
+.stage-card strong,
+.stage-card small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.stage-card small {
+  margin-top: 2px;
+  color: var(--color-text-muted);
+}
+
+.stage-progress {
+  justify-self: end;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.approval-box {
+  padding: 12px;
+  border: 1px solid rgba(47, 133, 90, 0.24);
+  border-radius: var(--radius-sm);
+  background: rgba(47, 133, 90, 0.08);
+}
+
+.approval-box p {
+  margin: 6px 0 0;
+}

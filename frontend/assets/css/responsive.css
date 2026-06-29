@@ -45,6 +45,7 @@
   .data-collection-layout,
   .intelligent-vsm-layout,
   .workshop-layout,
+  .orchestrator-layout,
   .health-panel {
     grid-template-columns: 1fr;
   }
@@ -124,6 +125,11 @@
     max-height: none;
   }
 
+  .orchestrator-side {
+    position: static;
+    max-height: none;
+  }
+
   .vsm-control-row {
     align-items: flex-start;
     flex-direction: column;
@@ -188,6 +194,7 @@
   .dimension-grid,
   .form-grid.four-columns,
   .segmented-control,
+  .stage-card,
   .validation-list li {
     grid-template-columns: 1fr;
   }

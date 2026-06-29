@@ -11,8 +11,8 @@
 
     const session = window.AiSecurityService ? window.AiSecurityService.getSession() : null;
 
-    if (window.TransformationWorkshopController) {
-      window.TransformationWorkshopController.init("#main-content", session || window.AiSecurityService.createLocalSession());
+    if (window.MethodologyOrchestratorController) {
+      window.MethodologyOrchestratorController.init("#main-content", session || window.AiSecurityService.createLocalSession());
     }
   };
 
