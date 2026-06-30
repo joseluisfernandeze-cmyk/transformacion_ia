@@ -16,8 +16,8 @@
     { route: "to-be-designer", label: "To-Be Designer", group: "Metodologia" },
     { route: "business-case", label: "Business Case", group: "Metodologia" },
     { route: "roadmap", label: "Roadmap", group: "Metodologia" },
-    { route: "methodology-orchestrator", label: "Methodology Orchestrator", group: "Control" },
-    { route: "executive-report", label: "Executive Report", group: "Proximas etapas", future: true }
+    { route: "executive-report", label: "Executive Report", group: "Metodologia" },
+    { route: "methodology-orchestrator", label: "Methodology Orchestrator", group: "Control" }
   ];
 
   const routeHandlers = {
@@ -37,6 +37,7 @@
     "to-be-designer": mountController("ToBeDesignerController"),
     "business-case": mountController("BusinessCaseController"),
     "roadmap": mountController("RoadmapController"),
+    "executive-report": mountController("ExecutiveReportController"),
     "methodology-orchestrator": mountController("MethodologyOrchestratorController")
   };
 
