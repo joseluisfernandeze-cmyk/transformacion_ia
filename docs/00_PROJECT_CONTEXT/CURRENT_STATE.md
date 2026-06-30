@@ -6,7 +6,7 @@
 
 ## Ultimo Sprint completado
 
-`Sprint 17 - Transformation Roadmap Generator`
+`Sprint 18 - Executive Report Generator`
 
 ## Sprint actualmente en desarrollo
 
@@ -14,7 +14,7 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
-`Sprint 18 - Executive Report Generator`
+Pendiente de definicion por el Product Owner.
 
 ## Funcionalidades implementadas
 
@@ -94,6 +94,11 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Recursos requeridos por areas, roles y equipos.
 - Secuencia logica de ejecucion sin fechas calendario ni Gantt.
 - Riesgos, supuestos y preguntas pendientes del Roadmap.
+- Executive Report Generator.
+- Executive Report Package.
+- Modelo interno de informe ejecutivo profesional.
+- Consolidacion de Resumen Ejecutivo, Situacion Actual, Diagnostico, To-Be, Business Case, Roadmap, Riesgos, Recomendaciones y Preguntas Pendientes.
+- Arquitectura preparada para futura exportacion a PDF, Word y PowerPoint sin exportacion fisica implementada.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -107,7 +112,9 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Funcionalidades pendientes
 
-- Executive Report.
+- Exportacion fisica a PDF.
+- Exportacion fisica a Word.
+- Exportacion fisica a PowerPoint.
 - ERP Fit-Gap.
 - ERP RFP Builder.
 - Scorecard de proveedores.
@@ -167,11 +174,12 @@ Rutas visibles:
 - `#/to-be-designer`.
 - `#/business-case`.
 - `#/roadmap`.
+- `#/executive-report`.
 - `#/methodology-orchestrator`.
 
 Rutas futuras como proximamente:
 
-- `#/executive-report`.
+No hay rutas futuras configuradas en la metodologia principal actual.
 
 ## Estado del Backend
 
@@ -266,7 +274,7 @@ Flujo obligatorio:
 ## Ultimo Commit
 
 `7ef50d4 Contexto`  
-Sprint 17 pendiente de commit.
+Sprint 18 pendiente de commit.
 
 ## Ultimo Tag
 

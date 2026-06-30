@@ -2223,3 +2223,17 @@
   display: grid;
   gap: 16px;
 }
+
+.executive-report-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) 330px;
+  gap: 16px;
+  align-items: start;
+}
+
+.executive-report-left,
+.executive-report-main,
+.executive-report-right {
+  display: grid;
+  gap: 16px;
+}
