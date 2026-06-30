@@ -5,16 +5,16 @@ window.AppShell = Object.freeze({
     return `
       <div class="app-shell">
         <header class="app-header">
-          <div class="brand" aria-label="${config.appName}">
+          <div class="brand" aria-label="${config.APP_NAME}">
             <div class="brand-mark" aria-hidden="true">PT</div>
             <div class="brand-text">
-              <h1 class="brand-name">${config.appName}</h1>
+              <h1 class="brand-name">${config.APP_NAME}</h1>
               <p class="brand-subtitle">${constants.productTagline}</p>
             </div>
           </div>
           <div class="environment-pill" title="Current local execution context">
             <span class="environment-dot" aria-hidden="true"></span>
-            <span>${config.environment} - v${config.appVersion}</span>
+            <span>${config.ENVIRONMENT} - v${config.VERSION}</span>
           </div>
         </header>
 
@@ -34,8 +34,8 @@ window.AppShell = Object.freeze({
           </section>
           <section class="mvp-nav-controls" id="mvp-nav-controls" aria-label="MVP methodology navigation"></section>
           <footer class="app-footer">
-            <span>${config.appName} - ${constants.foundationStatus}</span>
-            <span>${config.environment} / v${config.appVersion}</span>
+            <span>${config.APP_NAME} - ${constants.foundationStatus}</span>
+            <span>${config.ENVIRONMENT} / v${config.VERSION}</span>
           </footer>
         </main>
       </div>
