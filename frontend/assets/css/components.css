@@ -2209,3 +2209,17 @@
   display: grid;
   gap: 16px;
 }
+
+.roadmap-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) 330px;
+  gap: 16px;
+  align-items: start;
+}
+
+.roadmap-left,
+.roadmap-main,
+.roadmap-right {
+  display: grid;
+  gap: 16px;
+}
