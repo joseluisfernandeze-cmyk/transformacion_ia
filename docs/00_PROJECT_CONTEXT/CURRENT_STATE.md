@@ -6,15 +6,66 @@
 
 ## Ultimo Sprint completado
 
-`Sprint 18 - Executive Report Generator`
+`Sprint INT-01 - Platform Integration & First Execution`
 
 ## Sprint actualmente en desarrollo
 
-`Sprint INT-01 - Platform Integration & First Execution`
+`Integration & Validation`
 
 ## Proximo Sprint
 
-Primer despliegue controlado en Google Apps Script, Google Sheets y Google Drive, despues de aprobar y commitear INT-01.
+No iniciar nuevos Sprints funcionales hasta completar la validacion end-to-end del MVP.
+
+Proximo objetivo inmediato:
+
+`Frontend -> Apps Script -> Google Sheets -> Google Drive`
+
+## Estado general del MVP
+
+Primer despliegue operativo completado.
+
+La plataforma se encuentra en fase de validacion funcional e integracion. El desarrollo funcional queda temporalmente congelado hasta finalizar la validacion completa del MVP.
+
+## Porcentaje estimado
+
+- Infraestructura: 100%.
+- Backend: 95%.
+- Frontend: 90%.
+- Integracion: en progreso.
+
+## Hitos completados - Infraestructura
+
+- Repositorio GitHub inicializado y sincronizado.
+- Clasp configurado y operativo.
+- Apps Script creado y conectado mediante Clasp.
+- Backend desplegado exitosamente en Apps Script.
+- Web App publicada.
+- URL oficial DEV registrada.
+- Google Sheets inicializado correctamente.
+- 29 hojas creadas automaticamente.
+- Google Drive inicializado correctamente.
+- Estructura documental creada dentro de una carpeta padre configurable.
+- Correccion aplicada para utilizar `DriveApp.getFolderById(parentFolderId)`.
+
+## Hitos completados - Configuracion
+
+- `app-config.js` actualizado para arquitectura multiambiente.
+- `APP_CONFIG.API.BASE_URL` configurado para DEV.
+- Eliminadas URLs hardcodeadas.
+- Frontend preparado para consumir configuracion desde `APP_CONFIG`.
+
+URL oficial DEV:
+
+```text
+https://script.google.com/macros/s/AKfycbyhjHHkkYjNiKvJkpdgwqS3IagrBIprTi-RxWEx5z-HNlvaQS6c4fYAd-YDx0EZMUqR/exec
+```
+
+## Hitos completados - Integracion
+
+- Primer despliegue completo realizado.
+- Frontend ejecutandose mediante Live Server.
+- Backend respondiendo mediante Web App.
+- Primera validacion funcional iniciada.
 
 ## Funcionalidades implementadas
 
@@ -58,19 +109,16 @@ Primer despliegue controlado en Google Apps Script, Google Sheets y Google Drive
 - VSM Builder base.
 - Calculation Engine.
 - Transformation Intelligence Engine interno.
-- Inicializador Google Sheets para primera ejecucion.
-- Inicializador Google Drive para primera ejecucion.
-- Guia de despliegue.
-- Guia de primera ejecucion.
-- Reporte de integracion INT-01.
+- Inicializador Google Sheets.
+- Inicializador Google Drive.
 
 ## Funcionalidades pendientes
 
-- Publicacion real como Google Apps Script Web App.
-- Validacion real de Google Sheets inicializado desde Apps Script.
-- Validacion real de Google Drive inicializado desde Apps Script.
-- Configuracion real de `AI_PROVIDERS`, `PROMPTS` y `AGENTS`.
-- Pruebas end-to-end con backend publicado.
+- Validacion end-to-end completa.
+- Pruebas completas del flujo frontend contra Apps Script.
+- Validacion de escritura/lectura real en Google Sheets.
+- Validacion de uso real de Google Drive.
+- Validacion real de `AI_PROVIDERS`, `PROMPTS` y `AGENTS`.
 - Exportacion fisica a PDF.
 - Exportacion fisica a Word.
 - Exportacion fisica a PowerPoint.
@@ -113,34 +161,17 @@ Entrada principal:
 
 - `frontend/index.html`.
 
-Rutas validadas en Sprint INT-01:
+Configuracion:
 
-- `#/dashboard`
-- `#/projects`
-- `#/business-discovery`
-- `#/context-builder`
-- `#/process-discovery`
-- `#/process-modeling`
-- `#/process-validation`
-- `#/process-data-collection`
-- `#/intelligent-vsm`
-- `#/transformation-workshop`
-- `#/lean-consultant`
-- `#/toc-consultant`
-- `#/automation-ai`
-- `#/to-be-designer`
-- `#/business-case`
-- `#/roadmap`
-- `#/executive-report`
-- `#/methodology-orchestrator`
+- `frontend/config/app-config.js`.
+- Arquitectura multiambiente habilitada.
+- `APP_CONFIG.API.BASE_URL` configurado para DEV.
 
-Estado INT-01:
+Estado:
 
-- 71 scripts referenciados desde `index.html`.
-- 0 scripts faltantes.
-- Sintaxis JavaScript validada.
-- Navegacion validada en navegador desde `http://127.0.0.1:4183/index.html`.
-- Sin errores nuevos de consola en puerto limpio.
+- Ejecutandose mediante Live Server.
+- Preparado para consumir configuracion desde `APP_CONFIG`.
+- Bug de `app-shell.js` por nombres legacy corregido.
 
 ## Estado del Backend
 
@@ -158,87 +189,43 @@ Acciones existentes:
 - `executeAgent`
 - acciones VSM definidas en `VSM_ROUTE_ACTIONS`
 
-Capas existentes:
+Estado:
 
-- `config`
-- `controllers`
-- `repositories`
-- `services`
-- `utils`
-- `validators`
-
-Servicios agregados en INT-01:
-
-- `SheetsDeploymentService.gs`
-- `DriveDeploymentService.gs`
-
-Estos servicios son utilidades manuales de despliegue. No exponen APIs nuevas.
+- Apps Script creado.
+- Clasp configurado y operativo.
+- Backend desplegado exitosamente.
+- Web App publicada.
+- URL DEV registrada.
+- Backend respondiendo mediante Web App.
 
 ## Estado de Google Sheets
 
 Google Sheets definido como base operativa del MVP.
 
-Inicializador disponible:
-
-- `initializeOperationalIntelligenceSheets(spreadsheetId)`
-
-Archivo:
-
-- `backend/apps-script/services/SheetsDeploymentService.gs`
-
-Hojas creadas o verificadas:
-
-- `CONFIG`
-- `USERS`
-- `AI_PROVIDERS`
-- `PROMPTS`
-- `AGENTS`
-- `AGENT_EXECUTIONS`
-- `PROJECTS`
-- `DOCUMENTS`
-- `INTERVIEWS`
-- `NOTES`
-- `NORMALIZED_DOCUMENTS`
-- `BUSINESS_KNOWLEDGE_PACKAGES`
-- `KNOWLEDGE_PACKAGES`
-- `CONTEXT_GRAPHS`
-- `PROCESS_MODELS`
-- `OPERATIONAL_DATA`
-- `VSM_MAPS`
-- `VSM_ACTIVITY_DATA`
-- `VSM_METRICS`
-- `TRANSFORMATION_OBSERVATIONS`
-- `REQUIREMENTS_PACKAGES`
-- `LEAN_ASSESSMENTS`
-- `TOC_ASSESSMENTS`
-- `AUTOMATION_AI_OPPORTUNITIES`
-- `TO_BE_PACKAGES`
-- `BUSINESS_CASE_PACKAGES`
-- `ROADMAP_PACKAGES`
-- `EXECUTIVE_REPORT_PACKAGES`
-- `PROJECT_TRANSFORMATION_STATUS`
-
 Estado:
 
-- Script generado.
-- Validacion real en Google pendiente.
+- Inicializado correctamente.
+- 29 hojas creadas automaticamente.
+- Validaciones basicas creadas por script de inicializacion.
+
+Inicializador:
+
+- `initializeOperationalIntelligenceSheets(spreadsheetId)`.
 
 ## Estado de Google Drive
 
 Google Drive definido como repositorio documental.
 
-Inicializador disponible:
-
-- `initializeOperationalIntelligenceDrive(rootFolderName)`
-
-Archivo:
-
-- `backend/apps-script/services/DriveDeploymentService.gs`
-
 Estado:
 
-- Script generado.
-- Validacion real en Google pendiente.
+- Inicializado correctamente.
+- Estructura documental creada dentro de una carpeta padre configurable.
+- Correccion aplicada para utilizar `DriveApp.getFolderById(parentFolderId)`.
+- No debe crearse ninguna carpeta cuyo nombre sea el ID de la carpeta padre.
+
+Inicializador:
+
+- `initializeOperationalIntelligenceDrive(parentFolderId)`.
 
 ## Estado de GitHub
 
@@ -246,9 +233,11 @@ Repositorio remoto oficial:
 
 `https://github.com/joseluisfernandeze-cmyk/transformacion_ia.git`
 
-Flujo obligatorio:
+Estado:
 
-- `feature/sprint-XX` -> desarrollo -> pruebas -> commit -> merge a `develop` -> push -> aprobacion -> merge a `main` -> tag `v0.X.X`.
+- Repositorio inicializado.
+- Repositorio sincronizado con GitHub.
+- Flujo profesional de desarrollo vigente.
 
 ## Rama actual
 
@@ -256,29 +245,56 @@ Flujo obligatorio:
 
 ## Ultimo Commit
 
-`e4eb613 actualizacion`
+Pendiente de registrar despues del commit de documentacion.
 
 ## Ultimo Tag
 
 No existe tag registrado.
 
+## Bugs encontrados y estado
+
+### Bug 1
+
+Bug:
+
+`DriveDeploymentService` interpretaba `parentFolderId` como nombre de carpeta.
+
+Estado:
+
+Corregido.
+
+### Bug 2
+
+Bug:
+
+`app-shell.js` utilizaba `appName` y `appVersion` mientras `APP_CONFIG` utilizaba `APP_NAME` y `VERSION`.
+
+Estado:
+
+Corregido.
+
 ## Riesgos abiertos
 
-- Despliegue Apps Script no validado aun contra entorno Google real.
-- Inicializadores Sheets/Drive requieren permisos de Google.
+- Validacion end-to-end aun en progreso.
+- Riesgo de incompatibilidad entre modulos legacy y nueva estructura `APP_CONFIG`.
+- Necesidad de confirmar todos los flujos reales contra Apps Script, Sheets y Drive.
 - API Keys deben mantenerse fuera del frontend y del repositorio.
 - Persistencia real completa sigue pendiente para varios studios.
-- AI real requiere configuracion correcta de proveedores, prompts y agentes.
 - Exportaciones fisicas aun no implementadas.
 
 ## Deuda tecnica
 
-- Crear pruebas automatizadas mas amplias.
-- Validar contratos API contra despliegue Apps Script real.
-- Consolidar persistencia real de todos los paquetes y studios.
-- Crear tags oficiales al aprobar releases.
-- Mantener sincronizados `PROJECT_BASELINE.md` y `docs/00_PROJECT_CONTEXT/CURRENT_STATE.md` al cierre de cada Sprint.
+- Completar migracion de consumidores frontend hacia `APP_CONFIG.API.BASE_URL` cuando se autorice tocar codigo funcional relacionado.
+- Automatizar pruebas frontend.
+- Crear pruebas Apps Script ejecutables.
+- Estandarizar migracion de `localStorage` a repositorios Apps Script.
+- Agregar versionamiento formal de paquetes.
+- Validar seguridad de sesiones en despliegue real.
 
 ## Bloqueos actuales
 
-No hay bloqueos tecnicos locales. El siguiente bloqueo natural es externo: ejecutar el despliegue en una cuenta Google real y configurar credenciales IA reales sin exponer secretos.
+El desarrollo funcional esta congelado temporalmente.
+
+Antes de agregar nuevas funcionalidades se debe completar la validacion:
+
+`Frontend -> Apps Script -> Google Sheets -> Google Drive`.
