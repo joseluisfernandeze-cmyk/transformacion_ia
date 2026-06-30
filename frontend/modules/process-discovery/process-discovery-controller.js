@@ -1,4 +1,8 @@
 window.ProcessDiscoveryController = Object.seal({
+  root: null,
+  session: null,
+  state: null,
+
   init(rootSelector, session) {
     this.root = window.DomUtils.selectElement(rootSelector);
     this.session = session;

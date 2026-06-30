@@ -10,35 +10,29 @@
 
 ## Sprint actualmente en desarrollo
 
-Ninguno. El siguiente desarrollo requiere autorizacion explicita.
+`Sprint INT-01 - Platform Integration & First Execution`
 
 ## Proximo Sprint
 
-Pendiente de definicion por el Product Owner.
+Primer despliegue controlado en Google Apps Script, Google Sheets y Google Drive, despues de aprobar y commitear INT-01.
 
 ## Funcionalidades implementadas
 
 - Application Shell navegable desde `frontend/index.html`.
-- Header.
+- Dashboard.
 - Sidebar.
 - Workspace.
 - Breadcrumb.
 - Footer.
-- Dashboard.
 - Navegacion por rutas hash.
 - Navegacion end-to-end del MVP.
 - Gestion local de proyectos.
-- Proyectos recientes.
-- Botones Anterior y Siguiente.
-- Guardado de borradores locales.
-- Continuar proyecto.
-- Indicador de progreso.
-- Bloqueo de etapas no completadas.
 - Persistencia temporal encapsulada en `localStorage`.
 - Business Discovery Experience.
 - Context Builder / Discovery Workspace.
 - Context Builder Agent base.
 - Knowledge Package base.
+- Business Knowledge Package base.
 - Context Graph base.
 - Process Discovery Consultant base.
 - Process Modeling Studio.
@@ -46,72 +40,37 @@ Pendiente de definicion por el Product Owner.
 - Process Data Collection Studio.
 - Intelligent VSM Studio.
 - Transformation Workshop.
-- Lean Transformation Consultant.
-- Lean Assessment Package.
-- Lean Assessment Package profesional con resumen ejecutivo y diagnostico consolidado.
-- Comprension Lean por actividad.
-- Diagnostico de valor agregado VA/NNVA/NVA.
-- Evaluacion explicita de ocho desperdicios Lean como existe, no existe o evidencia insuficiente.
-- Causa probable por desperdicio cuando existe evidencia.
-- Quick Wins Lean.
-- Oportunidades Lean categorizadas.
-- Preguntas de aclaracion Lean por informacion insuficiente.
-- Consulting Decision Framework.
-- Decision trace reutilizable para Consultores Digitales.
-- Nueve etapas metodologicas obligatorias para razonamiento consultivo.
-- TOC Transformation Consultant.
-- TOC Assessment Package.
-- Deteccion de restricciones fisicas, capacidad, politica, informacion y tecnologia.
-- Deteccion de cuellos de botella.
-- Dependencias criticas.
-- Acciones TOC: explotar, subordinar, elevar y reevaluar.
-- Automation & AI Transformation Consultant.
-- Automation & AI Opportunity Package.
-- Clasificacion de potencial de automatizacion por actividad.
-- Evaluacion de oportunidades IA: OCR, clasificacion, extraccion documental, generacion, asistentes, prediccion, recomendacion, anomalias, vision artificial e IA conversacional.
-- Identificacion de requisitos, integraciones, riesgos tecnicos y complejidad.
-- Estimacion de beneficios esperados cuando existen tiempos y frecuencia.
-- Quick Wins digitales.
-- Preguntas de aclaracion por informacion insuficiente.
-- To-Be Designer.
-- To-Be Package.
-- Process Model To-Be.
-- Evaluacion de mantener, eliminar, simplificar, automatizar, incorporar IA, reordenar, paralelizar y centralizar/descentralizar.
-- Comparativo As-Is vs To-Be.
-- Justificacion de cambios con evidencia.
-- Riesgos y preguntas pendientes del diseno futuro.
-- Business Case Generator.
-- Business Case Package.
-- Beneficios operacionales, economicos y estrategicos.
-- Costos estimados de desarrollo, automatizacion, IA, capacitacion, cambio, licencias e infraestructura.
-- ROI, Payback y relacion beneficio/esfuerzo cuando existen datos suficientes.
-- Priorizacion de iniciativas como Quick Win, Corto Plazo, Mediano Plazo y Largo Plazo.
-- Riesgos, supuestos y preguntas pendientes del caso de negocio.
-- Transformation Roadmap Generator.
-- Roadmap Package.
-- Fases de implementacion por horizonte.
-- Iniciativas priorizadas con responsable, area, esfuerzo, complejidad, dependencias, riesgos y confianza.
-- Recursos requeridos por areas, roles y equipos.
-- Secuencia logica de ejecucion sin fechas calendario ni Gantt.
-- Riesgos, supuestos y preguntas pendientes del Roadmap.
-- Executive Report Generator.
-- Executive Report Package.
-- Modelo interno de informe ejecutivo profesional.
-- Consolidacion de Resumen Ejecutivo, Situacion Actual, Diagnostico, To-Be, Business Case, Roadmap, Riesgos, Recomendaciones y Preguntas Pendientes.
-- Arquitectura preparada para futura exportacion a PDF, Word y PowerPoint sin exportacion fisica implementada.
-- Methodology Orchestrator.
 - Requirements Discovery Consultant.
+- Lean Transformation Consultant.
+- TOC Transformation Consultant.
+- Automation & AI Transformation Consultant.
+- To-Be Designer.
+- Business Case Generator.
+- Transformation Roadmap Generator.
+- Executive Report Generator.
+- Methodology Orchestrator.
+- Consulting Decision Framework.
 - AI & Security Foundation.
 - AIService.
-- AIProviderClient con arquitectura de proveedores.
+- AIProviderClient con proveedores intercambiables.
 - Agent Registry.
 - Agent Orchestrator.
 - VSM Builder base.
 - Calculation Engine.
 - Transformation Intelligence Engine interno.
+- Inicializador Google Sheets para primera ejecucion.
+- Inicializador Google Drive para primera ejecucion.
+- Guia de despliegue.
+- Guia de primera ejecucion.
+- Reporte de integracion INT-01.
 
 ## Funcionalidades pendientes
 
+- Publicacion real como Google Apps Script Web App.
+- Validacion real de Google Sheets inicializado desde Apps Script.
+- Validacion real de Google Drive inicializado desde Apps Script.
+- Configuracion real de `AI_PROVIDERS`, `PROMPTS` y `AGENTS`.
+- Pruebas end-to-end con backend publicado.
 - Exportacion fisica a PDF.
 - Exportacion fisica a Word.
 - Exportacion fisica a PowerPoint.
@@ -121,8 +80,7 @@ Pendiente de definicion por el Product Owner.
 - OCR real.
 - Extraccion avanzada de imagenes.
 - Conectores documentales avanzados.
-- Integracion completa de persistencia real para todos los studios.
-- Despliegue productivo completo en Google Apps Script.
+- Persistencia real completa para todos los studios.
 
 ## Estado del Core
 
@@ -149,37 +107,40 @@ No deben agregarse nuevos componentes Core sin aprobacion explicita.
 
 ## Estado del Frontend
 
-Frontend funcional con HTML, CSS y JavaScript sin frameworks.
+Frontend funcional con HTML, CSS y JavaScript sin frameworks ni npm.
 
 Entrada principal:
 
 - `frontend/index.html`.
-- `frontend/shared/services/consulting-decision-framework.js`.
 
-Rutas visibles:
+Rutas validadas en Sprint INT-01:
 
-- `#/dashboard`.
-- `#/projects`.
-- `#/business-discovery`.
-- `#/context-builder`.
-- `#/process-discovery`.
-- `#/process-modeling`.
-- `#/process-validation`.
-- `#/process-data-collection`.
-- `#/intelligent-vsm`.
-- `#/transformation-workshop`.
-- `#/lean-consultant`.
-- `#/toc-consultant`.
-- `#/automation-ai`.
-- `#/to-be-designer`.
-- `#/business-case`.
-- `#/roadmap`.
-- `#/executive-report`.
-- `#/methodology-orchestrator`.
+- `#/dashboard`
+- `#/projects`
+- `#/business-discovery`
+- `#/context-builder`
+- `#/process-discovery`
+- `#/process-modeling`
+- `#/process-validation`
+- `#/process-data-collection`
+- `#/intelligent-vsm`
+- `#/transformation-workshop`
+- `#/lean-consultant`
+- `#/toc-consultant`
+- `#/automation-ai`
+- `#/to-be-designer`
+- `#/business-case`
+- `#/roadmap`
+- `#/executive-report`
+- `#/methodology-orchestrator`
 
-Rutas futuras como proximamente:
+Estado INT-01:
 
-No hay rutas futuras configuradas en la metodologia principal actual.
+- 71 scripts referenciados desde `index.html`.
+- 0 scripts faltantes.
+- Sintaxis JavaScript validada.
+- Navegacion validada en navegador desde `http://127.0.0.1:4183/index.html`.
+- Sin errores nuevos de consola en puerto limpio.
 
 ## Estado del Backend
 
@@ -189,73 +150,95 @@ Entrada:
 
 - `backend/apps-script/Code.gs`.
 
+Acciones existentes:
+
+- `login`
+- `logout`
+- `validateSession`
+- `executeAgent`
+- acciones VSM definidas en `VSM_ROUTE_ACTIONS`
+
 Capas existentes:
 
-- config;
-- controllers;
-- models;
-- repositories;
-- services;
-- utils;
-- validators.
+- `config`
+- `controllers`
+- `repositories`
+- `services`
+- `utils`
+- `validators`
 
-Servicios relevantes:
+Servicios agregados en INT-01:
 
-- `AgentOrchestratorService.gs`.
-- `AgentRegistryService.gs`.
-- `AIService.gs`.
-- `AuthService.gs`.
-- `ContextBuilderAgent.gs`.
-- `ContextGraphService.gs`.
-- `DocumentIntelligenceLayer.gs`.
-- `SessionService.gs`.
-- `VsmService.gs`.
+- `SheetsDeploymentService.gs`
+- `DriveDeploymentService.gs`
+
+Estos servicios son utilidades manuales de despliegue. No exponen APIs nuevas.
 
 ## Estado de Google Sheets
 
 Google Sheets definido como base operativa del MVP.
 
-Hojas documentadas o esperadas:
+Inicializador disponible:
 
-- USERS.
-- AI_PROVIDERS.
-- PROMPTS.
-- AGENTS.
-- AGENT_EXECUTIONS.
-- NORMALIZED_DOCUMENTS.
-- KNOWLEDGE_PACKAGES.
-- CONTEXT_GRAPHS.
-- VSM_MAPS.
-- VSM_ACTIVITY_DATA.
-- VSM_METRICS.
-- PROCESS_MODELS.
-- OPERATIONAL_DATA.
-- REQUIREMENTS_PACKAGES.
-- TRANSFORMATION_OBSERVATIONS.
-- TRANSFORMATION_OPPORTUNITIES.
-- PROJECT_TRANSFORMATION_STATUS.
+- `initializeOperationalIntelligenceSheets(spreadsheetId)`
 
-Persistencia real completa pendiente para algunos studios.
+Archivo:
+
+- `backend/apps-script/services/SheetsDeploymentService.gs`
+
+Hojas creadas o verificadas:
+
+- `CONFIG`
+- `USERS`
+- `AI_PROVIDERS`
+- `PROMPTS`
+- `AGENTS`
+- `AGENT_EXECUTIONS`
+- `PROJECTS`
+- `DOCUMENTS`
+- `INTERVIEWS`
+- `NOTES`
+- `NORMALIZED_DOCUMENTS`
+- `BUSINESS_KNOWLEDGE_PACKAGES`
+- `KNOWLEDGE_PACKAGES`
+- `CONTEXT_GRAPHS`
+- `PROCESS_MODELS`
+- `OPERATIONAL_DATA`
+- `VSM_MAPS`
+- `VSM_ACTIVITY_DATA`
+- `VSM_METRICS`
+- `TRANSFORMATION_OBSERVATIONS`
+- `REQUIREMENTS_PACKAGES`
+- `LEAN_ASSESSMENTS`
+- `TOC_ASSESSMENTS`
+- `AUTOMATION_AI_OPPORTUNITIES`
+- `TO_BE_PACKAGES`
+- `BUSINESS_CASE_PACKAGES`
+- `ROADMAP_PACKAGES`
+- `EXECUTIVE_REPORT_PACKAGES`
+- `PROJECT_TRANSFORMATION_STATUS`
+
+Estado:
+
+- Script generado.
+- Validacion real en Google pendiente.
 
 ## Estado de Google Drive
 
 Google Drive definido como repositorio documental.
 
-Estructura documentada en:
+Inicializador disponible:
 
-- `drive/structure/google-drive-structure.md`.
+- `initializeOperationalIntelligenceDrive(rootFolderName)`
 
-Uso previsto:
+Archivo:
 
-- documentos originales;
-- documentos normalizados;
-- entrevistas;
-- notas;
-- evidencias;
-- anexos;
-- entregables generados.
+- `backend/apps-script/services/DriveDeploymentService.gs`
 
-Integracion real completa pendiente para operaciones documentales avanzadas.
+Estado:
+
+- Script generado.
+- Validacion real en Google pendiente.
 
 ## Estado de GitHub
 
@@ -273,8 +256,7 @@ Flujo obligatorio:
 
 ## Ultimo Commit
 
-`7ef50d4 Contexto`  
-Sprint 18 pendiente de commit.
+`e4eb613 actualizacion`
 
 ## Ultimo Tag
 
@@ -282,23 +264,21 @@ No existe tag registrado.
 
 ## Riesgos abiertos
 
-- Diferencia potencial entre prototipos frontend y persistencia real en Google Sheets.
-- Integraciones reales de Google Drive pendientes de validacion end-to-end.
-- OCR y extraccion avanzada aun no implementados.
-- Riesgo de crecimiento de modulos frontend si no se mantiene disciplina de reutilizacion.
-- Necesidad de pruebas end-to-end con Apps Script desplegado.
-- Necesidad de validar seguridad real de sesiones y claves IA en entorno Google.
-- Necesidad de adoptar progresivamente `decisionTrace` en todos los consultores futuros.
+- Despliegue Apps Script no validado aun contra entorno Google real.
+- Inicializadores Sheets/Drive requieren permisos de Google.
+- API Keys deben mantenerse fuera del frontend y del repositorio.
+- Persistencia real completa sigue pendiente para varios studios.
+- AI real requiere configuracion correcta de proveedores, prompts y agentes.
+- Exportaciones fisicas aun no implementadas.
 
 ## Deuda tecnica
 
-- Completar cobertura de pruebas automatizadas donde aplique.
-- Consolidar persistencia real de todos los paquetes y studios.
+- Crear pruebas automatizadas mas amplias.
 - Validar contratos API contra despliegue Apps Script real.
-- Crear tags oficiales de version cuando se aprueben releases.
-- Mantener sincronizados `PROJECT_BASELINE.md` y `docs/00_PROJECT_CONTEXT/CURRENT_STATE.md` al cierre de Sprints.
-- Refactorizar consultores existentes para consumir completamente el Consulting Decision Framework cuando se aborde su siguiente evolucion funcional.
+- Consolidar persistencia real de todos los paquetes y studios.
+- Crear tags oficiales al aprobar releases.
+- Mantener sincronizados `PROJECT_BASELINE.md` y `docs/00_PROJECT_CONTEXT/CURRENT_STATE.md` al cierre de cada Sprint.
 
 ## Bloqueos actuales
 
-No hay bloqueos tecnicos registrados para continuar. El siguiente desarrollo requiere autorizacion explicita del Sprint correspondiente.
+No hay bloqueos tecnicos locales. El siguiente bloqueo natural es externo: ejecutar el despliegue en una cuenta Google real y configurar credenciales IA reales sin exponer secretos.

@@ -1,4 +1,4 @@
-window.VsmBuilderController = Object.freeze({
+window.VsmBuilderController = Object.seal({
   dragState: null,
 
   init(containerSelector) {
@@ -106,4 +106,3 @@ window.VsmBuilderController = Object.freeze({
     this.render(container);
   }
 });
-

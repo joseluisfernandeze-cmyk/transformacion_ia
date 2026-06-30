@@ -1,4 +1,7 @@
-window.AiSecurityController = Object.freeze({
+window.AiSecurityController = Object.seal({
+  root: null,
+  renderProductShell: null,
+
   init(rootSelector, renderProductShell) {
     this.root = window.DomUtils.selectElement(rootSelector);
     this.renderProductShell = renderProductShell;
@@ -44,7 +47,9 @@ window.AiSecurityController = Object.freeze({
   },
 
   renderAuthenticated(session) {
-    this.renderProductShell();
+    if (typeof this.renderProductShell === "function") {
+      this.renderProductShell();
+    }
 
     if (window.APP_CONFIG.apiBaseUrl) {
       const main = window.DomUtils.selectElement("#main-content");

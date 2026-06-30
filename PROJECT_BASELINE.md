@@ -1,341 +1,210 @@
 # PROJECT BASELINE - Operational Intelligence Platform
 
-Fecha de línea base: 2026-06-28  
+Fecha de linea base: 2026-06-30  
 Repositorio local: `C:\Users\josh_\Documents\GitHub\transformacion_ia`  
 Repositorio remoto: `https://github.com/joseluisfernandeze-cmyk/transformacion_ia.git`  
-Rama de trabajo esperada: `develop`  
-Último commit base conocido: `25b19a4 Initial Architecture Freeze - Operational Intelligence Platform`
+Rama de trabajo: `develop`  
+Ultimo commit conocido antes de INT-01: `e4eb613 actualizacion`
 
-Este documento es la línea base oficial de la plataforma y debe actualizarse al finalizar cada Sprint.
+Este documento es la linea base oficial de la plataforma y debe actualizarse al finalizar cada Sprint.
 
-## 1. Resumen del Proyecto
+## 1. Resumen del proyecto
 
-### Objetivo
+Process Transformation AI es la primera solucion de Operational Intelligence Platform, una plataforma modular de inteligencia operacional para transformar procesos con una metodologia consultiva, evidencia trazable, modelos de proceso, VSM, consultores digitales y paquetes reutilizables de conocimiento.
 
-Construir una plataforma profesional de inteligencia operacional reutilizable, orientada inicialmente a transformación de procesos y preparada para soportar múltiples soluciones sobre un mismo Core.
+Estado actual:
 
-La solución inicial es **Process Transformation AI**, evolucionando hacia **Operational Intelligence Platform**.
-
-### Estado Actual
-
-La plataforma cuenta con:
-
-- Core conceptual congelado.
+- Arquitectura del Core congelada.
+- Frontend modular ejecutable desde `frontend/index.html`.
 - Backend base en Google Apps Script.
-- Frontend modular en HTML, CSS y JavaScript puro.
-- Modelo operativo local basado en `localStorage`.
-- Primeras experiencias de consultoría implementadas.
-- Primer consultor funcional de descubrimiento de procesos.
-- Studio visual para edición As-Is.
-- Studio de validación del proceso antes de análisis posteriores.
-- Base de VSM Builder existente, aún no integrada como experiencia posterior al quality gate.
-- Repositorio Git/GitHub profesionalizado.
+- Google Sheets definido como base operativa.
+- Google Drive definido como repositorio documental.
+- MVP navegable end-to-end en modo local.
+- Consultores digitales principales de transformacion implementados en modo local.
+- Scripts de inicializacion para Google Sheets y Google Drive generados en INT-01.
+- Guias de despliegue y primera ejecucion creadas.
 
-### Arquitectura
+Arquitectura:
 
-Arquitectura modular basada en:
+- Frontend HTML, CSS y JavaScript puro.
+- Backend Google Apps Script.
+- Persistencia operativa Google Sheets.
+- Repositorio documental Google Drive.
+- Repositorio codigo GitHub.
+- Core compartido por soluciones.
+- Studios y Consultores Digitales sobre Core congelado.
+- AIService y AIProviderClient con proveedores intercambiables.
+- Prompt Repository y Agent Registry.
+- Methodology Orchestrator como coordinador de la metodologia.
 
-- Frontend modular por experiencias.
-- Backend Apps Script por controladores, servicios, repositorios, validadores y utilidades.
-- Google Sheets como base operativa.
-- Google Drive como repositorio documental.
-- Agent Orchestrator y Agent Registry.
-- AIService con proveedores intercambiables.
-- Prompt Repository.
-- Knowledge Package.
-- Business Knowledge Package.
-- Context Graph.
-- Process Model.
-- Calculation Engine.
-
-## 2. Estructura Completa de Carpetas
+## 2. Estructura de carpetas principal
 
 ```text
 transformacion_ia/
-  .agents/
-  .git/
   .gitignore
-  PROJECT_BASELINE.md
   README.md
+  PROJECT_BASELINE.md
+  DEPLOYMENT_CHECKLIST.md
+  FIRST_EXECUTION_GUIDE.md
+  INTEGRATION_REPORT.md
   backend/
     apps-script/
       Code.gs
       config/
-        .gitkeep
-        AISheetsConfig.gs
-        SecurityConfig.gs
-        VsmRoutesConfig.gs
       controllers/
-        .gitkeep
-        AIController.gs
-        AuthController.gs
-        VsmController.gs
       models/
-        .gitkeep
       repositories/
-        .gitkeep
-        AgentExecutionRepository.gs
-        AgentRepository.gs
-        AIProviderRepository.gs
-        ContextGraphRepository.gs
-        DocumentIntelligenceRepository.gs
-        KnowledgePackageRepository.gs
-        PromptRepository.gs
-        SheetRepository.gs
-        UserRepository.gs
-        VsmRepository.gs
       services/
-        .gitkeep
-        AgentOrchestratorService.gs
-        AgentRegistryService.gs
-        AIService.gs
-        AuthService.gs
-        ContextBuilderAgent.gs
-        ContextGraphService.gs
-        DocumentIntelligenceLayer.gs
-        SessionService.gs
-        VsmService.gs
       utils/
-        .gitkeep
-        AIProviderClient.gs
-        ApiResponse.gs
-        AppError.gs
-        HashUtils.gs
-        RequestParser.gs
       validators/
-        .gitkeep
-        AIValidator.gs
-        AuthValidator.gs
-        ContextBuilderValidator.gs
-        VsmValidator.gs
   database/
     catalogs/
-      .gitkeep
     samples/
-      .gitkeep
     sheets-design/
-      .gitkeep
-      ai-security-data-model.md
-      context-builder-agent-data-model.md
-      vsm-data-model.md
-      vsm-sheet-structure.md
   docs/
+    00_MASTER_PROJECT/
+    00_PROJECT_CONTEXT/
     architecture/
-      .gitkeep
     deployment/
-      .gitkeep
     product/
-      roadmap.md
     technical/
-      context-builder-agent-tdd.md
-      pb01-technical-design.md
-      pb08-technical-design.md
-      pb11-technical-design.md
-      project-charter-summary.md
     testing/
-      .gitkeep
-      context-builder-agent-test-plan.md
-      pb08-test-plan.md
-      pb11-test-plan.md
   drive/
     structure/
-      google-drive-structure.md
   frontend/
     index.html
     assets/
-      css/
-        components.css
-        layout.css
-        main.css
-        responsive.css
-      js/
-        app.js
     config/
-      app-config.js
     modules/
-      .gitkeep
-      ai-security/
-        ai-security-controller.js
-        ai-security-renderer.js
-        ai-security-service.js
-      business-discovery/
-        business-discovery-controller.js
-        business-discovery-renderer.js
-        business-discovery-service.js
-      context-builder/
-        context-builder-controller.js
-        context-builder-renderer.js
-        context-builder-service.js
-      process-discovery/
-        process-discovery-controller.js
-        process-discovery-renderer.js
-        process-discovery-service.js
-      process-modeling-studio/
-        process-modeling-studio-controller.js
-        process-modeling-studio-renderer.js
-        process-modeling-studio-service.js
-      process-validation-studio/
-        process-validation-studio-controller.js
-        process-validation-studio-renderer.js
-        process-validation-studio-service.js
-      vsm-builder/
-        vsm-builder-calculator.js
-        vsm-builder-controller.js
-        vsm-builder-page.js
-        vsm-builder-renderer.js
-        vsm-builder-service.js
-        vsm-builder-state.js
-        vsm-builder-validator.js
     shared/
-      components/
-        app-shell.js
-      constants/
-        app-constants.js
-      services/
-        api-client.js
-        calculation-engine.js
-      utils/
-        dom-utils.js
   tests/
     backend/
-      .gitkeep
     frontend/
-      .gitkeep
     integration/
-      .gitkeep
 ```
 
-## 3. Componentes Implementados
+## 3. Componentes implementados
 
 ### Frontend
 
-- App Shell.
+- Application Shell.
+- Dashboard.
+- Gestion de proyectos local.
+- Workspace.
+- Sidebar y navegacion por rutas hash.
 - API Client.
 - DOM Utils.
+- MVP Navigation Store.
+- Consulting Decision Framework.
 - Calculation Engine.
+- Transformation Intelligence Engine.
 - AI Security module.
-- Business Discovery Experience.
-- Context Builder Workspace.
-- Discovery Workspace.
-- Process Discovery Consultant.
-- Process Modeling Studio / As-Is Studio.
+- Business Discovery.
+- Context Builder.
+- Process Discovery.
+- Process Modeling Studio.
 - Process Validation Studio.
-- VSM Builder base module.
 - Process Data Collection Studio.
 - Intelligent VSM Studio.
 - Transformation Workshop.
-- Requirements Discovery Consultant.
-- Transformation Intelligence Engine.
-- Methodology Orchestrator / Case Runner.
+- Requirements Discovery.
+- Lean Consultant.
+- TOC Consultant.
+- Automation & AI Consultant.
+- To-Be Designer.
+- Business Case Generator.
+- Roadmap Generator.
+- Executive Report Generator.
+- Methodology Orchestrator.
+- VSM Builder base.
 
 ### Backend Apps Script
 
 - `doGet`.
 - `doPost`.
-- Request routing.
+- Router centralizado.
+- API response estandar.
+- Error utilities.
+- Request parser.
 - Auth controller/service.
-- AI controller.
+- AI controller/service.
+- AIProviderClient.
 - Agent Orchestrator.
 - Agent Registry.
 - Context Builder Agent.
 - Document Intelligence Layer.
 - Context Graph Service.
-- VSM service/controller.
-- Sheet repositories.
-- AI Provider Client.
-- Standard API responses.
-- Standard error utilities.
-- Validators.
+- Session Service.
+- VSM controller/service.
+- Repositories para usuarios, proveedores IA, prompts, agentes, ejecuciones, paquetes de conocimiento, contexto documental, grafo y VSM.
+- Validators para autenticacion, IA, Context Builder y VSM.
+- Inicializador Google Sheets.
+- Inicializador Google Drive.
 
-### Data and Documentation
-
-- Google Sheets design documents.
-- Google Drive structure document.
-- TDDs and test plans for implemented PBs.
-- Product roadmap document.
-- Project README.
-- Git ignore policy.
-
-## 4. Product Backlogs Implementados
+## 4. Product Backlogs y Sprints
 
 | PB / Sprint | Estado | Comentario |
 |---|---|---|
-| PB01 - Product Foundation | Completo | Estructura base frontend/backend/documentación. |
-| PB02 - Modelo Maestro de Datos | Parcial | Diseñado documentalmente; estructuras reales en Sheets pendientes de provisionamiento completo. |
-| PB03 - Backend Base Apps Script | Parcial | Router, controladores y servicios base existen; despliegue real pendiente. |
-| PB05 - Captura Guiada | Parcial / absorbido | Funcionalidad evolucionada hacia Business Discovery y Context Builder. |
-| PB06 - Process Modeling Engine | Parcial | Modelo y studio visual local implementados; motor formal persistente pendiente. |
-| PB08 - VSM Builder | Parcial | Módulo base existe; falta integración posterior al quality gate. |
-| PB10 - Transformation Workspace | Parcial | Hay experiencias de workspace, falta workspace unificado con navegación completa. |
-| PB11 - AI & Security Foundation | Parcial | Login/roles/base AI existen; configuración real Sheets/proveedores pendiente. |
-| Sprint 1 - Context Builder Agent | Completo local / parcial backend | Agente y workspace local implementados; ejecución real IA depende de proveedor. |
-| Sprint 2 - Discovery Workspace | Completo local | Revisión/enriquecimiento de Knowledge Package en frontend. |
-| Sprint 3 - Business Discovery Experience | Completo local | Genera Business Knowledge Package y lo sincroniza con Context Builder. |
-| Sprint 4 - Process Discovery Consultant | Completo local | Genera Draft Process Model As-Is con evidencia y preguntas. |
-| Sprint 5 - Process Modeling Studio | Completo local | Studio visual editable con trazabilidad. |
-| Sprint 6 - Process Validation Studio | Completo local | Quality gate, Health Score y bloqueo inteligente. |
-| Sprint 8 - Requirements Discovery Consultant | Completo local | Genera Requirements Package para ERP Discovery. |
-| Sprint 8 - Process Data Collection Studio | Completo local | Enriquece actividades con datos operacionales. |
-| Sprint 9 - Transformation Intelligence Engine | Completo local | Servicio interno que genera Transformation Opportunity Package. |
-| Sprint 9 - Intelligent VSM Studio | Completo local | VSM vivo generado desde Process Model enriquecido. |
-| Sprint 10 - Transformation Workshop | Completo local | Genera Transformation Observation Package. |
-| Sprint 11 - Case Runner & Methodology Orchestrator | Completo local | Coordina flujo metodologico, aprobaciones, bloqueos y Project Transformation Status. |
+| PB01 - Product Foundation | Completo | Base inicial del proyecto. |
+| PB02 - Modelo Maestro de Datos | Parcial | Modelo definido; script de inicializacion Sheets creado en INT-01. |
+| PB03 - Backend Base Apps Script | Parcial | Backend estructural listo; despliegue real pendiente. |
+| PB05 - Captura Guiada | Absorbido | Evolucionado hacia Business Discovery y Context Builder. |
+| PB06 - Process Modeling Engine | Parcial | Studio local implementado; persistencia real pendiente. |
+| PB08 - VSM Builder | Parcial | Base VSM y Studio inteligente local implementados. |
+| PB10 - Transformation Workspace | Parcial | Workspace navegable implementado; integracion backend real pendiente. |
+| PB11 - AI & Security Foundation | Parcial | Base disponible; configuracion real pendiente. |
+| PB12A - Consulting Decision Framework | Completo | Metodologia reutilizable implementada/documentada. |
+| Sprint UI-01 | Completo | Shell y navegacion inicial. |
+| Sprint UI-02 | Completo | MVP navegable con persistencia local. |
+| Sprint 1 a Sprint 18 | Completo local / parcial backend | Consultores, studios y paquetes principales implementados en modo local. |
+| Sprint INT-01 | En cierre | Integracion, scripts de despliegue y documentacion de primera ejecucion. |
 
-## 5. Consultores Digitales Implementados
+## 5. Consultores Digitales implementados
 
-| Consultor Digital | Estado | Nivel de avance |
-|---|---|---|
-| Context Builder Agent | Implementado | Backend Apps Script + frontend local; IA real depende de proveedor configurado. |
-| Process Discovery Consultant | Implementado local | Genera Draft Process Model desde paquetes de conocimiento. |
-| Business Discovery Consultant Experience | Implementado local | Genera Business Knowledge Package validable. |
-| Process Modeling Studio Consultant | Implementado local | Permite edición visual, evidencia y trazabilidad. |
-| Process Validation Consultant | Implementado local | Evalúa calidad y bloquea análisis posteriores. |
-| Requirements Discovery Consultant | Implementado local | Identifica y estructura requerimientos ERP con evidencia. |
-| Transformation Workshop Facilitator | Implementado local | Captura observaciones, evidencias y preguntas del taller. |
-| Methodology Orchestrator | Implementado local | Coordina la secuencia metodologica y aprobaciones; no ejecuta analisis. |
-| Lean Analyzer Agent | Pendiente | No implementado. |
-| TOC Analyzer Agent | Pendiente | No implementado. |
-| Automation Advisor Agent | Pendiente | No implementado. |
-| AI Opportunity Agent | Pendiente | No implementado. |
-| Innovation Agent | Pendiente | No implementado. |
-| To-Be Designer Agent | Pendiente | No implementado. |
-| Business Case Agent | Pendiente | No implementado. |
-| ERP Discovery Agent | Pendiente | No implementado. |
-| ERP RFP Builder Agent | Pendiente | No implementado. |
-| Knowledge Capture Agent | Pendiente | No implementado. |
-| Workload Analysis Agent | Pendiente | No implementado. |
+- Business Discovery Experience.
+- Context Builder Agent.
+- Process Discovery Consultant.
+- Requirements Discovery Consultant.
+- Lean Transformation Consultant.
+- TOC Transformation Consultant.
+- Automation & AI Transformation Consultant.
+- To-Be Designer.
+- Business Case Generator.
+- Transformation Roadmap Generator.
+- Executive Report Generator.
 
-## 6. Agentes Registrados
+Estado general:
 
-Registro implementado en `AgentRegistryService.gs`:
+- Implementados principalmente en modo frontend/local.
+- Preparados para integracion progresiva con Apps Script y Google Sheets.
+- Deben mantener AI Governance, Consulting Framework y Consulting Decision Framework.
+
+## 6. Agentes registrados
+
+Registrado en backend base:
 
 - `CONTEXT_BUILDER`
 
-Agentes conceptuales definidos pero no registrados como ejecución backend:
+Consultores disponibles en frontend/local:
 
-- Process Discovery Consultant.
-- Lean Analyzer Agent.
-- TOC Analyzer Agent.
-- Automation Advisor Agent.
-- AI Opportunity Agent.
-- Innovation Agent.
-- To-Be Designer Agent.
-- Business Case Agent.
-- ERP Discovery Agent.
-- ERP RFP Builder Agent.
-- Knowledge Capture Agent.
-- Workload Analysis Agent.
+- Process Discovery.
+- Requirements Discovery.
+- Lean.
+- TOC.
+- Automation & AI.
+- To-Be.
+- Business Case.
+- Roadmap.
+- Executive Report.
 
-## 7. APIs Existentes
+## 7. APIs existentes
 
-### Backend Apps Script
-
-Entrada:
+Entrada Apps Script:
 
 - `doGet(e)`
 - `doPost(e)`
 
-Acciones soportadas:
+Acciones existentes:
 
 - `login`
 - `logout`
@@ -350,59 +219,72 @@ Acciones soportadas:
 - `getVsmMetrics`
 - `archiveVsmMap`
 
-### Frontend
+Sprint INT-01 no agrego APIs nuevas.
 
-Servicio:
+## 8. Google Sheets utilizados
 
-- `ApiClient.post(action, payload)`
+Inicializador:
 
-Estado actual:
+- `backend/apps-script/services/SheetsDeploymentService.gs`
 
-- `APP_CONFIG.apiBaseUrl` está vacío en modo local.
-- La app funciona localmente sin backend desplegado.
+Funcion:
 
-## 8. Google Sheets Utilizados
+- `initializeOperationalIntelligenceSheets(spreadsheetId)`
 
-Hojas definidas o esperadas:
+Hojas incluidas:
 
+- `CONFIG`
 - `USERS`
 - `AI_PROVIDERS`
 - `PROMPTS`
 - `AGENTS`
-- `NORMALIZED_DOCUMENTS`
 - `AGENT_EXECUTIONS`
+- `PROJECTS`
+- `DOCUMENTS`
+- `INTERVIEWS`
+- `NOTES`
+- `NORMALIZED_DOCUMENTS`
+- `BUSINESS_KNOWLEDGE_PACKAGES`
 - `KNOWLEDGE_PACKAGES`
 - `CONTEXT_GRAPHS`
-- VSM sheets definidas en documentación de `database/sheets-design/`
+- `PROCESS_MODELS`
+- `OPERATIONAL_DATA`
+- `VSM_MAPS`
+- `VSM_ACTIVITY_DATA`
+- `VSM_METRICS`
+- `TRANSFORMATION_OBSERVATIONS`
+- `REQUIREMENTS_PACKAGES`
+- `LEAN_ASSESSMENTS`
+- `TOC_ASSESSMENTS`
+- `AUTOMATION_AI_OPPORTUNITIES`
+- `TO_BE_PACKAGES`
+- `BUSINESS_CASE_PACKAGES`
+- `ROADMAP_PACKAGES`
+- `EXECUTIVE_REPORT_PACKAGES`
+- `PROJECT_TRANSFORMATION_STATUS`
 
-Estado:
+## 9. Google Drive utilizado
 
-- Diseño documental existente.
-- Repositorios Apps Script preparados.
-- Provisionamiento real de Google Sheets pendiente de validación en entorno Google.
+Inicializador:
 
-## 9. Google Drive Utilizado
+- `backend/apps-script/services/DriveDeploymentService.gs`
 
-Documento de referencia:
+Funcion:
 
-- `drive/structure/google-drive-structure.md`
+- `initializeOperationalIntelligenceDrive(rootFolderName)`
 
-Uso esperado:
+Estructura base:
 
-- Documentos originales.
-- Documentos normalizados.
-- Evidencias.
-- Artefactos generados.
-- Estructura documental por proyecto.
+- `00_Admin`
+- `01_Projects/_TEMPLATE_PROJECT`
+- `02_Prompt-Repository`
+- `03_Templates`
+- `04_Exports`
+- `99_Archive`
 
-Estado:
+## 10. Configuracion IA
 
-- Estructura documentada.
-- Integración real con Drive pendiente.
-
-## 10. Configuración IA
-
-Componentes existentes:
+Componentes:
 
 - `AIService.gs`
 - `AIProviderClient.gs`
@@ -411,7 +293,7 @@ Componentes existentes:
 - `AgentRegistryService.gs`
 - `AgentOrchestratorService.gs`
 
-Proveedores contemplados:
+Proveedores soportados:
 
 - OpenAI.
 - Claude.
@@ -419,228 +301,143 @@ Proveedores contemplados:
 - DeepSeek.
 - Custom.
 
-Estado:
+Regla:
 
-- Arquitectura de proveedores intercambiables implementada a nivel base.
-- API keys no están en frontend.
-- Configuración real de proveedores en Google Sheets pendiente.
-- El modo local usa lógica determinística cuando no existe proveedor IA configurado.
+- La API Key nunca debe llegar al navegador ni subirse al repositorio.
 
 ## 11. Estado del Workspace
 
-Estado actual:
+Workspace navegable desde `frontend/index.html`.
 
-- Frontend carga una experiencia activa por Sprint desde `app.js`.
-- Sprint activo en UI: `Sprint 6 - Process Validation Studio`.
-- Existen módulos previos disponibles en código, pero no hay navegación global completa entre experiencias.
+Rutas principales validadas en INT-01:
 
-Pendiente:
-
-- Workspace unificado con navegación entre Business Discovery, Context Builder, Process Discovery, As-Is Studio, Validation Studio y futuros estudios.
+- Dashboard.
+- Proyectos.
+- Business Discovery.
+- Context Builder.
+- Process Discovery.
+- Process Modeling.
+- Process Validation.
+- Process Data Collection.
+- Intelligent VSM.
+- Transformation Workshop.
+- Lean.
+- TOC.
+- Automation & AI.
+- To-Be.
+- Business Case.
+- Roadmap.
+- Executive Report.
+- Methodology Orchestrator.
 
 ## 12. Estado del Process Engine
 
 Implementado localmente:
 
-- Draft Process Model.
-- Actividades con `activityUUID`.
-- Relaciones secuenciales.
-- Edición visual.
-- Agregar/eliminar/dividir/unir actividades.
-- Trazabilidad por evidencia.
-- Sincronización local con Knowledge Package.
-- Reconstrucción local del Context Graph.
+- Process Model.
+- Actividades con identificadores.
+- Edicion visual.
+- Evidencia.
+- Trazabilidad.
+- Validaciones.
+- Datos operacionales.
+- Integracion local con Knowledge Package y Context Graph.
 
 Pendiente:
 
-- Persistencia real en Google Sheets.
-- Versionamiento formal de Process Model en backend.
-- Conectores backend para Process Model.
-- Navegación y estados aprobados/consolidados.
+- Persistencia real completa y versionamiento formal backend.
 
 ## 13. Estado del VSM
 
 Implementado:
 
-- Módulo base VSM Builder.
-- Calculation Engine base.
-- Contratos y repositorios VSM en Apps Script.
-- Rutas VSM en backend.
+- VSM Builder base.
+- Intelligent VSM Studio.
+- Metricas basicas.
+- Integracion local con Process Model enriquecido.
 
-No implementado todavía:
+Pendiente:
 
-- VSM Studio como experiencia posterior al quality gate.
-- Generación automática desde As-Is validado.
-- Integración final con Process Validation Studio.
-- Lean/TOC sobre VSM.
+- Validacion end-to-end contra Sheets y Apps Script real.
 
 ## 14. Estado del Knowledge Package
 
 Implementado:
 
-- Knowledge Package creado por Context Builder.
-- Business Knowledge Package creado por Business Discovery.
-- Sincronización local entre Business Knowledge Package y Context Builder.
-- Actualización local de actividades desde Process Discovery y Modeling Studio.
+- Business Knowledge Package.
+- Knowledge Package.
+- Actualizacion local desde experiences/studios.
+- Consumo por consultores locales.
 
 Pendiente:
 
-- Persistencia real completa en Google Sheets.
-- Versionamiento formal visible en UI.
-- Aprobación humana formal del Knowledge Package.
+- Versionamiento real completo en backend.
+- Persistencia Sheets end-to-end.
 
 ## 15. Estado del Context Graph
 
 Implementado:
 
-- `ContextGraphService.gs`.
-- `ContextGraphRepository.gs`.
-- Context Graph local generado desde Knowledge Package.
-- Reconstrucción local tras cambios del Process Model.
+- Context Graph base.
+- Repositories/Service backend base.
+- Actualizacion local vinculada a Knowledge Package y Process Model.
 
 Pendiente:
 
-- Visualización dedicada del grafo.
-- Persistencia real en Google Sheets.
-- Relaciones más ricas entre procesos, actividades, documentos, sistemas, personas, reglas e indicadores.
+- Persistencia real validada.
+- Visualizacion dedicada.
 
-## 16. Roadmap Actualizado
+## 16. Roadmap actualizado
 
-Secuencia recomendada desde la línea base:
+1. Cerrar Sprint INT-01 con commit y push a `develop`.
+2. Ejecutar primer despliegue controlado en Google Apps Script.
+3. Inicializar Google Sheets con `initializeOperationalIntelligenceSheets`.
+4. Inicializar Google Drive con `initializeOperationalIntelligenceDrive`.
+5. Configurar `AI_PROVIDERS`, `PROMPTS` y `AGENTS`.
+6. Probar `doGet`, `login`, `executeAgent` y acciones VSM.
+7. Conectar frontend con `APP_CONFIG.apiBaseUrl`.
+8. Ejecutar primer proyecto end-to-end con backend real.
+9. Priorizar persistencia real completa de paquetes, Process Model y Project Transformation Status.
+10. Implementar exportaciones fisicas cuando el modelo interno del reporte este validado.
 
-1. Sprint 7 - Workspace Navigation & Experience Switcher.
-2. Sprint 8 - Process Correction Workflow desde Validation Studio hacia As-Is Studio.
-3. Sprint 9 - VSM Studio automático desde As-Is validado.
-4. Sprint 10 - Lean/TOC/Automation/AI Opportunity como Transformation Analyzer inicial.
-5. Sprint 11 - To-Be Designer.
-6. Sprint 12 - Business Case.
-7. Sprint 13 - Persistencia real Google Sheets para Process Model y Knowledge Packages.
-8. Sprint 14 - Google Drive integration operativa.
-9. Sprint 15 - AI provider execution real y prompts gobernados.
-10. Sprint 16 - ERP Discovery Experience.
-11. Sprint 17 - ERP RFP Builder.
-12. Sprint 18 - Workload Analysis.
+## 17. Proximo Sprint recomendado
 
-## 17. Próximo Sprint Recomendado
+**Deployment Validation Sprint - Google Runtime**
 
-**Sprint 7 - Workspace Navigation & Experience Switcher**
+Objetivo:
 
-Justificación:
-
-- Existen múltiples experiencias implementadas, pero la app solo activa una desde `app.js`.
-- Antes de desarrollar VSM Studio conviene permitir navegación profesional entre:
-  - Business Discovery.
-  - Context Builder.
-  - Discovery Workspace.
-  - Process Discovery.
-  - As-Is Studio.
-  - Process Validation.
-- Esto reducirá fricción y permitirá un flujo de consultoría real end-to-end.
-
-## 18. Riesgos Abiertos
-
-- Persistencia principal aún depende de `localStorage`.
-- Backend Apps Script no ha sido validado end-to-end contra Google Sheets real.
-- Proveedores IA no están configurados en entorno real.
-- No existe navegación global completa.
-- El repositorio tiene documentación de PB anteriores y experiencias recientes aún no reflejadas en docs técnicas específicas.
-- VSM Builder existe, pero no está condicionado aún por el quality gate.
-- Validación de seguridad de API keys depende de correcta configuración en Google Sheets/Apps Script.
-- La cuenta Git local anterior presentó diferencias de permisos; se debe mantener control de credenciales GitHub.
-
-## 19. Deuda Técnica
-
-- Crear navegación global de experiencias.
-- Separar estilos CSS por módulo o establecer convención de escalabilidad.
-- Crear persistencia real del Process Model.
-- Crear repositorios Apps Script para Business Knowledge Package y Process Model.
-- Estandarizar contratos JSON entre frontend local y backend.
-- Agregar pruebas automatizadas reales.
-- Agregar pipeline mínimo de validación.
-- Unificar estados de aprobación humana.
-- Añadir versionamiento formal de Knowledge Package, Context Graph y Process Model.
-- Completar integración real con Google Drive.
-- Completar ejecución real de agentes vía AIService.
-
-## 20. Resumen Ejecutivo
-
-Operational Intelligence Platform cuenta con una base funcional relevante para transformación operacional:
-
-- Captura y validación del negocio.
-- Construcción de conocimiento estructurado.
-- Descubrimiento inicial de procesos.
-- Edición visual del As-Is.
-- Validación automática de calidad del proceso.
-- Bloqueo inteligente de análisis posteriores.
-
-La plataforma todavía opera mayormente en modo local, con backend y data model preparados para Google Apps Script y Google Sheets. La prioridad inmediata recomendada es consolidar la navegación del Workspace para convertir las experiencias ya implementadas en un flujo profesional continuo antes de avanzar hacia VSM Studio y análisis Lean/TOC.
-
-Esta línea base queda congelada como referencia oficial para los siguientes Sprints.
-
-## Actualizacion Sprint 11 - Case Runner & Methodology Orchestrator
-
-Fecha de actualizacion: 2026-06-28
-
-### Componentes agregados desde la linea base inicial
-
-- Process Data Collection Studio.
-- Intelligent VSM Studio.
-- Transformation Workshop.
-- Requirements Discovery Consultant.
-- Transformation Intelligence Engine.
-- Methodology Orchestrator / Case Runner.
-
-### Sprint activo
-
-La UI principal carga actualmente:
-
-- `Sprint 11 - Case Runner & Methodology Orchestrator`.
-
-### Estado metodologico
-
-Se implemento el objeto:
-
-- `Project Transformation Status`.
-
-Este objeto consolida:
-
-- etapa actual;
-- porcentaje de avance;
-- etapas completadas;
-- etapas pendientes;
-- bloqueos;
-- informacion faltante;
-- Health Score del proyecto;
-- fecha de actualizacion;
-- consultor responsable;
-- aprobaciones por etapa con usuario, fecha y comentarios.
-
-### Reglas implementadas
-
-- No se permite aprobar una etapa con bloqueos.
-- No se permite aprobar una etapa obligatoria si existe una etapa obligatoria anterior sin aprobacion.
-- Las etapas futuras quedan visibles como `FUTURE`, pero no ejecutables.
-- El Orchestrator no ejecuta analisis ni IA; solo coordina la metodologia.
-
-### Roadmap actualizado desde Sprint 11
-
-1. Sprint 12 - Lean Transformation Consultant.
-2. Sprint 13 - TOC Transformation Consultant.
-3. Sprint 14 - Automation & AI Consultant.
-4. Sprint 15 - To-Be Designer.
-5. Sprint 16 - Business Case.
-6. Sprint 17 - Roadmap Builder.
-7. Sprint 18 - Executive Report.
-8. Sprint 19 - Persistencia real Google Sheets para paquetes, Process Model y Project Transformation Status.
-9. Sprint 20 - Google Drive integration operativa para adjuntos.
-10. Sprint 21 - AI provider execution real y prompts gobernados.
-
-### Proximo Sprint recomendado
-
-**Sprint 12 - Lean Transformation Consultant**
+- Publicar Apps Script.
+- Ejecutar inicializadores.
+- Validar Sheets, Drive, AI config y primer flujo con backend real.
 
 Justificacion:
 
-- Ya existen Process Model, datos operacionales, VSM vivo y Transformation Observation Package.
-- El Methodology Orchestrator coordina bloqueos y aprobaciones.
-- El siguiente paso natural es usar las observaciones del taller y el VSM para iniciar diagnostico Lean formal.
+- La plataforma ya es navegable localmente.
+- INT-01 deja la infraestructura de primera ejecucion preparada.
+- El siguiente riesgo mayor es validar la ejecucion real sobre Google.
+
+## 18. Riesgos abiertos
+
+- Despliegue Apps Script no probado aun en entorno Google real.
+- Permisos Google pueden requerir aprobaciones manuales.
+- Configuracion IA real depende de claves y modelos validos.
+- `localStorage` sigue siendo persistencia temporal en el MVP local.
+- Persistencia real completa de todos los paquetes aun no esta conectada.
+- Exportacion fisica de reportes aun no existe.
+
+## 19. Deuda tecnica
+
+- Automatizar pruebas frontend.
+- Crear pruebas Apps Script ejecutables.
+- Estandarizar migracion de `localStorage` a repositorios Apps Script.
+- Agregar versionamiento formal de paquetes.
+- Validar seguridad de sesiones en despliegue real.
+- Documentar operacion real posterior a despliegue.
+
+## 20. Resumen ejecutivo
+
+Operational Intelligence Platform cuenta con una base funcional amplia para Process Transformation AI. El sistema ya permite navegar la metodologia completa, revisar studios y consultores principales, y preparar entregables internos de transformacion operacional.
+
+Sprint INT-01 consolida la integracion, corrige errores de navegacion, agrega scripts de inicializacion para Google Sheets y Google Drive, y deja documentadas las instrucciones de despliegue y primera ejecucion.
+
+La prioridad inmediata es validar la plataforma en el runtime real de Google Apps Script con Google Sheets, Google Drive y proveedor IA configurado.
