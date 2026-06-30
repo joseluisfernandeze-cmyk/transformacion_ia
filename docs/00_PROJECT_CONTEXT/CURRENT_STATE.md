@@ -6,7 +6,7 @@
 
 ## Ultimo Sprint completado
 
-`Sprint 15 - To-Be Designer`
+`Sprint 16 - Business Case Generator`
 
 ## Sprint actualmente en desarrollo
 
@@ -14,7 +14,7 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
-`Sprint 16 - Business Case Generator`
+`Sprint 17 - Roadmap Generator`
 
 ## Funcionalidades implementadas
 
@@ -80,6 +80,13 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Comparativo As-Is vs To-Be.
 - Justificacion de cambios con evidencia.
 - Riesgos y preguntas pendientes del diseno futuro.
+- Business Case Generator.
+- Business Case Package.
+- Beneficios operacionales, economicos y estrategicos.
+- Costos estimados de desarrollo, automatizacion, IA, capacitacion, cambio, licencias e infraestructura.
+- ROI, Payback y relacion beneficio/esfuerzo cuando existen datos suficientes.
+- Priorizacion de iniciativas como Quick Win, Corto Plazo, Mediano Plazo y Largo Plazo.
+- Riesgos, supuestos y preguntas pendientes del caso de negocio.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -93,7 +100,6 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Funcionalidades pendientes
 
-- Business Case.
 - Roadmap.
 - Executive Report.
 - ERP Fit-Gap.
@@ -153,11 +159,11 @@ Rutas visibles:
 - `#/toc-consultant`.
 - `#/automation-ai`.
 - `#/to-be-designer`.
+- `#/business-case`.
 - `#/methodology-orchestrator`.
 
 Rutas futuras como proximamente:
 
-- `#/business-case`.
 - `#/roadmap`.
 - `#/executive-report`.
 
@@ -254,7 +260,7 @@ Flujo obligatorio:
 ## Ultimo Commit
 
 `7ef50d4 Contexto`  
-Sprint 15 pendiente de commit.
+Sprint 16 pendiente de commit.
 
 ## Ultimo Tag
 
