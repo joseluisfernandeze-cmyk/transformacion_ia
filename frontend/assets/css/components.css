@@ -2195,3 +2195,17 @@
   font-weight: 700;
   font-size: 13px;
 }
+
+.business-case-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) 330px;
+  gap: 16px;
+  align-items: start;
+}
+
+.business-case-left,
+.business-case-main,
+.business-case-right {
+  display: grid;
+  gap: 16px;
+}

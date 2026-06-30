@@ -14,7 +14,7 @@ window.MethodologyOrchestratorService = Object.seal({
     { id: "TOC_CONSULTANT", name: "TOC Consultant", required: true, owner: "TOC Transformation Consultant" },
     { id: "AUTOMATION_AI_CONSULTANT", name: "Automation & AI Consultant", required: true, owner: "Automation & AI Transformation Consultant" },
     { id: "TO_BE_DESIGNER", name: "To-Be Designer", required: true, owner: "To-Be Designer" },
-    { id: "BUSINESS_CASE", name: "Business Case", required: false, future: true, owner: "Future Business Case Consultant" },
+    { id: "BUSINESS_CASE", name: "Business Case", required: true, owner: "Business Case Generator" },
     { id: "ROADMAP", name: "Roadmap", required: false, future: true, owner: "Future Roadmap Consultant" },
     { id: "EXECUTIVE_REPORT", name: "Executive Report", required: false, future: true, owner: "Future Executive Report Consultant" }
   ],
@@ -127,7 +127,8 @@ window.MethodologyOrchestratorService = Object.seal({
       lean: window.LeanConsultantService ? window.LeanConsultantService.loadState() : null,
       toc: window.TocConsultantService ? window.TocConsultantService.loadState() : null,
       automationAi: window.AutomationAiConsultantService ? window.AutomationAiConsultantService.loadState() : null,
-      toBe: window.ToBeDesignerService ? window.ToBeDesignerService.loadState() : null
+      toBe: window.ToBeDesignerService ? window.ToBeDesignerService.loadState() : null,
+      businessCase: window.BusinessCaseService ? window.BusinessCaseService.loadState() : null
     };
   },
 
@@ -144,7 +145,8 @@ window.MethodologyOrchestratorService = Object.seal({
       LEAN_CONSULTANT: () => this.leanReadiness(states.lean),
       TOC_CONSULTANT: () => this.tocReadiness(states.toc),
       AUTOMATION_AI_CONSULTANT: () => this.automationAiReadiness(states.automationAi),
-      TO_BE_DESIGNER: () => this.toBeReadiness(states.toBe)
+      TO_BE_DESIGNER: () => this.toBeReadiness(states.toBe),
+      BUSINESS_CASE: () => this.businessCaseReadiness(states.businessCase)
     };
 
     if (resolvers[stageId]) {
@@ -332,6 +334,21 @@ window.MethodologyOrchestratorService = Object.seal({
       progress: packageData ? (ready ? 100 : 70) : 0,
       healthScore: packageData ? (ready ? 86 : 62) : 0,
       missingInformation: packageData ? blockingQuestions.map((item) => item.question) : ["To-Be Package no disponible."],
+      updatedAt: packageData ? packageData.createdAt : ""
+    };
+  },
+
+  businessCaseReadiness(state) {
+    const packageData = state && state.businessCasePackage ? state.businessCasePackage : null;
+    const questions = state && state.questions ? state.questions : [];
+    const blockingQuestions = questions.filter((item) => item.status === "OPEN" && item.blocksConsolidation);
+    const ready = Boolean(packageData && packageData.initiatives && packageData.initiatives.length && !blockingQuestions.length);
+
+    return {
+      ready,
+      progress: packageData ? (ready ? 100 : 70) : 0,
+      healthScore: packageData ? (ready ? 86 : 62) : 0,
+      missingInformation: packageData ? blockingQuestions.map((item) => item.question) : ["Business Case Package no disponible."],
       updatedAt: packageData ? packageData.createdAt : ""
     };
   },
