@@ -1,6 +1,7 @@
-function initializeOperationalIntelligenceDrive(rootFolderName) {
+function initializeOperationalIntelligenceDrive(rootFolderName, parentFolderId) {
   var rootName = rootFolderName || "Operational Intelligence Platform";
-  var rootFolder = findOrCreateDeploymentFolder_(DriveApp.getRootFolder(), rootName);
+  var parentFolder = getDeploymentParentFolder_(parentFolderId);
+  var rootFolder = findOrCreateDeploymentFolder_(parentFolder, rootName);
   var structure = getOperationalIntelligenceDriveStructure_();
 
   createDeploymentFolderTree_(rootFolder, structure);
@@ -10,6 +11,14 @@ function initializeOperationalIntelligenceDrive(rootFolderName) {
     rootFolderName: rootFolder.getName(),
     foldersCreatedOrVerified: flattenDeploymentFolderNames_(structure, rootName)
   };
+}
+
+function getDeploymentParentFolder_(parentFolderId) {
+  if (parentFolderId) {
+    return DriveApp.getFolderById(parentFolderId);
+  }
+
+  return DriveApp.getRootFolder();
 }
 
 function getOperationalIntelligenceDriveStructure_() {
