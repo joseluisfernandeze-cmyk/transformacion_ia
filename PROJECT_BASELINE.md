@@ -3,48 +3,54 @@
 Fecha de linea base: 2026-06-30  
 Repositorio local: `C:\Users\josh_\Documents\GitHub\transformacion_ia`  
 Repositorio remoto: `https://github.com/joseluisfernandeze-cmyk/transformacion_ia.git`  
-Rama de trabajo: `develop`  
-Ultimo commit conocido antes de INT-01: `e4eb613 actualizacion`
+Rama de trabajo: `develop`
 
-Este documento es la linea base oficial de la plataforma y debe actualizarse al finalizar cada Sprint.
+Este documento es la linea base oficial de la plataforma y debe actualizarse al finalizar cada Sprint o hito relevante de integracion.
 
 ## 1. Resumen del proyecto
 
-Process Transformation AI es la primera solucion de Operational Intelligence Platform, una plataforma modular de inteligencia operacional para transformar procesos con una metodologia consultiva, evidencia trazable, modelos de proceso, VSM, consultores digitales y paquetes reutilizables de conocimiento.
+Process Transformation AI es la primera solucion de Operational Intelligence Platform, una plataforma modular de inteligencia operacional para transformar procesos usando metodologia consultiva, evidencia trazable, modelos de proceso, VSM, consultores digitales y paquetes reutilizables de conocimiento.
 
 Estado actual:
 
 - Arquitectura del Core congelada.
-- Frontend modular ejecutable desde `frontend/index.html`.
-- Backend base en Google Apps Script.
-- Google Sheets definido como base operativa.
-- Google Drive definido como repositorio documental.
-- MVP navegable end-to-end en modo local.
-- Consultores digitales principales de transformacion implementados en modo local.
-- Scripts de inicializacion para Google Sheets y Google Drive generados en INT-01.
-- Guias de despliegue y primera ejecucion creadas.
+- Desarrollo funcional temporalmente congelado.
+- Primera fase de integracion e infraestructura completada.
+- Primer despliegue operativo completado.
+- MVP en fase `Integration & Validation`.
+- Frontend ejecutandose mediante Live Server.
+- Backend publicado como Google Apps Script Web App.
+- Google Sheets inicializado con 29 hojas creadas automaticamente.
+- Google Drive inicializado con estructura documental bajo carpeta padre configurable.
+- URL oficial DEV registrada en `APP_CONFIG.API.BASE_URL`.
 
-Arquitectura:
+## 2. Arquitectura
+
+Arquitectura vigente:
 
 - Frontend HTML, CSS y JavaScript puro.
 - Backend Google Apps Script.
 - Persistencia operativa Google Sheets.
 - Repositorio documental Google Drive.
 - Repositorio codigo GitHub.
+- Despliegue Apps Script mediante Clasp.
 - Core compartido por soluciones.
 - Studios y Consultores Digitales sobre Core congelado.
 - AIService y AIProviderClient con proveedores intercambiables.
 - Prompt Repository y Agent Registry.
 - Methodology Orchestrator como coordinador de la metodologia.
 
-## 2. Estructura de carpetas principal
+No se debe modificar la arquitectura hasta cerrar la validacion completa del MVP.
+
+## 3. Estructura principal del proyecto
 
 ```text
 transformacion_ia/
-  .gitignore
   README.md
   PROJECT_BASELINE.md
   DEPLOYMENT_CHECKLIST.md
+  DEPLOYMENT_STATUS.md
+  DECISIONS_LOG.md
   FIRST_EXECUTION_GUIDE.md
   INTEGRATION_REPORT.md
   backend/
@@ -83,7 +89,7 @@ transformacion_ia/
     integration/
 ```
 
-## 3. Componentes implementados
+## 4. Componentes implementados
 
 ### Frontend
 
@@ -141,25 +147,60 @@ transformacion_ia/
 - Inicializador Google Sheets.
 - Inicializador Google Drive.
 
-## 4. Product Backlogs y Sprints
+## 5. Hitos completados de infraestructura
+
+- Repositorio GitHub inicializado y sincronizado.
+- Clasp configurado y operativo.
+- Apps Script creado y conectado mediante Clasp.
+- Backend desplegado exitosamente en Apps Script.
+- Web App publicada.
+- URL oficial DEV registrada.
+- Google Sheets inicializado correctamente.
+- 29 hojas creadas automaticamente.
+- Google Drive inicializado correctamente.
+- Estructura documental creada dentro de una carpeta padre configurable.
+- Correccion aplicada para utilizar `DriveApp.getFolderById(parentFolderId)`.
+
+## 6. Hitos completados de configuracion
+
+- `app-config.js` actualizado para arquitectura multiambiente.
+- `APP_CONFIG.API.BASE_URL` configurado para DEV.
+- Eliminadas URLs hardcodeadas.
+- Frontend preparado para consumir configuracion desde `APP_CONFIG`.
+
+URL oficial DEV:
+
+```text
+https://script.google.com/macros/s/AKfycbyhjHHkkYjNiKvJkpdgwqS3IagrBIprTi-RxWEx5z-HNlvaQS6c4fYAd-YDx0EZMUqR/exec
+```
+
+## 7. Hitos completados de integracion
+
+- Primer despliegue completo realizado.
+- Frontend ejecutandose mediante Live Server.
+- Backend respondiendo mediante Web App.
+- Primera validacion funcional iniciada.
+
+## 8. Product Backlogs y Sprints
 
 | PB / Sprint | Estado | Comentario |
 |---|---|---|
 | PB01 - Product Foundation | Completo | Base inicial del proyecto. |
-| PB02 - Modelo Maestro de Datos | Parcial | Modelo definido; script de inicializacion Sheets creado en INT-01. |
-| PB03 - Backend Base Apps Script | Parcial | Backend estructural listo; despliegue real pendiente. |
+| PB02 - Modelo Maestro de Datos | Completo tecnico / validacion en progreso | Google Sheets inicializado con 29 hojas. |
+| PB03 - Backend Base Apps Script | Desplegado / validacion en progreso | Backend publicado como Web App. |
 | PB05 - Captura Guiada | Absorbido | Evolucionado hacia Business Discovery y Context Builder. |
-| PB06 - Process Modeling Engine | Parcial | Studio local implementado; persistencia real pendiente. |
-| PB08 - VSM Builder | Parcial | Base VSM y Studio inteligente local implementados. |
-| PB10 - Transformation Workspace | Parcial | Workspace navegable implementado; integracion backend real pendiente. |
-| PB11 - AI & Security Foundation | Parcial | Base disponible; configuracion real pendiente. |
+| PB06 - Process Modeling Engine | Completo local | Persistencia real integral pendiente. |
+| PB08 - VSM Builder | Completo local / validacion pendiente | Base VSM y Studio inteligente local implementados. |
+| PB10 - Transformation Workspace | Completo local / validacion pendiente | Workspace navegable implementado. |
+| PB11 - AI & Security Foundation | Parcial | Base disponible; validacion real de proveedores y prompts pendiente. |
 | PB12A - Consulting Decision Framework | Completo | Metodologia reutilizable implementada/documentada. |
 | Sprint UI-01 | Completo | Shell y navegacion inicial. |
 | Sprint UI-02 | Completo | MVP navegable con persistencia local. |
 | Sprint 1 a Sprint 18 | Completo local / parcial backend | Consultores, studios y paquetes principales implementados en modo local. |
-| Sprint INT-01 | En cierre | Integracion, scripts de despliegue y documentacion de primera ejecucion. |
+| Sprint INT-01 | Completo | Integracion, scripts de despliegue y primera ejecucion. |
+| Integration & Validation | En progreso | Validacion end-to-end del MVP. |
 
-## 5. Consultores Digitales implementados
+## 9. Consultores Digitales implementados
 
 - Business Discovery Experience.
 - Context Builder Agent.
@@ -179,25 +220,7 @@ Estado general:
 - Preparados para integracion progresiva con Apps Script y Google Sheets.
 - Deben mantener AI Governance, Consulting Framework y Consulting Decision Framework.
 
-## 6. Agentes registrados
-
-Registrado en backend base:
-
-- `CONTEXT_BUILDER`
-
-Consultores disponibles en frontend/local:
-
-- Process Discovery.
-- Requirements Discovery.
-- Lean.
-- TOC.
-- Automation & AI.
-- To-Be.
-- Business Case.
-- Roadmap.
-- Executive Report.
-
-## 7. APIs existentes
+## 10. APIs existentes
 
 Entrada Apps Script:
 
@@ -219,19 +242,18 @@ Acciones existentes:
 - `getVsmMetrics`
 - `archiveVsmMap`
 
-Sprint INT-01 no agrego APIs nuevas.
+## 11. Google Sheets
 
-## 8. Google Sheets utilizados
+Estado:
+
+- Inicializado correctamente.
+- 29 hojas creadas automaticamente.
 
 Inicializador:
 
-- `backend/apps-script/services/SheetsDeploymentService.gs`
+- `initializeOperationalIntelligenceSheets(spreadsheetId)`.
 
-Funcion:
-
-- `initializeOperationalIntelligenceSheets(spreadsheetId)`
-
-Hojas incluidas:
+Hojas principales:
 
 - `CONFIG`
 - `USERS`
@@ -263,26 +285,32 @@ Hojas incluidas:
 - `EXECUTIVE_REPORT_PACKAGES`
 - `PROJECT_TRANSFORMATION_STATUS`
 
-## 9. Google Drive utilizado
+## 12. Google Drive
+
+Estado:
+
+- Inicializado correctamente.
+- Estructura documental creada dentro de una carpeta padre configurable.
+- Correccion aplicada para utilizar `DriveApp.getFolderById(parentFolderId)`.
 
 Inicializador:
 
-- `backend/apps-script/services/DriveDeploymentService.gs`
+- `initializeOperationalIntelligenceDrive(parentFolderId)`.
 
-Funcion:
+Estructura raiz:
 
-- `initializeOperationalIntelligenceDrive(rootFolderName)`
+```text
+Carpeta Padre (ID recibido)
+  Process Transformation AI/
+    00_Admin/
+    01_Projects/
+    02_Prompt-Repository/
+    03_Templates/
+    04_Exports/
+    99_Archive/
+```
 
-Estructura base:
-
-- `00_Admin`
-- `01_Projects/_TEMPLATE_PROJECT`
-- `02_Prompt-Repository`
-- `03_Templates`
-- `04_Exports`
-- `99_Archive`
-
-## 10. Configuracion IA
+## 13. Configuracion IA
 
 Componentes:
 
@@ -305,11 +333,11 @@ Regla:
 
 - La API Key nunca debe llegar al navegador ni subirse al repositorio.
 
-## 11. Estado del Workspace
+## 14. Estado del Workspace
 
 Workspace navegable desde `frontend/index.html`.
 
-Rutas principales validadas en INT-01:
+Rutas principales:
 
 - Dashboard.
 - Proyectos.
@@ -330,114 +358,93 @@ Rutas principales validadas en INT-01:
 - Executive Report.
 - Methodology Orchestrator.
 
-## 12. Estado del Process Engine
+## 15. Bugs corregidos
 
-Implementado localmente:
+### Bug 1
 
-- Process Model.
-- Actividades con identificadores.
-- Edicion visual.
-- Evidencia.
-- Trazabilidad.
-- Validaciones.
-- Datos operacionales.
-- Integracion local con Knowledge Package y Context Graph.
+Bug:
 
-Pendiente:
+`DriveDeploymentService` interpretaba `parentFolderId` como nombre de carpeta.
 
-- Persistencia real completa y versionamiento formal backend.
+Estado:
 
-## 13. Estado del VSM
+Corregido.
 
-Implementado:
+### Bug 2
 
-- VSM Builder base.
-- Intelligent VSM Studio.
-- Metricas basicas.
-- Integracion local con Process Model enriquecido.
+Bug:
 
-Pendiente:
+`app-shell.js` utilizaba `appName` y `appVersion` mientras `APP_CONFIG` utilizaba `APP_NAME` y `VERSION`.
 
-- Validacion end-to-end contra Sheets y Apps Script real.
+Estado:
 
-## 14. Estado del Knowledge Package
-
-Implementado:
-
-- Business Knowledge Package.
-- Knowledge Package.
-- Actualizacion local desde experiences/studios.
-- Consumo por consultores locales.
-
-Pendiente:
-
-- Versionamiento real completo en backend.
-- Persistencia Sheets end-to-end.
-
-## 15. Estado del Context Graph
-
-Implementado:
-
-- Context Graph base.
-- Repositories/Service backend base.
-- Actualizacion local vinculada a Knowledge Package y Process Model.
-
-Pendiente:
-
-- Persistencia real validada.
-- Visualizacion dedicada.
+Corregido.
 
 ## 16. Roadmap actualizado
 
-1. Cerrar Sprint INT-01 con commit y push a `develop`.
-2. Ejecutar primer despliegue controlado en Google Apps Script.
-3. Inicializar Google Sheets con `initializeOperationalIntelligenceSheets`.
-4. Inicializar Google Drive con `initializeOperationalIntelligenceDrive`.
-5. Configurar `AI_PROVIDERS`, `PROMPTS` y `AGENTS`.
-6. Probar `doGet`, `login`, `executeAgent` y acciones VSM.
-7. Conectar frontend con `APP_CONFIG.apiBaseUrl`.
-8. Ejecutar primer proyecto end-to-end con backend real.
-9. Priorizar persistencia real completa de paquetes, Process Model y Project Transformation Status.
-10. Implementar exportaciones fisicas cuando el modelo interno del reporte este validado.
+El desarrollo funcional queda temporalmente congelado hasta finalizar la fase de integracion.
 
-## 17. Proximo Sprint recomendado
+Roadmap inmediato:
 
-**Deployment Validation Sprint - Google Runtime**
+1. Completar pruebas end-to-end `Frontend -> Apps Script -> Google Sheets -> Google Drive`.
+2. Validar lectura y escritura real desde Web App.
+3. Validar flujo de autenticacion.
+4. Validar consumo de `APP_CONFIG.API.BASE_URL`.
+5. Validar paquetes principales contra Google Sheets.
+6. Validar estructura documental en Google Drive.
+7. Registrar hallazgos.
+8. Corregir solo bugs de integracion.
+9. Autorizar reactivacion de desarrollo funcional.
 
-Objetivo:
+Roadmap funcional posterior, congelado temporalmente:
 
-- Publicar Apps Script.
-- Ejecutar inicializadores.
-- Validar Sheets, Drive, AI config y primer flujo con backend real.
+1. Persistencia real completa de paquetes, Process Model y Project Transformation Status.
+2. Validacion real de AI Providers, Prompts y Agents.
+3. Exportaciones fisicas.
+4. ERP Fit-Gap.
+5. ERP RFP Builder.
+6. Scorecard de proveedores.
 
-Justificacion:
+## 17. Proximo objetivo
 
-- La plataforma ya es navegable localmente.
-- INT-01 deja la infraestructura de primera ejecucion preparada.
-- El siguiente riesgo mayor es validar la ejecucion real sobre Google.
+Continuar con pruebas end-to-end:
+
+```text
+Frontend
+  -> Apps Script
+  -> Google Sheets
+  -> Google Drive
+```
+
+No agregar nuevas funcionalidades hasta completar la validacion completa del MVP.
 
 ## 18. Riesgos abiertos
 
-- Despliegue Apps Script no probado aun en entorno Google real.
-- Permisos Google pueden requerir aprobaciones manuales.
-- Configuracion IA real depende de claves y modelos validos.
-- `localStorage` sigue siendo persistencia temporal en el MVP local.
-- Persistencia real completa de todos los paquetes aun no esta conectada.
-- Exportacion fisica de reportes aun no existe.
+- Validacion end-to-end aun en progreso.
+- Riesgo de incompatibilidad entre modulos legacy y nueva estructura `APP_CONFIG`.
+- Necesidad de confirmar todos los flujos reales contra Apps Script, Sheets y Drive.
+- API Keys deben mantenerse fuera del frontend y del repositorio.
+- Persistencia real completa sigue pendiente para varios studios.
+- Exportaciones fisicas aun no implementadas.
 
 ## 19. Deuda tecnica
 
+- Completar migracion de consumidores frontend hacia `APP_CONFIG.API.BASE_URL` cuando se autorice tocar codigo funcional relacionado.
 - Automatizar pruebas frontend.
 - Crear pruebas Apps Script ejecutables.
 - Estandarizar migracion de `localStorage` a repositorios Apps Script.
 - Agregar versionamiento formal de paquetes.
 - Validar seguridad de sesiones en despliegue real.
-- Documentar operacion real posterior a despliegue.
 
 ## 20. Resumen ejecutivo
 
-Operational Intelligence Platform cuenta con una base funcional amplia para Process Transformation AI. El sistema ya permite navegar la metodologia completa, revisar studios y consultores principales, y preparar entregables internos de transformacion operacional.
+La primera fase de integracion e infraestructura fue completada. El repositorio, Apps Script, Clasp, Web App, Google Sheets y Google Drive ya estan operativos para el MVP.
 
-Sprint INT-01 consolida la integracion, corrige errores de navegacion, agrega scripts de inicializacion para Google Sheets y Google Drive, y deja documentadas las instrucciones de despliegue y primera ejecucion.
+El estado general es:
 
-La prioridad inmediata es validar la plataforma en el runtime real de Google Apps Script con Google Sheets, Google Drive y proveedor IA configurado.
+- Infraestructura: 100%.
+- Backend: 95%.
+- Frontend: 90%.
+- Integracion: en progreso.
+
+La prioridad absoluta ahora es terminar la validacion funcional end-to-end antes de reactivar cualquier desarrollo funcional.
