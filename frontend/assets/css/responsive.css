@@ -224,6 +224,10 @@
     grid-template-columns: 1fr;
   }
 
+  .to-be-layout {
+    grid-template-columns: 1fr;
+  }
+
   .mvp-step-strip {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -240,6 +244,10 @@
 
   .mvp-flow-summary,
   .project-create-form {
+    grid-template-columns: 1fr;
+  }
+
+  .to-be-action-grid {
     grid-template-columns: 1fr;
   }
 
