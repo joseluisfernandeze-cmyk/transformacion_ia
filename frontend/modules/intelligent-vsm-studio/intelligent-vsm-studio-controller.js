@@ -1,4 +1,7 @@
 window.IntelligentVsmStudioController = Object.seal({
+  root: null,
+  session: null,
+  state: null,
   dragState: null,
 
   init(rootSelector, session) {
