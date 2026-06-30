@@ -6,7 +6,7 @@
 
 ## Ultimo Sprint completado
 
-`Sprint 14 - Automation & AI Transformation Consultant`
+`Sprint 15 - To-Be Designer`
 
 ## Sprint actualmente en desarrollo
 
@@ -14,7 +14,7 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
-`Sprint 15 - To-Be Designer`
+`Sprint 16 - Business Case Generator`
 
 ## Funcionalidades implementadas
 
@@ -73,6 +73,13 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Estimacion de beneficios esperados cuando existen tiempos y frecuencia.
 - Quick Wins digitales.
 - Preguntas de aclaracion por informacion insuficiente.
+- To-Be Designer.
+- To-Be Package.
+- Process Model To-Be.
+- Evaluacion de mantener, eliminar, simplificar, automatizar, incorporar IA, reordenar, paralelizar y centralizar/descentralizar.
+- Comparativo As-Is vs To-Be.
+- Justificacion de cambios con evidencia.
+- Riesgos y preguntas pendientes del diseno futuro.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -86,7 +93,6 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Funcionalidades pendientes
 
-- To-Be Designer.
 - Business Case.
 - Roadmap.
 - Executive Report.
@@ -146,11 +152,11 @@ Rutas visibles:
 - `#/lean-consultant`.
 - `#/toc-consultant`.
 - `#/automation-ai`.
+- `#/to-be-designer`.
 - `#/methodology-orchestrator`.
 
 Rutas futuras como proximamente:
 
-- `#/to-be-designer`.
 - `#/business-case`.
 - `#/roadmap`.
 - `#/executive-report`.
@@ -248,7 +254,7 @@ Flujo obligatorio:
 ## Ultimo Commit
 
 `7ef50d4 Contexto`  
-Sprint 14 pendiente de commit.
+Sprint 15 pendiente de commit.
 
 ## Ultimo Tag
 
