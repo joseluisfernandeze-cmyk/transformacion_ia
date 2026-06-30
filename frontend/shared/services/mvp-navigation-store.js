@@ -13,7 +13,8 @@ window.MvpNavigationStore = Object.seal({
     { route: "intelligent-vsm", label: "Intelligent VSM", required: true },
     { route: "transformation-workshop", label: "Transformation Workshop", required: true },
     { route: "lean-consultant", label: "Lean Consultant", required: true },
-    { route: "toc-consultant", label: "TOC Consultant", required: true }
+    { route: "toc-consultant", label: "TOC Consultant", required: true },
+    { route: "automation-ai", label: "Automation & AI Consultant", required: true }
   ],
 
   loadState() {
@@ -308,6 +309,10 @@ window.MvpNavigationStore = Object.seal({
       "toc-consultant": () => {
         const state = window.TocConsultantService ? window.TocConsultantService.loadState() : null;
         return Boolean(state && state.assessmentPackage);
+      },
+      "automation-ai": () => {
+        const state = window.AutomationAiConsultantService ? window.AutomationAiConsultantService.loadState() : null;
+        return Boolean(state && state.opportunityPackage);
       }
     };
 

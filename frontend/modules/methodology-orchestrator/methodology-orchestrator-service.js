@@ -12,7 +12,7 @@ window.MethodologyOrchestratorService = Object.seal({
     { id: "TRANSFORMATION_WORKSHOP", name: "Transformation Workshop", required: true, owner: "Transformation Workshop" },
     { id: "LEAN_CONSULTANT", name: "Lean Consultant", required: true, owner: "Lean Transformation Consultant" },
     { id: "TOC_CONSULTANT", name: "TOC Consultant", required: true, owner: "TOC Transformation Consultant" },
-    { id: "AUTOMATION_AI_CONSULTANT", name: "Automation & AI Consultant", required: false, future: true, owner: "Future Automation & AI Consultant" },
+    { id: "AUTOMATION_AI_CONSULTANT", name: "Automation & AI Consultant", required: true, owner: "Automation & AI Transformation Consultant" },
     { id: "TO_BE_DESIGNER", name: "To-Be Designer", required: false, future: true, owner: "Future To-Be Designer" },
     { id: "BUSINESS_CASE", name: "Business Case", required: false, future: true, owner: "Future Business Case Consultant" },
     { id: "ROADMAP", name: "Roadmap", required: false, future: true, owner: "Future Roadmap Consultant" },
@@ -125,7 +125,8 @@ window.MethodologyOrchestratorService = Object.seal({
       vsm: window.IntelligentVsmStudioService ? window.IntelligentVsmStudioService.loadState() : null,
       workshop: window.TransformationWorkshopService ? window.TransformationWorkshopService.loadState() : null,
       lean: window.LeanConsultantService ? window.LeanConsultantService.loadState() : null,
-      toc: window.TocConsultantService ? window.TocConsultantService.loadState() : null
+      toc: window.TocConsultantService ? window.TocConsultantService.loadState() : null,
+      automationAi: window.AutomationAiConsultantService ? window.AutomationAiConsultantService.loadState() : null
     };
   },
 
@@ -140,7 +141,8 @@ window.MethodologyOrchestratorService = Object.seal({
       INTELLIGENT_VSM: () => this.vsmReadiness(states.vsm),
       TRANSFORMATION_WORKSHOP: () => this.workshopReadiness(states.workshop),
       LEAN_CONSULTANT: () => this.leanReadiness(states.lean),
-      TOC_CONSULTANT: () => this.tocReadiness(states.toc)
+      TOC_CONSULTANT: () => this.tocReadiness(states.toc),
+      AUTOMATION_AI_CONSULTANT: () => this.automationAiReadiness(states.automationAi)
     };
 
     if (resolvers[stageId]) {
@@ -298,6 +300,21 @@ window.MethodologyOrchestratorService = Object.seal({
       progress: packageData ? (ready ? 100 : 70) : 0,
       healthScore: packageData ? (ready ? 86 : 62) : 0,
       missingInformation: packageData ? blockingQuestions.map((item) => item.question) : ["TOC Assessment Package no disponible."],
+      updatedAt: packageData ? packageData.createdAt : ""
+    };
+  },
+
+  automationAiReadiness(state) {
+    const packageData = state && state.opportunityPackage ? state.opportunityPackage : null;
+    const questions = state && state.questions ? state.questions : [];
+    const blockingQuestions = questions.filter((item) => item.status === "OPEN" && item.blocksConsolidation);
+    const ready = Boolean(packageData && packageData.activityOpportunities && packageData.activityOpportunities.length && !blockingQuestions.length);
+
+    return {
+      ready,
+      progress: packageData ? (ready ? 100 : 70) : 0,
+      healthScore: packageData ? (ready ? 86 : 62) : 0,
+      missingInformation: packageData ? blockingQuestions.map((item) => item.question) : ["Automation & AI Opportunity Package no disponible."],
       updatedAt: packageData ? packageData.createdAt : ""
     };
   },
