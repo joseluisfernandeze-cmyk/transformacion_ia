@@ -6,7 +6,7 @@
 
 ## Ultimo Sprint completado
 
-`PB12A - Consulting Decision Framework`
+`Sprint 13 - TOC Transformation Consultant`
 
 ## Sprint actualmente en desarrollo
 
@@ -14,7 +14,7 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
-`Sprint 13 - TOC Transformation Consultant`
+`Sprint 14 - Automation & AI Consultant`
 
 ## Funcionalidades implementadas
 
@@ -59,6 +59,12 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Consulting Decision Framework.
 - Decision trace reutilizable para Consultores Digitales.
 - Nueve etapas metodologicas obligatorias para razonamiento consultivo.
+- TOC Transformation Consultant.
+- TOC Assessment Package.
+- Deteccion de restricciones fisicas, capacidad, politica, informacion y tecnologia.
+- Deteccion de cuellos de botella.
+- Dependencias criticas.
+- Acciones TOC: explotar, subordinar, elevar y reevaluar.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -72,7 +78,6 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Funcionalidades pendientes
 
-- TOC Transformation Consultant.
 - Automation & AI Consultant.
 - To-Be Designer.
 - Business Case.
@@ -132,11 +137,11 @@ Rutas visibles:
 - `#/intelligent-vsm`.
 - `#/transformation-workshop`.
 - `#/lean-consultant`.
+- `#/toc-consultant`.
 - `#/methodology-orchestrator`.
 
 Rutas futuras como proximamente:
 
-- `#/toc-consultant`.
 - `#/automation-ai`.
 - `#/to-be-designer`.
 - `#/business-case`.
@@ -236,7 +241,7 @@ Flujo obligatorio:
 ## Ultimo Commit
 
 `7ef50d4 Contexto`  
-Sprint 12 pendiente de commit.
+Sprint 13 pendiente de commit.
 
 ## Ultimo Tag
 
