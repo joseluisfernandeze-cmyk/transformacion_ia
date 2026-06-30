@@ -1,5 +1,5 @@
-function initializeOperationalIntelligenceDrive(rootFolderName, parentFolderId) {
-  var rootName = rootFolderName || "Operational Intelligence Platform";
+function initializeOperationalIntelligenceDrive(parentFolderId) {
+  var rootName = "Process Transformation AI";
   var parentFolder = getDeploymentParentFolder_(parentFolderId);
   var rootFolder = findOrCreateDeploymentFolder_(parentFolder, rootName);
   var structure = getOperationalIntelligenceDriveStructure_();
