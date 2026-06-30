@@ -297,6 +297,47 @@ Reglas obligatorias:
 - toda salida debe ser trazable a documentos, entrevistas o procesos;
 - cuando la informacion sea insuficiente, formular preguntas en lugar de asumir.
 
+### 9.1 Consulting Decision Framework
+
+PB12A incorpora el Consulting Decision Framework como metodologia oficial de razonamiento para todos los Consultores Digitales. No es un agente, no es un modulo funcional, no tiene interfaz propia y no crea APIs nuevas. Es un marco reutilizable que estandariza como un consultor digital debe pasar desde la comprension hasta las preguntas pendientes antes de emitir conclusiones.
+
+Las nueve etapas obligatorias son:
+
+1. Comprender: entender que ocurre realmente. Debe responder que hace la actividad, cual es su proposito, quien participa, que entradas recibe y que salidas genera. No emite conclusiones.
+2. Validar: confirmar evidencia suficiente. Toda afirmacion debe indicar fuente, evidencia y nivel de confianza. Si la evidencia es insuficiente, no continua el analisis y genera preguntas.
+3. Diagnosticar: identificar el problema observado. No propone soluciones ni cuantifica beneficios.
+4. Cuantificar: determinar impacto con tiempo, costo, frecuencia, volumen o riesgo cuando existan datos. Si no existen, registra limitacion.
+5. Proponer: generar alternativas de mejora vinculadas al diagnostico.
+6. Justificar: toda propuesta debe indicar evidencia, razonamiento, supuestos y restricciones.
+7. Estimar: estimar beneficio esperado, esfuerzo, complejidad e impacto cuando sea posible. Si no es posible, indicar informacion insuficiente.
+8. Advertir: identificar riesgos, dependencias, impactos colaterales e incertidumbre.
+9. Preguntar: ante cualquier vacio de informacion, generar preguntas especificas antes de emitir conclusion definitiva.
+
+Reglas anti alucinacion del Decision Framework:
+
+- ningun consultor puede inventar procesos;
+- ningun consultor puede inventar actividades;
+- ningun consultor puede inventar responsables;
+- ningun consultor puede inventar indicadores;
+- ningun consultor puede inventar desperdicios;
+- ningun consultor puede inventar restricciones;
+- cuando la evidencia sea insuficiente, debe reducir confianza, solicitar informacion adicional y abstenerse de concluir.
+
+Modelo comun de decision:
+
+- `decisionTrace`: trazabilidad del razonamiento aplicado.
+- `frameworkVersion`: version del Consulting Decision Framework.
+- `canConclude`: indica si la conclusion esta permitida.
+- `conclusionPolicy`: `CONCLUSION_ALLOWED` o `ASK_BEFORE_CONCLUSION`.
+- `confidence`: nivel de confianza resultante.
+- `stages`: resultado por cada una de las nueve etapas.
+- `evidence`: evidencia utilizada.
+- `assumptions`: supuestos declarados.
+- `missingInformation`: informacion faltante.
+- `questions`: preguntas requeridas.
+
+El framework debe ser consumido por Lean Transformation Consultant, TOC Transformation Consultant, Automation & AI Consultant, ERP Discovery Consultant, RFP Consultant, Business Case Consultant, Operational Audit Consultant y Knowledge Capture Consultant. No debe duplicarse la logica metodologica en cada consultor.
+
 ## 10. AI Governance
 
 El AI Governance Framework es obligatorio para todos los agentes.
@@ -740,6 +781,7 @@ Componentes compartidos:
 - `app-shell.js`.
 - `app-constants.js`.
 - `api-client.js`.
+- `consulting-decision-framework.js`.
 - `calculation-engine.js`.
 - `transformation-intelligence-engine.js`.
 - `dom-utils.js`.
@@ -858,6 +900,7 @@ Rama de trabajo base:
 - Cada Sprint debe ejecutarse desde VS Code.
 - Cada modulo debe integrarse al Application Shell.
 - Cada salida generada por IA debe tener evidencia, confianza y trazabilidad.
+- Cada Consultor Digital debe aplicar el Consulting Decision Framework antes de emitir conclusiones o recomendaciones.
 - Las API Keys nunca deben llegar al navegador.
 - El frontend nunca debe solicitar prompts.
 - El backend debe ejecutar agentes mediante `executeAgent`.

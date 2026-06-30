@@ -141,6 +141,7 @@ window.LeanConsultantService = Object.seal({
       knowledgePackageId: state.sources.knowledgePackage ? state.sources.knowledgePackage.knowledgePackageId : "",
       contextGraphId: state.sources.contextGraph ? state.sources.contextGraph.contextGraphId : "",
       sourcePackages: this.resolveSourcePackages(state.sources),
+      decisionTrace: this.createPackageDecisionTrace(diagnostics, questions),
       executiveSummary: this.buildExecutiveSummary(summary, detectedWastes, questions),
       activityAssessments: diagnostics,
       consolidatedDiagnosis: this.buildConsolidatedDiagnosis(diagnostics, summary),
@@ -186,6 +187,7 @@ window.LeanConsultantService = Object.seal({
       },
       wastes: wasteDiagnostics,
       rootCauses,
+      decisionTrace: this.createActivityDecisionTrace(activity, evidence, valueAnalysis, wasteDiagnostics, questions),
       evidence,
       confidence,
       questions,
@@ -502,6 +504,16 @@ window.LeanConsultantService = Object.seal({
   },
 
   question(activityUUID, text, priority, blocksConsolidation) {
+    if (window.ConsultingDecisionFramework) {
+      return window.ConsultingDecisionFramework.createQuestion({
+        activityUUID,
+        question: text,
+        priority,
+        blocksConsolidation,
+        reason: "Informacion requerida por el Consulting Decision Framework."
+      });
+    }
+
     return {
       questionId: `LQ-${Date.now()}-${Math.random().toString(16).slice(2)}`,
       activityUUID,
@@ -510,6 +522,65 @@ window.LeanConsultantService = Object.seal({
       blocksConsolidation,
       status: "OPEN"
     };
+  },
+
+  createPackageDecisionTrace(assessments, questions) {
+    if (!window.ConsultingDecisionFramework) {
+      return null;
+    }
+
+    const evidence = assessments.flatMap((assessment) => assessment.evidence || []);
+
+    return window.ConsultingDecisionFramework.createDecisionTrace({
+      consultantId: "LEAN_TRANSFORMATION_CONSULTANT",
+      subjectId: "LEAN_ASSESSMENT_PACKAGE",
+      subjectType: "PACKAGE",
+      subjectName: "Lean Assessment Package",
+      evidence,
+      questions,
+      missingInformation: questions.filter((question) => question.blocksConsolidation).map((question) => question.question),
+      stages: {
+        UNDERSTAND: { output: "Actividades comprendidas desde Process Model, Operational Data y VSM." },
+        VALIDATE: { output: "Evidencia consolidada por actividad." },
+        DIAGNOSE: { output: "Desperdicios Lean evaluados por actividad." },
+        QUANTIFY: { output: "Impacto cualitativo determinado con tiempos, esperas, frecuencia y riesgos disponibles." },
+        PROPOSE: { output: "Quick Wins y oportunidades Lean vinculadas al diagnostico." },
+        JUSTIFY: { output: "Propuestas justificadas con evidencia, supuestos y restricciones disponibles." },
+        ESTIMATE: { output: "Esfuerzo, complejidad e impacto estimados cuando hubo evidencia suficiente." },
+        WARN: { output: "Riesgos, dependencias e incertidumbre documentados." },
+        ASK: { output: "Preguntas generadas para cerrar vacios de informacion." }
+      }
+    });
+  },
+
+  createActivityDecisionTrace(activity, evidence, valueAnalysis, wastes, questions) {
+    if (!window.ConsultingDecisionFramework) {
+      return null;
+    }
+
+    const detected = wastes.filter((waste) => waste.existence === "EXISTS");
+    const missingInformation = questions.filter((question) => question.blocksConsolidation).map((question) => question.question);
+
+    return window.ConsultingDecisionFramework.createDecisionTrace({
+      consultantId: "LEAN_TRANSFORMATION_CONSULTANT",
+      subjectId: activity.activityUUID,
+      subjectType: "ACTIVITY",
+      subjectName: activity.name,
+      evidence,
+      questions,
+      missingInformation,
+      stages: {
+        UNDERSTAND: { output: activity.description || activity.name || "" },
+        VALIDATE: { output: evidence.length ? "Evidencia disponible para la actividad." : "Evidencia insuficiente." },
+        DIAGNOSE: { output: detected.length ? `Desperdicios con evidencia: ${detected.map((waste) => waste.wasteName).join(", ")}.` : "No se confirmaron desperdicios con evidencia suficiente." },
+        QUANTIFY: { output: "Impacto determinado con datos operativos disponibles." },
+        PROPOSE: { output: detected.length ? "Existen oportunidades potenciales vinculadas al diagnostico." : "No se proponen mejoras sin evidencia." },
+        JUSTIFY: { output: valueAnalysis.reason },
+        ESTIMATE: { output: "Estimacion limitada a esfuerzo, complejidad e impacto cualitativo disponibles." },
+        WARN: { output: "Incertidumbre y dependencias quedan registradas en oportunidades y preguntas." },
+        ASK: { output: questions.length ? "Existen preguntas abiertas." : "Sin preguntas abiertas." }
+      }
+    });
   },
 
   buildSummary(assessments, quickWins, opportunities, questions) {

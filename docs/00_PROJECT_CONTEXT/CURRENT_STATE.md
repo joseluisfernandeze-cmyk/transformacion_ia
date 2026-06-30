@@ -6,7 +6,7 @@
 
 ## Ultimo Sprint completado
 
-`Sprint 12 - Lean Transformation Consultant`
+`Sprint 13 - TOC Transformation Consultant`
 
 ## Sprint actualmente en desarrollo
 
@@ -14,7 +14,7 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
-`Sprint 13 - TOC Transformation Consultant`
+`Sprint 14 - Automation & AI Consultant`
 
 ## Funcionalidades implementadas
 
@@ -56,6 +56,15 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Quick Wins Lean.
 - Oportunidades Lean categorizadas.
 - Preguntas de aclaracion Lean por informacion insuficiente.
+- Consulting Decision Framework.
+- Decision trace reutilizable para Consultores Digitales.
+- Nueve etapas metodologicas obligatorias para razonamiento consultivo.
+- TOC Transformation Consultant.
+- TOC Assessment Package.
+- Deteccion de restricciones fisicas, capacidad, politica, informacion y tecnologia.
+- Deteccion de cuellos de botella.
+- Dependencias criticas.
+- Acciones TOC: explotar, subordinar, elevar y reevaluar.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -69,7 +78,6 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Funcionalidades pendientes
 
-- TOC Transformation Consultant.
 - Automation & AI Consultant.
 - To-Be Designer.
 - Business Case.
@@ -114,6 +122,7 @@ Frontend funcional con HTML, CSS y JavaScript sin frameworks.
 Entrada principal:
 
 - `frontend/index.html`.
+- `frontend/shared/services/consulting-decision-framework.js`.
 
 Rutas visibles:
 
@@ -128,11 +137,11 @@ Rutas visibles:
 - `#/intelligent-vsm`.
 - `#/transformation-workshop`.
 - `#/lean-consultant`.
+- `#/toc-consultant`.
 - `#/methodology-orchestrator`.
 
 Rutas futuras como proximamente:
 
-- `#/toc-consultant`.
 - `#/automation-ai`.
 - `#/to-be-designer`.
 - `#/business-case`.
@@ -232,7 +241,7 @@ Flujo obligatorio:
 ## Ultimo Commit
 
 `7ef50d4 Contexto`  
-Sprint 12 pendiente de commit.
+Sprint 13 pendiente de commit.
 
 ## Ultimo Tag
 
@@ -246,6 +255,7 @@ No existe tag registrado.
 - Riesgo de crecimiento de modulos frontend si no se mantiene disciplina de reutilizacion.
 - Necesidad de pruebas end-to-end con Apps Script desplegado.
 - Necesidad de validar seguridad real de sesiones y claves IA en entorno Google.
+- Necesidad de adoptar progresivamente `decisionTrace` en todos los consultores futuros.
 
 ## Deuda tecnica
 
@@ -254,6 +264,7 @@ No existe tag registrado.
 - Validar contratos API contra despliegue Apps Script real.
 - Crear tags oficiales de version cuando se aprueben releases.
 - Mantener sincronizados `PROJECT_BASELINE.md` y `docs/00_PROJECT_CONTEXT/CURRENT_STATE.md` al cierre de Sprints.
+- Refactorizar consultores existentes para consumir completamente el Consulting Decision Framework cuando se aborde su siguiente evolucion funcional.
 
 ## Bloqueos actuales
 

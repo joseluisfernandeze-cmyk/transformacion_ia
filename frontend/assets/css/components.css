@@ -2021,3 +2021,48 @@
   color: var(--color-text-muted);
   font-weight: 700;
 }
+
+.toc-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) 330px;
+  gap: 16px;
+  align-items: start;
+}
+
+.toc-left,
+.toc-main,
+.toc-right {
+  display: grid;
+  gap: 14px;
+}
+
+.toc-constraint-box {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-left: 6px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #f9fbfd;
+}
+
+.toc-constraint-box.is-constraint {
+  border-left-color: var(--color-error);
+  background: rgba(192, 57, 43, 0.07);
+}
+
+.toc-constraint-box strong {
+  font-size: 22px;
+}
+
+.toc-constraint-box p,
+.toc-constraint-box small {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.toc-constraint-box small {
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
