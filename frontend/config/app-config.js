@@ -8,7 +8,7 @@ window.APP_CONFIG = Object.freeze({
 
   API: {
 
-    BASE_URL: "",
+    BASE_URL: "https://script.google.com/macros/s/AKfycbyhjHHkkYjNiKvJkpdgwqS3IagrBIprTi-RxWEx5z-HNlvaQS6c4fYAd-YDx0EZMUqR/exec",
 
     TIMEOUT: 30000
 
