@@ -12,8 +12,8 @@
     { route: "transformation-workshop", label: "Transformation Workshop", group: "Metodologia" },
     { route: "lean-consultant", label: "Lean Consultant", group: "Metodologia" },
     { route: "toc-consultant", label: "TOC Consultant", group: "Metodologia" },
+    { route: "automation-ai", label: "Automation & AI Consultant", group: "Metodologia" },
     { route: "methodology-orchestrator", label: "Methodology Orchestrator", group: "Control" },
-    { route: "automation-ai", label: "Automation & AI Consultant", group: "Proximas etapas", future: true },
     { route: "to-be-designer", label: "To-Be Designer", group: "Proximas etapas", future: true },
     { route: "business-case", label: "Business Case", group: "Proximas etapas", future: true },
     { route: "roadmap", label: "Roadmap", group: "Proximas etapas", future: true },
@@ -33,6 +33,7 @@
     "transformation-workshop": mountController("TransformationWorkshopController"),
     "lean-consultant": mountController("LeanConsultantController"),
     "toc-consultant": mountController("TocConsultantController"),
+    "automation-ai": mountController("AutomationAiConsultantController"),
     "methodology-orchestrator": mountController("MethodologyOrchestratorController")
   };
 

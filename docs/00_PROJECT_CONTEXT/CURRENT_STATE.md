@@ -2,11 +2,11 @@
 
 ## Fecha de actualizacion
 
-2026-06-28
+2026-06-30
 
 ## Ultimo Sprint completado
 
-`Sprint 13 - TOC Transformation Consultant`
+`Sprint 14 - Automation & AI Transformation Consultant`
 
 ## Sprint actualmente en desarrollo
 
@@ -14,7 +14,7 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
-`Sprint 14 - Automation & AI Consultant`
+`Sprint 15 - To-Be Designer`
 
 ## Funcionalidades implementadas
 
@@ -65,6 +65,14 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - Deteccion de cuellos de botella.
 - Dependencias criticas.
 - Acciones TOC: explotar, subordinar, elevar y reevaluar.
+- Automation & AI Transformation Consultant.
+- Automation & AI Opportunity Package.
+- Clasificacion de potencial de automatizacion por actividad.
+- Evaluacion de oportunidades IA: OCR, clasificacion, extraccion documental, generacion, asistentes, prediccion, recomendacion, anomalias, vision artificial e IA conversacional.
+- Identificacion de requisitos, integraciones, riesgos tecnicos y complejidad.
+- Estimacion de beneficios esperados cuando existen tiempos y frecuencia.
+- Quick Wins digitales.
+- Preguntas de aclaracion por informacion insuficiente.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -78,7 +86,6 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Funcionalidades pendientes
 
-- Automation & AI Consultant.
 - To-Be Designer.
 - Business Case.
 - Roadmap.
@@ -138,11 +145,11 @@ Rutas visibles:
 - `#/transformation-workshop`.
 - `#/lean-consultant`.
 - `#/toc-consultant`.
+- `#/automation-ai`.
 - `#/methodology-orchestrator`.
 
 Rutas futuras como proximamente:
 
-- `#/automation-ai`.
 - `#/to-be-designer`.
 - `#/business-case`.
 - `#/roadmap`.
@@ -241,7 +248,7 @@ Flujo obligatorio:
 ## Ultimo Commit
 
 `7ef50d4 Contexto`  
-Sprint 13 pendiente de commit.
+Sprint 14 pendiente de commit.
 
 ## Ultimo Tag
 
