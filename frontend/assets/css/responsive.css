@@ -232,6 +232,10 @@
     grid-template-columns: 1fr;
   }
 
+  .roadmap-layout {
+    grid-template-columns: 1fr;
+  }
+
   .mvp-step-strip {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

@@ -16,7 +16,8 @@ window.MvpNavigationStore = Object.seal({
     { route: "toc-consultant", label: "TOC Consultant", required: true },
     { route: "automation-ai", label: "Automation & AI Consultant", required: true },
     { route: "to-be-designer", label: "To-Be Designer", required: true },
-    { route: "business-case", label: "Business Case", required: true }
+    { route: "business-case", label: "Business Case", required: true },
+    { route: "roadmap", label: "Roadmap", required: true }
   ],
 
   loadState() {
@@ -323,6 +324,10 @@ window.MvpNavigationStore = Object.seal({
       "business-case": () => {
         const state = window.BusinessCaseService ? window.BusinessCaseService.loadState() : null;
         return Boolean(state && state.businessCasePackage);
+      },
+      "roadmap": () => {
+        const state = window.RoadmapService ? window.RoadmapService.loadState() : null;
+        return Boolean(state && state.roadmapPackage);
       }
     };
 

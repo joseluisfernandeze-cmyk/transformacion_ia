@@ -6,7 +6,7 @@
 
 ## Ultimo Sprint completado
 
-`Sprint 16 - Business Case Generator`
+`Sprint 17 - Transformation Roadmap Generator`
 
 ## Sprint actualmente en desarrollo
 
@@ -14,7 +14,7 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Proximo Sprint
 
-`Sprint 17 - Roadmap Generator`
+`Sprint 18 - Executive Report Generator`
 
 ## Funcionalidades implementadas
 
@@ -87,6 +87,13 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 - ROI, Payback y relacion beneficio/esfuerzo cuando existen datos suficientes.
 - Priorizacion de iniciativas como Quick Win, Corto Plazo, Mediano Plazo y Largo Plazo.
 - Riesgos, supuestos y preguntas pendientes del caso de negocio.
+- Transformation Roadmap Generator.
+- Roadmap Package.
+- Fases de implementacion por horizonte.
+- Iniciativas priorizadas con responsable, area, esfuerzo, complejidad, dependencias, riesgos y confianza.
+- Recursos requeridos por areas, roles y equipos.
+- Secuencia logica de ejecucion sin fechas calendario ni Gantt.
+- Riesgos, supuestos y preguntas pendientes del Roadmap.
 - Methodology Orchestrator.
 - Requirements Discovery Consultant.
 - AI & Security Foundation.
@@ -100,7 +107,6 @@ Ninguno. El siguiente desarrollo requiere autorizacion explicita.
 
 ## Funcionalidades pendientes
 
-- Roadmap.
 - Executive Report.
 - ERP Fit-Gap.
 - ERP RFP Builder.
@@ -160,11 +166,11 @@ Rutas visibles:
 - `#/automation-ai`.
 - `#/to-be-designer`.
 - `#/business-case`.
+- `#/roadmap`.
 - `#/methodology-orchestrator`.
 
 Rutas futuras como proximamente:
 
-- `#/roadmap`.
 - `#/executive-report`.
 
 ## Estado del Backend
@@ -260,7 +266,7 @@ Flujo obligatorio:
 ## Ultimo Commit
 
 `7ef50d4 Contexto`  
-Sprint 16 pendiente de commit.
+Sprint 17 pendiente de commit.
 
 ## Ultimo Tag
 

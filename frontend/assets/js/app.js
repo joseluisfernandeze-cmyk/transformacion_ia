@@ -15,8 +15,8 @@
     { route: "automation-ai", label: "Automation & AI Consultant", group: "Metodologia" },
     { route: "to-be-designer", label: "To-Be Designer", group: "Metodologia" },
     { route: "business-case", label: "Business Case", group: "Metodologia" },
+    { route: "roadmap", label: "Roadmap", group: "Metodologia" },
     { route: "methodology-orchestrator", label: "Methodology Orchestrator", group: "Control" },
-    { route: "roadmap", label: "Roadmap", group: "Proximas etapas", future: true },
     { route: "executive-report", label: "Executive Report", group: "Proximas etapas", future: true }
   ];
 
@@ -36,6 +36,7 @@
     "automation-ai": mountController("AutomationAiConsultantController"),
     "to-be-designer": mountController("ToBeDesignerController"),
     "business-case": mountController("BusinessCaseController"),
+    "roadmap": mountController("RoadmapController"),
     "methodology-orchestrator": mountController("MethodologyOrchestratorController")
   };
 

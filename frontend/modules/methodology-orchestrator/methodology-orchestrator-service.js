@@ -15,7 +15,7 @@ window.MethodologyOrchestratorService = Object.seal({
     { id: "AUTOMATION_AI_CONSULTANT", name: "Automation & AI Consultant", required: true, owner: "Automation & AI Transformation Consultant" },
     { id: "TO_BE_DESIGNER", name: "To-Be Designer", required: true, owner: "To-Be Designer" },
     { id: "BUSINESS_CASE", name: "Business Case", required: true, owner: "Business Case Generator" },
-    { id: "ROADMAP", name: "Roadmap", required: false, future: true, owner: "Future Roadmap Consultant" },
+    { id: "ROADMAP", name: "Roadmap", required: true, owner: "Transformation Roadmap Generator" },
     { id: "EXECUTIVE_REPORT", name: "Executive Report", required: false, future: true, owner: "Future Executive Report Consultant" }
   ],
 
@@ -128,7 +128,8 @@ window.MethodologyOrchestratorService = Object.seal({
       toc: window.TocConsultantService ? window.TocConsultantService.loadState() : null,
       automationAi: window.AutomationAiConsultantService ? window.AutomationAiConsultantService.loadState() : null,
       toBe: window.ToBeDesignerService ? window.ToBeDesignerService.loadState() : null,
-      businessCase: window.BusinessCaseService ? window.BusinessCaseService.loadState() : null
+      businessCase: window.BusinessCaseService ? window.BusinessCaseService.loadState() : null,
+      roadmap: window.RoadmapService ? window.RoadmapService.loadState() : null
     };
   },
 
@@ -146,7 +147,8 @@ window.MethodologyOrchestratorService = Object.seal({
       TOC_CONSULTANT: () => this.tocReadiness(states.toc),
       AUTOMATION_AI_CONSULTANT: () => this.automationAiReadiness(states.automationAi),
       TO_BE_DESIGNER: () => this.toBeReadiness(states.toBe),
-      BUSINESS_CASE: () => this.businessCaseReadiness(states.businessCase)
+      BUSINESS_CASE: () => this.businessCaseReadiness(states.businessCase),
+      ROADMAP: () => this.roadmapReadiness(states.roadmap)
     };
 
     if (resolvers[stageId]) {
@@ -349,6 +351,21 @@ window.MethodologyOrchestratorService = Object.seal({
       progress: packageData ? (ready ? 100 : 70) : 0,
       healthScore: packageData ? (ready ? 86 : 62) : 0,
       missingInformation: packageData ? blockingQuestions.map((item) => item.question) : ["Business Case Package no disponible."],
+      updatedAt: packageData ? packageData.createdAt : ""
+    };
+  },
+
+  roadmapReadiness(state) {
+    const packageData = state && state.roadmapPackage ? state.roadmapPackage : null;
+    const questions = state && state.questions ? state.questions : [];
+    const blockingQuestions = questions.filter((item) => item.status === "OPEN" && item.blocksConsolidation);
+    const ready = Boolean(packageData && packageData.phases && packageData.phases.length && !blockingQuestions.length);
+
+    return {
+      ready,
+      progress: packageData ? (ready ? 100 : 70) : 0,
+      healthScore: packageData ? (ready ? 86 : 62) : 0,
+      missingInformation: packageData ? blockingQuestions.map((item) => item.question) : ["Roadmap Package no disponible."],
       updatedAt: packageData ? packageData.createdAt : ""
     };
   },
